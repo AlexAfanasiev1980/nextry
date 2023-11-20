@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "NODE_ENV=production node server.js",
-    "lint": "next lint"
+    "lint": "next lint",
+    "docker-build": "docker build -t nextry ."
   },
   "dependencies": {
     "@img-comparison-slider/react": "^8.0.1",
