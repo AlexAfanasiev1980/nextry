@@ -1,0 +1,42 @@
+@import "@/styles/mixins.scss";
+
+.loader {
+  width: 64%;
+  height: 100%;
+  background: var(--bg-color-cloth);
+  border-radius: 16px;
+  overflow: hidden;
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    padding: 132px 0;
+    box-sizing: border-box;
+  }
+
+  &__image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+    top: -2vw;
+    width: 100%;
+    height: auto;
+
+    > svg {
+      position: relative;
+      top: -1vw;
+      width: 100% !important;
+      height: 137% !important;
+    }
+  }
+
+  &__progress {
+    @include fontSizeAdaptive(50);
+  }
+}

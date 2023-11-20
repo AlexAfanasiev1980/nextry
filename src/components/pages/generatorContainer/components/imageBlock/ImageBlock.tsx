@@ -1,17 +1,28 @@
 "use client";
 
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import Image from "next/image";
 import DropIcon from "@/public/DropImageIcon.svg";
 import DeleteIcon from "@/public/deleteIcon.png";
 import DownloadIcon from "@/public/downloadIcon.png";
 import ArrowForward from "@/public/ArrowForward.png";
+import ArrowBack from "@/public/ArrowBack.png";
 import style from "./ImageBlock.module.scss";
+import { getPhoto } from "@/lib/data";
+import Loader from "../loader/Loader";
 
-const ImageBlock = () => {
-  const [selectedImage, setSelectedImage] = useState<any[]>([]);
+interface FileData extends File {
+  preview: string;
+}
 
+const ImageBlock = ({ statusSelector, id }: { statusSelector: boolean, id: string | null }) => {
+  const [selectedImage, setSelectedImage] = useState<FileData[]>([]);
+  const [image, setImage] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [urlDown, setUrlDown] = useState<any>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const imageRef = useRef<HTMLImageElement>(null);
   const onDrop = useCallback((acceptedFiles: File[]) => {
     setSelectedImage([
       Object.assign(acceptedFiles[0], {
@@ -19,6 +30,25 @@ const ImageBlock = () => {
       }),
     ]);
   }, []);
+
+  const handleButton = async () => {
+    setLoading(true);
+    try {
+      const form = new FormData();
+      form.append("Image", selectedImage[0]);
+      form.append("Id", id || '');
+      const res = await getPhoto(form);  
+      if (res) {
+        setImage(`https://9126-109-198-100-196.ngrok-free.app${res.images[0]}`);
+        setLoading(false);
+      } 
+    } catch (err) {
+       console.error(err);
+       setLoading(false);
+    }
+    
+  };
+
   const { getRootProps, getInputProps } = useDropzone({
     onDrop,
     accept: {
@@ -31,17 +61,18 @@ const ImageBlock = () => {
 
   const SelectedImage = () => {
     return (
-      <section className={style.dropImageBlock__filled}>
-        <RemoveButton />
+      <section className={`${!loading && style.dropImageBlock__filled} ${loading && style.dropImageBlock__displayNone}`}>
+        {!image ? <RemoveButton /> : <BackButton />}
         <div className={style.dropImageBlock__imageWrapper}>
           <Image
-            src={selectedImage[0]?.preview}
+            src={image ? image : selectedImage[0]?.preview}
             alt="selected image"
-            width={100}
-            height={100}
-            onLoad={() => URL.revokeObjectURL(selectedImage[0]?.preview)}
+            width={620}
+            height={960}
             className={style.dropImage}
+            ref={imageRef}
           />
+          <canvas ref={canvasRef} style={{ display: "none" }}></canvas>
         </div>
         <div className={style.buttonBlock}>
           <DownloadButton />
@@ -53,15 +84,49 @@ const ImageBlock = () => {
 
   const RemoveButton = () => {
     return (
-      <button className={style.removeBtn} onClick={() => setSelectedImage([])}>
+      <button
+        className={style.removeBtn}
+        onClick={() => {
+          URL.revokeObjectURL(selectedImage[0]?.preview);
+          setImage(null);
+          setSelectedImage([]);
+        }}
+      >
         <Image src={DeleteIcon} alt="remove button" />
       </button>
     );
   };
 
+  const BackButton = () => {
+    return (
+      <button
+        className={style.removeBtn}
+        onClick={() => {
+          setImage(null);
+        }}
+      >
+        <Image src={ArrowBack} alt="remove button" />
+      </button>
+    );
+  };
+
+  const downloadImage = () => {
+    const canvas = canvasRef.current;
+    if (canvas) {
+      const url = canvas.toDataURL("image/png");
+      const link = document.createElement("a");
+      link.download = "image.png";
+      link.href = url;
+      link.click();
+    }
+  };
+
   const DownloadButton = () => {
     return (
-      <button className={style.downloadBtn}>
+      <button
+        className={`${style.downloadBtn} ${image && style.generateBtn__active}`}
+        onClick={() => downloadImage()}
+      >
         <Image src={DownloadIcon} alt="download button" />
       </button>
     );
@@ -69,23 +134,46 @@ const ImageBlock = () => {
 
   const GenerateButton = () => {
     return (
-      <button className={style.generateBtn}>
+      <button
+        className={[
+          style.generateBtn,
+          statusSelector && style.generateBtn__active,
+        ].join(" ")}
+        disabled={!statusSelector}
+        onClick={() => handleButton()}
+      >
         GENERATE IMAGE
         <Image src={ArrowForward} alt="generate icon" />
       </button>
     );
   };
 
+  useEffect(() => {
+    const imageItem = imageRef.current;
+    const canvas = canvasRef.current;
+    if (imageItem && canvas) {
+      imageItem.onload = () => {
+        canvas.width = imageItem.naturalWidth;
+        canvas.height = imageItem.naturalHeight;
+        const ctx = canvas.getContext("2d");
+        if (ctx) {
+          ctx.drawImage(imageItem, 0, 0);
+        }
+      };
+    }
+  }, [image]);
+
   return (
     <>
       {selectedImage.length > 0 && <SelectedImage />}
+      {loading && <Loader  />}
       {selectedImage.length === 0 && (
         <form className={style.dropImageBlock__form}>
-          <div {...getRootProps()}>
+          <div className={style.dropImageBlock__wrapper} {...getRootProps()}>
             <input {...getInputProps()} />
             <div className={style.dropImageBlock}>
               <Image src={DropIcon} alt="drop icon" />
-              <p>
+              <p className={style.dropImageBlock__text}>
                 DROP YOUR IMAGES, <span>BROWSE</span>
               </p>
               <p>JPG, PNG, WebP up to 50 mb</p>

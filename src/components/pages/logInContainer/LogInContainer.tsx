@@ -43,6 +43,7 @@ const LogInContainer = ({ type }: LogIn) => {
 
       const res = await signIn(logInTypes[type].fetch, body);
       if (res && !res.error) {
+        console.log(res);
         setError("");
         router.push(HOME_ROUTE);
       } else {

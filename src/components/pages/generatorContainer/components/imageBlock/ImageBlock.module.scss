@@ -1,14 +1,15 @@
 .dropImageBlock {
-  height: 70vh;
-
+  height: 41vw;
   border-radius: 16px;
-  border: 1px dashed #333;
-
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 20px;
+
+  &__displayNone {
+    display: none;
+  }
 
   > p:nth-child(2) {
     font-family: var(--font-secondary-bold);
@@ -27,11 +28,12 @@
 
   &__form {
     width: 60%;
+    border: 1px dashed #333;
+    border-radius: 16px;
   }
 
   &__filled {
     width: 60%;
-    height: 70vh;
     gap: 20px;
 
     display: flex;
@@ -43,9 +45,21 @@
     position: relative;
   }
 
+  &__wrapper {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__text {
+    text-align: center;
+  }
+
   &__imageWrapper {
     width: 100%;
-    height: 60vh;
+    height: auto;
+    max-height: calc(100% - 96px);
 
     display: flex;
     justify-content: center;
@@ -54,9 +68,9 @@
 }
 
 .dropImage {
-  max-width: 80%;
-  width: fit-content;
-  height: fit-content;
+  // max-width: 80%;
+  width: auto;
+  // height: auto;
   max-height: 100%;
 }
 
@@ -70,10 +84,11 @@
 
 .removeBtn,
 .downloadBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 76px;
-  min-width: 76px;
   height: 76px;
-  min-height: 76px;
   border-radius: 16px;
   border: none;
   cursor: pointer;
@@ -106,4 +121,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
+
+  &__active {
+    background: var(--blue-color);
+  }
 }

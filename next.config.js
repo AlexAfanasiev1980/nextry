@@ -1,10 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  output: 'standalone',
   images: {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'dd20-109-198-100-196.ngrok-free.app',
+        hostname: '9126-109-198-100-196.ngrok-free.app',
         port: '',
         pathname: '/image/**',
       },

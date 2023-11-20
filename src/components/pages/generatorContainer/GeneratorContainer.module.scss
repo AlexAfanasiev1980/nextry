@@ -2,12 +2,12 @@
 
 .generator {
   width: 100%;
-  height: 100vh;
-  padding: 0 100px 50px;
-
+  height: 56vw;
+  max-height: 100vh;
+  padding: 165px 100px 50px;
   display: flex;
+  gap: 20px;
   justify-content: space-between;
-
   background: var(--background-color);
 }
 
