@@ -16,6 +16,8 @@ interface FileData extends File {
   preview: string;
 }
 
+const server = process.env.NEXT_PUBLIC_SERVER_URL;
+
 const ImageBlock = ({ statusSelector, id }: { statusSelector: boolean, id: string | null }) => {
   const [selectedImage, setSelectedImage] = useState<FileData[]>([]);
   const [image, setImage] = useState<string | null>(null);
@@ -39,7 +41,7 @@ const ImageBlock = ({ statusSelector, id }: { statusSelector: boolean, id: strin
       form.append("Id", id || '');
       const res = await getPhoto(form);  
       if (res) {
-        setImage(`https://9126-109-198-100-196.ngrok-free.app${res.images[0]}`);
+        setImage(`${server}${res.images[0]}`);
         setLoading(false);
       } 
     } catch (err) {

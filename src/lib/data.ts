@@ -1,5 +1,7 @@
 import { GET_CATEGORIES_API, GET_CLOTHES_API, GENERATE_IMAGE } from "@/api";
 
+const token = process.env.NEXT_PUBLIC_TOKEN;
+
 export interface Clothes {
   id: string;
   title: string;
@@ -49,7 +51,7 @@ export async function getPhoto(form: FormData) {
     body: form,
     headers: {
       Authorization:
-        "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjIzMDUyNDYyODcuMjE5MDQ2NiwidXNlcl9pZCI6IjY1NTYzN2UzMjgzYTI3MGU4ZWFiZTg0NSIsImVtYWlsIjoiYXJtYXdpcjFAbWFpbC5ydSIsImxvZ2luIjoiQWxleCJ9.iaeELN9i5Jgd6R28sIDV06_08yvdjzBRMRD8lreSmjY",
+        `Bearer ${token}`,
     },
   });
 

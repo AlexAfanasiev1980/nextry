@@ -11,6 +11,11 @@
   flex-direction: column;
   gap: 20px;
   overflow: hidden;
+
+  @media (max-width: 1000px) {
+    width: 100%;
+    height: 682px;
+  }
 }
 
 .navSection {
@@ -98,6 +103,10 @@
   &__image {
     object-fit: contain;
   }
+
+  @media (max-width: 1000px) {
+    width: 150px;
+  }
 }
 
 .opacityCard {
@@ -117,5 +126,12 @@
 
   @media (max-width: 1144px) {
     width: 150px;
+  }
+
+  @media (max-width: 1000px) {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
   }
 }
