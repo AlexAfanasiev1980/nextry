@@ -36,17 +36,29 @@
 .policy {
   display: flex;
   justify-content: space-between;
+  align-items: flex-start;
+  gap: 10px;
 
   &__icon {
     min-width: 24px;
-    max-width: 24px;
     min-height: 24px;
-    max-height: 24px;
+    width: 24px;
+    height: 24px;
     border-radius: 4px;
     border: 1px solid #fff;
-  }
+    margin: 5px 0 0 0;
 
-  p {
+    @media (max-width: 700px) {
+      min-width: 20px;
+      width: 20px;
+      min-height: 20px;
+      height: 20px;
+    }
+  }
+}
+
+.text {
+  span {
     @include fontSizeAdaptive(18);
     line-height: 160%;
     width: 95%;

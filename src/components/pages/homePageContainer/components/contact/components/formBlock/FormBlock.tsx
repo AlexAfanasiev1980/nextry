@@ -26,11 +26,13 @@ const FormBlock = () => {
       </label>
       <div className={style.policy}>
         <div className={style.policy__icon} />
-        <p>
-          By clicking “Continue”, I agree to the{" "}
-          <a href="" className={style.link}>
-            policy regarding the processing of personal data
-          </a>
+        <p className={style.text}>
+          <span>
+            By clicking “Continue”, I agree to the{" "}
+            <a href="" className={style.link}>
+              policy regarding the processing of personal data
+            </a>
+          </span>
         </p>
       </div>
       <Button type="submit">Submit</Button>
