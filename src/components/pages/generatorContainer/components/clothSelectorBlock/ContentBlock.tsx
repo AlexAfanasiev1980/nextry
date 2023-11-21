@@ -14,7 +14,7 @@ const category: { [key: string]: string } = {
 };
 
 const ContentBlock = ({ setStatusSelector, setSelectId, data }: Props) => {
-  const { categories, clothes } = data;
+  const { categories, clothes } = data || { categories: [], clothes: [] };
   const [selectedCategories, setSelectedCategories] = useState<string>("man");
   const [selectedSubCategories, setSelectedSubCategories] =
     useState<string>("");
@@ -24,7 +24,7 @@ const ContentBlock = ({ setStatusSelector, setSelectId, data }: Props) => {
   const { replace, refresh } = useRouter();
 
   const currentIndex = useMemo(() => {
-    return categories.findIndex(({ name }) => {
+    return categories?.findIndex(({ name }) => {
       return name === selectedCategories;
     });
   }, [categories, selectedCategories]);
@@ -63,7 +63,7 @@ const ContentBlock = ({ setStatusSelector, setSelectId, data }: Props) => {
     <>
       <section className={style.navSection}>
         <nav className={style.navbar}>
-          {categories.map(({ name, color }, id) => (
+          {categories?.map(({ name, color }, id) => (
             <button
               className={[
                 style.btn,
@@ -77,42 +77,45 @@ const ContentBlock = ({ setStatusSelector, setSelectId, data }: Props) => {
           ))}
         </nav>
         <nav className={style.navbar}>
-          {categories[currentIndex].subCategoryDetails.map((el, id) => (
-            <button
-              className={[
-                style.btn,
-                style.subCategories,
-                el.name === selectedSubCategories ? style["btn-fill"] : null,
-              ].join(" ")}
-              key={id}
-              onClick={() => handleSearch("sub_category", el.name)}
-            >
-              {el.name}
-            </button>
-          ))}
+          {categories.length > 0 &&
+            currentIndex &&
+            categories[currentIndex].subCategoryDetails.map((el, id) => (
+              <button
+                className={[
+                  style.btn,
+                  style.subCategories,
+                  el.name === selectedSubCategories ? style["btn-fill"] : null,
+                ].join(" ")}
+                key={id}
+                onClick={() => handleSearch("sub_category", el.name)}
+              >
+                {el.name}
+              </button>
+            ))}
         </nav>
       </section>
       <section className={style.cardBlock}>
         <div className={style.cardList}>
-          {clothes.map(({ id, title, preview_url, brand_url }) => (
-            <div
-              key={id}
-              className={handleClothStyle(id)}
-              onClick={() => handleSelectCloth(id)}
-            >
-              <div>
-                <Image
-                  src={BASE_URL + preview_url}
-                  width={150}
-                  height={170}
-                  alt="cloth image"
-                  className={style.card__image}
-                />
-              </div>
+          {clothes.length > 0 &&
+            clothes.map(({ id, title, preview_url, brand_url }) => (
+              <div
+                key={id}
+                className={handleClothStyle(id)}
+                onClick={() => handleSelectCloth(id)}
+              >
+                <div>
+                  <Image
+                    src={BASE_URL + preview_url}
+                    width={150}
+                    height={170}
+                    alt="cloth image"
+                    className={style.card__image}
+                  />
+                </div>
 
-              <p>{title}</p>
-            </div>
-          ))}
+                <p>{title}</p>
+              </div>
+            ))}
         </div>
       </section>
     </>

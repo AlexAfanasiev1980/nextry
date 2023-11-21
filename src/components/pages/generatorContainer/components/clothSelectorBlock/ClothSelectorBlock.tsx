@@ -6,7 +6,7 @@ import { Categories, Clothes } from "@/lib/data";
 export interface Props {
   setStatusSelector: (status: boolean) => void;
   setSelectId: (id: string) => void;
-  data: {
+  data?: {
     categories: Categories[];
     clothes: Clothes[];
   };

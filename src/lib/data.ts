@@ -25,35 +25,42 @@ export async function getData(
     [key: string]: string | string[] | undefined;
   } = { category: "man" }
 ) {
-  const res = await fetch(GET_CATEGORIES_API);
-  const categories: Categories[] = await res.json();
-  const resClothes = await fetch(
-    `${GET_CLOTHES_API}?${
-      searchParams.category && `category=${searchParams.category}`
-    }${
-      searchParams.sub_category
-        ? `&sub_category=${searchParams.sub_category}`
-        : ""
-    }`,
-    {
-      next: { revalidate: 10 },
-    }
-  );
+  try {
+    const res = await fetch(GET_CATEGORIES_API);
+    const categories: Categories[] = await res.json();
+    const resClothes = await fetch(
+      `${GET_CLOTHES_API}?${
+        searchParams.category && `category=${searchParams.category}`
+      }${
+        searchParams.sub_category
+          ? `&sub_category=${searchParams.sub_category}`
+          : ""
+      }`,
+      {
+        next: { revalidate: 10 },
+      }
+    );
 
-  const clothes: Clothes[] = await resClothes.json();
-
-  return { categories, clothes };
+    const clothes: Clothes[] = await resClothes.json();
+    return { categories, clothes };
+    
+  } catch (err) {
+    console.error(err);
+  }
 }
 
 export async function getPhoto(form: FormData) {
-  const res = await fetch(GENERATE_IMAGE, {
-    method: "POST",
-    body: form,
-    headers: {
-      Authorization:
-        `Bearer ${token}`,
-    },
-  });
+  try {
+    const res = await fetch(GENERATE_IMAGE, {
+      method: "POST",
+      body: form,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
-  return res.json();
+    return res.json();
+  } catch (err) {
+    console.error(err);
+  }
 }
