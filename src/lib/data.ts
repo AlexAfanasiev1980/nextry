@@ -37,10 +37,9 @@ export async function getClothes(searchParams: {
   );
 
   if (!resClothes.ok) {
-    // This will activate the closest `error.js` Error Boundary
     throw new Error("Failed to fetch data");
   }
-  // const clothes: Clothes[] = resClothes.json();
+
   return resClothes.json();
 }
 
