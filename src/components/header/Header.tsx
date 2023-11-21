@@ -31,8 +31,9 @@ const Header = ({ type }: IHeader) => {
   const burgerWrapperClassname = isMenuVisible
     ? style.burgerWrapper
     : [style.burgerWrapper, style.burgerWrapperInvisible].join(" ");
-  ////////////////////////////////////////////////////////////////////////////////////////////////////
-  console.log(session);
+  if(process.env.NODE_ENV === "development") {
+    console.log(session);
+  }
 
   const MenuBurger = () => {
     return (
