@@ -14,7 +14,7 @@ const category: { [key: string]: string } = {
 };
 
 const ContentBlock = ({ setStatusSelector, setSelectId, data }: Props) => {
-  const { categories, clothes } = data || { categories: [], clothes: [] };
+  const { categories, clothes } = data;
   const [selectedCategories, setSelectedCategories] = useState<string>("man");
   const [selectedSubCategories, setSelectedSubCategories] =
     useState<string>("");
@@ -63,35 +63,33 @@ const ContentBlock = ({ setStatusSelector, setSelectId, data }: Props) => {
     <>
       <section className={style.navSection}>
         <nav className={style.navbar}>
-          {categories?.map(({ name, color }, id) => (
-            <button
-              className={[
-                style.btn,
-                name === selectedCategories ? style["btn-fill"] : null,
-              ].join(" ")}
-              key={id}
-              onClick={() => handleSearch("category", name)}
-            >
-              {category[name]}
-            </button>
-          ))}
-        </nav>
-        <nav className={style.navbar}>
-          {categories.length > 0 &&
-            currentIndex &&
-            categories[currentIndex].subCategoryDetails.map((el, id) => (
+          {categories.map(({ name, color }, id) => (
               <button
                 className={[
                   style.btn,
-                  style.subCategories,
-                  el.name === selectedSubCategories ? style["btn-fill"] : null,
+                  name === selectedCategories ? style["btn-fill"] : null,
                 ].join(" ")}
                 key={id}
-                onClick={() => handleSearch("sub_category", el.name)}
+                onClick={() => handleSearch("category", name)}
               >
-                {el.name}
+                {category[name]}
               </button>
             ))}
+        </nav>
+        <nav className={style.navbar}>
+          {categories[currentIndex].subCategoryDetails.map((el, id) => (
+            <button
+              className={[
+                style.btn,
+                style.subCategories,
+                el.name === selectedSubCategories ? style["btn-fill"] : null,
+              ].join(" ")}
+              key={id}
+              onClick={() => handleSearch("sub_category", el.name)}
+            >
+              {el.name}
+            </button>
+          ))}
         </nav>
       </section>
       <section className={style.cardBlock}>

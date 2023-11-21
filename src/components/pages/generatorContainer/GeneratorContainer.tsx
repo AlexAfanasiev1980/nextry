@@ -7,7 +7,7 @@ import style from "./GeneratorContainer.module.scss";
 import { Categories, Clothes } from "@/lib/data";
 
 interface Props {
-  data?: {
+  data: {
     categories: Categories[];
     clothes: Clothes[];
   };

@@ -20,30 +20,35 @@ export interface Categories {
   subCategoryDetails: SubCategory[];
 }
 
-export async function getData(
-  searchParams: {
-    [key: string]: string | string[] | undefined;
-  } = { category: "man" }
-) {
-  try {
-    const res = await fetch(GET_CATEGORIES_API);
-    const categories: Categories[] = await res.json();
-    const resClothes = await fetch(
-      `${GET_CLOTHES_API}?${
-        searchParams.category && `category=${searchParams.category}`
-      }${
-        searchParams.sub_category
-          ? `&sub_category=${searchParams.sub_category}`
-          : ""
-      }`,
-      {
-        next: { revalidate: 10 },
-      }
-    );
+export async function getClothes(searchParams: {
+  [key: string]: string | undefined;
+}) {
+  const resClothes: any = await fetch(
+    `${GET_CLOTHES_API}?${`category=${
+      searchParams.category ? searchParams.category : "man"
+    }`}${
+      searchParams.sub_category
+        ? `&sub_category=${searchParams.sub_category}`
+        : ""
+    }`,
+    {
+      next: { revalidate: 10 },
+    }
+  );
 
-    const clothes: Clothes[] = await resClothes.json();
-    return { categories, clothes };
-    
+  if (!resClothes.ok) {
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error("Failed to fetch data");
+  }
+  // const clothes: Clothes[] = resClothes.json();
+  return resClothes.json();
+}
+
+export async function getCategories() {
+  try {
+    const res: any = await fetch(GET_CATEGORIES_API);
+    const categories: Categories[] = res.json();
+    return categories;
   } catch (err) {
     console.error(err);
   }
