@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "@/styles/globals.scss";
 import "@/styles/mixins.scss";
+import Logo from "./Logo.png";
 import { NextAuthProvider } from "@/components/providers/NextAuthProvider";
 
 export const metadata: Metadata = {
