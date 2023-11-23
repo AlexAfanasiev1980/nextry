@@ -13,7 +13,7 @@ const Comparison = () => {
         itemOne={<Image src={beforeImg} alt="ai-generator-example-before" />}
         itemTwo={<Image src={afterImg} alt="ai-generator-example-after" />}
       />
-      <div className={style.patch}></div>
+      {/* <div className={style.patch}></div> */}
     </article>
   );
 };

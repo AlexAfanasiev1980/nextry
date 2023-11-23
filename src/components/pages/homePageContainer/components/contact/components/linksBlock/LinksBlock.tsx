@@ -9,16 +9,16 @@ const LinksBlock = () => {
     <div className={style.links}>
       <p>
         For partnership opportunities{" "}
-        <a className={style.link} href="mailto:hi@zero.ar">
-          hi@zero.ar
+        <a className={style.link} href="mailto:bussiness@nextry.ai">
+          bussiness@nextry.ai
         </a>
       </p>
-      <p>
+      {/* <p>
         For press inquiries{" "}
-        <a className={style.link} href="mailto:pr@zero10.ar">
-          pr@zero10.ar
+        <a className={style.link} href="mailto:bussiness@nextry.ai">
+          bussiness@nextry.ai
         </a>
-      </p>
+      </p> */}
       <div className={style.links__icons}>
         <Image src={YoutubeIcon} alt="youtube icon" />
         <Image src={FacebookIcon} alt="facebook icon" />
