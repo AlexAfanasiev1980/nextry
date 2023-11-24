@@ -12,6 +12,7 @@ import ArrowBack from "@/public/ArrowBack.png";
 import style from "./ImageBlock.module.scss";
 import { getPhoto } from "@/lib/data";
 import Loader from "../loader/Loader";
+import { useRouter } from "next/navigation";
 
 interface FileData extends File {
   preview: string;
@@ -32,6 +33,7 @@ const ImageBlock = ({
   const [urlDown, setUrlDown] = useState<any>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const imageRef = useRef<HTMLImageElement>(null);
+  const router = useRouter();
   const onDrop = useCallback((acceptedFiles: File[]) => {
     setSelectedImage([
       Object.assign(acceptedFiles[0], {
@@ -45,20 +47,21 @@ const ImageBlock = ({
     const token = await cookie.get("OutSiteJWT");
     if (!token) {
       alert("Авторизуйтесь перед использванием генератора!");
-      return;
-    }
-    try {
-      const form = new FormData();
-      form.append("Image", selectedImage[0]);
-      form.append("Id", id || "");
-      const res = await getPhoto(form, token);
-      if (res) {
-        setImage(`${server}${res.images[0]}`);
+      router.push("/");
+    } else {
+      try {
+        const form = new FormData();
+        form.append("Image", selectedImage[0]);
+        form.append("Id", id || "");
+        const res = await getPhoto(form, token);
+        if (res) {
+          setImage(`${server}${res.images[0]}`);
+          setLoading(false);
+        }
+      } catch (err) {
+        console.error(err);
         setLoading(false);
       }
-    } catch (err) {
-      console.error(err);
-      setLoading(false);
     }
   };
 
