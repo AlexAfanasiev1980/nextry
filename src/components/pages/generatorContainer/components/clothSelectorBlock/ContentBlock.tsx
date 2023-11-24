@@ -64,17 +64,17 @@ const ContentBlock = ({ setStatusSelector, setSelectId, data }: Props) => {
       <section className={style.navSection}>
         <nav className={style.navbar}>
           {categories.map(({ name, color }, id) => (
-              <button
-                className={[
-                  style.btn,
-                  name === selectedCategories ? style["btn-fill"] : null,
-                ].join(" ")}
-                key={id}
-                onClick={() => handleSearch("category", name)}
-              >
-                {category[name]}
-              </button>
-            ))}
+            <button
+              className={[
+                style.btn,
+                name === selectedCategories ? style["btn-fill"] : null,
+              ].join(" ")}
+              key={id}
+              onClick={() => handleSearch("category", name)}
+            >
+              {category[name]}
+            </button>
+          ))}
         </nav>
         <nav className={style.navbar}>
           {categories[currentIndex].subCategoryDetails.map((el, id) => (

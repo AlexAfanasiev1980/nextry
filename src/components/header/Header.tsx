@@ -1,14 +1,15 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import cookie from "js-cookie";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import Logo from "@/public/Logo.svg";
 import BurgerIcon from "@/public/burgerIcon.png";
 import { navbarItemsHome, navbarItemsGenerator } from "./navBarItems";
 import { HOME_ROUTE, SIGN_IN_ROUTE } from "@/routes";
-import { useSession, signOut } from "next-auth/react";
 import style from "./Header.module.scss";
+import { useRouter } from 'next/navigation'
 
 interface IHeader {
   type: "home" | "generator";
@@ -26,14 +27,20 @@ const headerTypes = {
 };
 
 const Header = ({ type }: IHeader) => {
-  const session = useSession();
   const [isMenuVisible, setMenuVisiability] = useState(false);
+  const [session, setSession] = useState(false);
   const burgerWrapperClassname = isMenuVisible
     ? style.burgerWrapper
     : [style.burgerWrapper, style.burgerWrapperInvisible].join(" ");
-  if(process.env.NODE_ENV === "development") {
-    console.log(session);
-  }
+    const router = useRouter()
+
+  const handleLogOut = async () => {
+    if (session) {
+      await cookie.remove("OutSiteJWT");
+      setSession(false);
+      router.push('/')
+    }
+  };
 
   const MenuBurger = () => {
     return (
@@ -47,9 +54,9 @@ const Header = ({ type }: IHeader) => {
               {title}
             </Link>
           ))}
-          {session?.data ? (
+          {session ? (
             <button
-              onClick={() => signOut({ callbackUrl: "/" })}
+              onClick={() => handleLogOut()}
               className={style.logInBurger}
             >
               Log Out
@@ -63,6 +70,12 @@ const Header = ({ type }: IHeader) => {
       </div>
     );
   };
+
+  useEffect(() => {
+    if (cookie.get("OutSiteJWT")) {
+      setSession(true);
+    }
+  }, []);
 
   return (
     <header className={headerTypes[type].className}>
@@ -82,11 +95,8 @@ const Header = ({ type }: IHeader) => {
         onClick={() => setMenuVisiability(!isMenuVisible)}
         className={style.burger}
       />
-      {session?.data ? (
-        <button
-          onClick={() => signOut({ callbackUrl: "/" })}
-          className={style.logIn}
-        >
+      {session ? (
+        <button onClick={() => handleLogOut()} className={style.logIn}>
           Log Out
         </button>
       ) : (
