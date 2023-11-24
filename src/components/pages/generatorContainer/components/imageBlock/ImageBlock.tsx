@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useDropzone } from "react-dropzone";
+import cookie from "js-cookie";
 import Image from "next/image";
 import DropIcon from "@/public/DropImageIcon.svg";
 import DeleteIcon from "@/public/deleteIcon.png";
@@ -16,9 +17,15 @@ interface FileData extends File {
   preview: string;
 }
 
-const server = process.env.NEXT_PUBLIC_SERVER_URL;
+const server = process.env.NEXT_PUBLIC_BASE_URL;
 
-const ImageBlock = ({ statusSelector, id }: { statusSelector: boolean, id: string | null }) => {
+const ImageBlock = ({
+  statusSelector,
+  id,
+}: {
+  statusSelector: boolean;
+  id: string | null;
+}) => {
   const [selectedImage, setSelectedImage] = useState<FileData[]>([]);
   const [image, setImage] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
@@ -35,20 +42,24 @@ const ImageBlock = ({ statusSelector, id }: { statusSelector: boolean, id: strin
 
   const handleButton = async () => {
     setLoading(true);
+    const token = await cookie.get("OutSiteJWT");
+    if (!token) {
+      alert("Авторизуйтесь перед использванием генератора!");
+      return;
+    }
     try {
       const form = new FormData();
       form.append("Image", selectedImage[0]);
-      form.append("Id", id || '');
-      const res = await getPhoto(form);  
+      form.append("Id", id || "");
+      const res = await getPhoto(form, token);
       if (res) {
         setImage(`${server}${res.images[0]}`);
         setLoading(false);
-      } 
+      }
     } catch (err) {
-       console.error(err);
-       setLoading(false);
+      console.error(err);
+      setLoading(false);
     }
-    
   };
 
   const { getRootProps, getInputProps } = useDropzone({
@@ -63,7 +74,11 @@ const ImageBlock = ({ statusSelector, id }: { statusSelector: boolean, id: strin
 
   const SelectedImage = () => {
     return (
-      <section className={`${!loading && style.dropImageBlock__filled} ${loading && style.dropImageBlock__displayNone}`}>
+      <section
+        className={`${!loading && style.dropImageBlock__filled} ${
+          loading && style.dropImageBlock__displayNone
+        }`}
+      >
         {!image ? <RemoveButton /> : <BackButton />}
         <div className={style.dropImageBlock__imageWrapper}>
           <Image
@@ -168,7 +183,7 @@ const ImageBlock = ({ statusSelector, id }: { statusSelector: boolean, id: strin
   return (
     <>
       {selectedImage.length > 0 && <SelectedImage />}
-      {loading && <Loader  />}
+      {loading && <Loader />}
       {selectedImage.length === 0 && (
         <form className={style.dropImageBlock__form}>
           <div className={style.dropImageBlock__wrapper} {...getRootProps()}>

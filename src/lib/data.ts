@@ -1,7 +1,5 @@
 import { GET_CATEGORIES_API, GET_CLOTHES_API, GENERATE_IMAGE } from "@/api";
 
-const token = process.env.NEXT_PUBLIC_TOKEN;
-
 export interface Clothes {
   id: string;
   title: string;
@@ -53,7 +51,7 @@ export async function getCategories() {
   }
 }
 
-export async function getPhoto(form: FormData) {
+export async function getPhoto(form: FormData, token: string) {
   try {
     const res = await fetch(GENERATE_IMAGE, {
       method: "POST",

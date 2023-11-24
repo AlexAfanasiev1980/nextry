@@ -3,6 +3,7 @@ import HomePageContainer from "@/components/pages/homePageContainer/HomePageCont
 import Footer from "@/components/footer/Footer";
 
 export default function Home() {
+  
   return (
     <>
       <Header type="home" />

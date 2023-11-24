@@ -5,9 +5,6 @@ import Image from "next/image";
 import MoveBackIcon from "@/public/ArrowBack.png";
 import { useState, type FormEvent } from "react";
 import { useRouter } from "next/navigation";
-import { signIn } from "next-auth/react";
-
-import { HOME_ROUTE } from "@/routes";
 import { logInTypes } from "./logInTypes";
 
 import style from "./LogInContainer.module.scss";
@@ -31,25 +28,28 @@ const LogInContainer = ({ type }: LogIn) => {
             login: formData.get("email"),
             password: formData.get("password"),
             email: formData.get("email"),
-            redirect: false,
-            callbackUrl: HOME_ROUTE,
           }
         : {
             login: formData.get("email"),
             password: formData.get("password"),
-            redirect: false,
-            callbackUrl: HOME_ROUTE,
           };
 
-      const res = await signIn(logInTypes[type].fetch, body);
-      if (res && !res.error) {
-        console.log(res);
-        setError("");
-        router.push(HOME_ROUTE);
-      } else {
-        console.log(res?.error)
-        setError(res?.error!);
+    try {
+      const res = await fetch(type === "sign-in" ? 
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/api/auth/login` : `${process.env.NEXT_PUBLIC_SERVER_URL}/api/auth/logup`,
+        {
+          method: "POST",
+          body: JSON.stringify(body),
+        }
+      );
+
+      const result = await res.json();
+      if (res.status === 200 || res.status === 201) {
+        router.push("/")
       }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
