@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import { logInTypes } from "./logInTypes";
 
 import style from "./LogInContainer.module.scss";
+import { POLICY_ROUTE } from "@/routes";
 
 interface LogIn {
   type: "sign-in" | "sign-up";
@@ -107,7 +108,7 @@ const LogInContainer = ({ type }: LogIn) => {
           />
           <p>
             By clicking “{logInTypes[type].title}”, I agree to the{" "}
-            <a href="#" className={style.link}>
+            <a href={"#"} target="_blank" className={style.link}>
               policy regarding the processing of personal data
             </a>
           </p>

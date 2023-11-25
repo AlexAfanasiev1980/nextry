@@ -3,6 +3,8 @@
 import { useState } from "react";
 import Button from "@/components/button/Button";
 import style from "./FormBlock.module.scss";
+import { POLICY_ROUTE } from "@/routes";
+import Link from "next/link";
 
 const FormBlock = () => {
   const [email, setEmail] = useState("");
@@ -29,9 +31,9 @@ const FormBlock = () => {
         <p className={style.text}>
           <span>
             By clicking “Continue”, I agree to the{" "}
-            <a href="" className={style.link}>
+            <Link href={"#"} target="_blank" className={style.link}>
               policy regarding the processing of personal data
-            </a>
+            </Link>
           </span>
         </p>
       </div>
