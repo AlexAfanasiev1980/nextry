@@ -44,15 +44,15 @@ export default function TermsAndConditions() {
       </p>
       <p>
         These Terms & Conditions are a contract between you and nextry.app
-        (referred to in these Terms & Conditions as "nextry.app", "us", "we" or
-        "our"), the provider of the nextry.app website and the services
+        (referred to in these Terms & Conditions as &quot;nextry.app&quot;, &quot;us&quot;, &quot;we&quot; or
+        &quot;our&quot;), the provider of the nextry.app website and the services
         accessible from the nextry.app website (which are collectively referred
-        to in these Terms & Conditions as the "nextry.app Service").
+        to in these Terms & Conditions as the &quot;nextry.app Service&quot;).
       </p>
       <p>
         You are agreeing to be bound by these Terms & Conditions. If you do not
         agree to these Terms & Conditions, please do not use the nextry.app
-        Service. In these Terms & Conditions, "you" refers both to you as an
+        Service. In these Terms & Conditions, &quot;you&quot; refers both to you as an
         individual and to the entity you represent. If you violate any of these
         Terms & Conditions, we reserve the right to cancel your account or block
         access to your account without notice.
@@ -95,7 +95,7 @@ export default function TermsAndConditions() {
           or whose products or services we think may interest you.
         </li>
         <li>
-          Website: nextry.app's site, which can be accessed via this URL:
+          Website: nextry.app&apos;s site, which can be accessed via this URL:
           http://nextry.app
         </li>
         <li>
@@ -134,18 +134,18 @@ export default function TermsAndConditions() {
         apply to transactions at nextry.app. We’ll be as brief as our attorneys
         will allow. The main thing to remember is that by placing an order or
         making a purchase at nextry.app, you agree to the terms along with
-        nextry.app's Privacy Policy.
+        nextry.app&apos;s Privacy Policy.
       </p>
       <p>
         If, for any reason, You are not completely satisfied with any good or
-        service that we provide, don't hesitate to contact us and we will
+        service that we provide, don&apos;t hesitate to contact us and we will
         discuss any of the issues you are going through with our product.
       </p>
 
       <h1 className={style.offer__title}>Your Suggestions</h1>
       <p>
         Any feedback, comments, ideas, improvements or suggestions
-        (collectively, "Suggestions") provided by you to nextry.app with respect
+        (collectively, &quot;Suggestions&quot;) provided by you to nextry.app with respect
         to the website/app shall remain the sole and exclusive property of
         nextry.app.
       </p>
@@ -157,8 +157,8 @@ export default function TermsAndConditions() {
 
       <h1 className={style.offer__title}>Your Consent</h1>
       <p>
-        We've updated our Terms & Conditions to provide you with complete
-        transparency into what is being set when you visit our site and how it's
+        We&apos;ve updated our Terms & Conditions to provide you with complete
+        transparency into what is being set when you visit our site and how it&apos;s
         being used. By using our website/app, registering an account, or making
         a purchase, you hereby consent to our Terms & Conditions.
       </p>
@@ -180,7 +180,7 @@ export default function TermsAndConditions() {
 
       <h1 className={style.offer__title}>Cookies</h1>
       <p>
-        nextry.app uses "Cookies" to identify the areas of our website that you
+        nextry.app uses &quot;Cookies&quot; to identify the areas of our website that you
         have visited. A Cookie is a small piece of data stored on your computer
         or mobile device by your web browser. We use Cookies to enhance the
         performance and functionality of our website/app but are non-essential
@@ -224,7 +224,7 @@ export default function TermsAndConditions() {
         nextry.app may from time to time provide enhancements or improvements to
         the features/ functionality of the website/app, which may include
         patches, bug fixes, updates, upgrades and other modifications
-        ("Updates").
+        (&quot;Updates&quot;).
       </p>
       <p>
         Updates may modify or delete certain features and/or functionalities of
@@ -242,7 +242,7 @@ export default function TermsAndConditions() {
       <p>
         We may display, include or make available third-party content (including
         data, information, applications and other products services) or provide
-        links to third-party websites or services ("Third- Party Services").
+        links to third-party websites or services (&quot;Third- Party Services&quot;).
       </p>
       <p>
         You acknowledge and agree that nextry.app shall not be responsible for
@@ -255,7 +255,7 @@ export default function TermsAndConditions() {
       <p>
         Third-Party Services and links thereto are provided solely as a
         convenience to you and you access and use them entirely at your own risk
-        and subject to such third parties' terms and conditions.
+        and subject to such third parties&apos; terms and conditions.
       </p>
 
       <h1 className={style.offer__title}>Term and Termination</h1>
@@ -279,7 +279,7 @@ export default function TermsAndConditions() {
         website/app and delete all copies of the website/app from your computer.
       </p>
       <p>
-        Termination of this Agreement will not limit any of nextry.app's rights
+        Termination of this Agreement will not limit any of nextry.app&apos;s rights
         or remedies at law or in equity in case of breach by you (during the
         term of this Agreement) of any of your obligations under the present
         Agreement.
@@ -305,14 +305,14 @@ export default function TermsAndConditions() {
         You agree to indemnify and hold nextry.app and its parents,
         subsidiaries, affiliates, officers, employees, agents, partners and
         licensors (if any) harmless from any claim or demand, including
-        reasonable attorneys' fees, due to or arising out of your: (a) use of
+        reasonable attorneys&apos; fees, due to or arising out of your: (a) use of
         the website/app; (b) violation of this Agreement or any law or
         regulation; or (c) violation of any right of a third party.
       </p>
 
       <h1 className={style.offer__title}>No Warranties</h1>
       <p>
-        The website/app is provided to you "AS IS" and "AS AVAILABLE" and with
+        The website/app is provided to you &quot;AS IS&quot; and &quot;AS AVAILABLE&quot; and with
         all faults and defects without warranty of any kind. To the maximum
         extent permitted under applicable law, nextry.app, on its own behalf and
         on behalf of its affiliates and its and their respective licensors and
@@ -330,7 +330,7 @@ export default function TermsAndConditions() {
         or will be corrected.
       </p>
       <p>
-        Without limiting the foregoing, neither nextry.app nor any nextry.app's
+        Without limiting the foregoing, neither nextry.app nor any nextry.app&apos;s
         provider makes any representation or warranty of any kind, express or
         implied: (i) as to the operation or availability of the website/app, or
         the information, content, and materials or products included thereon;
@@ -391,7 +391,7 @@ export default function TermsAndConditions() {
         affect the validity of the remaining provisions of this Agreement, which
         shall remain in full force and effect. No waiver of any term of this
         Agreement shall be deemed a further or continuing waiver of such term or
-        any other term, and nextry.app's failure to assert any right or
+        any other term, and nextry.app&apos;s failure to assert any right or
         provision under this Agreement shall not constitute a waiver of such
         right or provision. YOU AND nextry.app AGREE THAT ANY CAUSE OF ACTION
         ARISING OUT OF OR RELATED TO THE SERVICES MUST COMMENCE WITHIN ONE (1)
@@ -403,7 +403,7 @@ export default function TermsAndConditions() {
       <p>
         Except as provided herein, the failure to exercise a right or to require
         performance of an obligation under this Agreement shall not effect a
-        party's ability to exercise such right or require such performance at
+        party&apos;s ability to exercise such right or require such performance at
         any time thereafter nor shall be the waiver of a breach constitute
         waiver of any subsequent breach.
       </p>
@@ -421,7 +421,7 @@ export default function TermsAndConditions() {
       <p>
         nextry.app reserves the right, at its sole discretion, to modify or
         replace this Agreement at any time. If a revision is material we will
-        provide at least 30 days' notice prior to any new terms taking effect.
+        provide at least 30 days&apos; notice prior to any new terms taking effect.
         What constitutes a material change will be determined at our sole
         discretion.
       </p>
@@ -441,7 +441,7 @@ export default function TermsAndConditions() {
       </p>
       <p>
         You may be subject to additional terms and conditions that apply when
-        you use or purchase other nextry.app's services, which nextry.app will
+        you use or purchase other nextry.app&apos;s services, which nextry.app will
         provide to you at the time of such use or purchase.
       </p>
 
@@ -476,7 +476,7 @@ export default function TermsAndConditions() {
       <p>
         This section applies to any dispute EXCEPT IT DOESN’T INCLUDE A DISPUTE
         RELATING TO CLAIMS FOR INJUNCTIVE OR EQUITABLE RELIEF REGARDING THE
-        ENFORCEMENT OR VALIDITY OF YOUR OR nextry.app's INTELLECTUAL PROPERTY
+        ENFORCEMENT OR VALIDITY OF YOUR OR nextry.app&apos;s INTELLECTUAL PROPERTY
         RIGHTS. The term “dispute” means any dispute, action, or other
         controversy between you and nextry.app concerning the Services or this
         agreement, whether in contract, warranty, tort, statute, regulation,
@@ -603,8 +603,8 @@ export default function TermsAndConditions() {
         any time without prior notice.
       </p>
       <p>
-        The nextry.app Service and its contents are provided "as is" and "as
-        available" without any warranty or representations of any kind, whether
+        The nextry.app Service and its contents are provided &quot;as is&quot; and &quot;as
+        available&quot; without any warranty or representations of any kind, whether
         express or implied. nextry.app is a distributor and not a publisher of
         the content supplied by third parties; as such, nextry.app exercises no
         editorial control over such content and makes no warranty or
@@ -626,7 +626,7 @@ export default function TermsAndConditions() {
       </p>
 
       <h1 className={style.offer__title}>Contact Us</h1>
-      <p>Don't hesitate to contact us if you have any questions.</p>
+      <p>Don&apos;t hesitate to contact us if you have any questions.</p>
       <ul className={style.offer__list}>
         <li>
           Via Email:{" "}

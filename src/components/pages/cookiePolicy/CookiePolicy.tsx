@@ -59,11 +59,11 @@ export default function CookiePolicy() {
       <h1 className={style.offer__title}>Introduction</h1>
       <p>
         This Cookie Policy explains how nextry.app and its affiliates
-        (collectively "nextry.app", "we", "us", and "ours"), use cookies and
+        (collectively &quot;nextry.app&quot;, &quot;we&quot;, &quot;us&quot;, and &quot;ours&quot;), use cookies and
         similar technologies to recognize you when you visit our website/app,
         including without limitation http://nextry.app and any related URLs,
         mobile or localized versions and related domains / sub-domains
-        ("Websites"). It explains what these technologies are and why we use
+        (&quot;Websites&quot;). It explains what these technologies are and why we use
         them, as well as the choices for how to control them.
       </p>
 
@@ -72,7 +72,7 @@ export default function CookiePolicy() {
         A cookie is a small text file that is stored on your computer or other
         internet connected device in order to identify your browser, provide
         analytics, remember information about you such as your language
-        preference or login information. They're completely safe and can't be
+        preference or login information. They&apos;re completely safe and can&apos;t be
         used to run programs or deliver viruses to your device.
       </p>
 
@@ -133,7 +133,7 @@ export default function CookiePolicy() {
         We use essential cookies to make our website/app work. These cookies are
         strictly necessary to enable core functionality such as security,
         network management, your cookie preferences and accessibility. Without
-        them you wouldn't be able to use basic services. You may disable these
+        them you wouldn&apos;t be able to use basic services. You may disable these
         by changing your browser settings, but this may affect how the Websites
         function.
       </p>
@@ -202,7 +202,7 @@ export default function CookiePolicy() {
       </p>
       <h1 className={style.offer__title}>How you can manage cookies?</h1>
       <p>
-        Most browsers allow you to control cookies through their 'settings'
+        Most browsers allow you to control cookies through their &apos;settings&apos;
         preferences. However, if you limit the ability of websites to set
         cookies, you may worsen your overall user experience, since it will no
         longer be personalized to you. It may also stop you from saving
@@ -226,7 +226,7 @@ export default function CookiePolicy() {
 
       <h1 className={style.offer__title}>Blocking and disabling cookies and similar technologies</h1>
       <p>
-        Wherever you're located you may also set your browser to block cookies
+        Wherever you&apos;re located you may also set your browser to block cookies
         and similar technologies, but this action may block our essential
         cookies and prevent our website from functioning properly, and you may
         not be able to fully utilize all of its features and services. You
@@ -235,7 +235,7 @@ export default function CookiePolicy() {
         browser. Different browsers make different controls available to you.
         Disabling a cookie or category of cookie does not delete the cookie from
         your browser, you will need to do this yourself from within your
-        browser, you should visit your browser's help menu for more information.
+        browser, you should visit your browser&apos;s help menu for more information.
       </p>
 
       <h1 className={style.offer__title}>Changes To Our Cookie Policy</h1>
@@ -257,7 +257,7 @@ export default function CookiePolicy() {
       </p>
       <h1 className={style.offer__title}>Contact Us</h1>
       <p>
-        Don't hesitate to contact us if you have any questions regarding our
+        Don&apos;t hesitate to contact us if you have any questions regarding our
         Cookie Policy.
       </p>
       <ul className={style.offer__list}>
