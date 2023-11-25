@@ -1,9 +1,9 @@
 import Image from "next/image";
 import { texts } from "./componentsAndHandlers/howItWorksTexts";
 import LinesAndCircles from "./componentsAndHandlers/LinesAndCircles";
-import Step1 from "@/public/Step1.webp";
-import Step2 from "@/public/Step2.webp";
-import Step3 from "@/public/Step3.webp";
+import Step1 from "@/public/1.jpg";
+import Step2 from "@/public/2.jpg";
+import Step3 from "@/public/3.jpg";
 import style from "./HowItWork.module.scss";
 
 const HowItWork = () => {
@@ -28,16 +28,16 @@ const HowItWork = () => {
           />
         </section>
         <section className={style.howItWork__section}>
+          <div className={style.howItWork__textBlock}>
+            <h2>{texts[1].title}</h2>
+            <p>{texts[1].content}</p>
+          </div>
           <Image
             src={Step2}
             alt="how it work step"
             className={style.howItWork__imgBlock}
             placeholder="blur"
           />
-          <div className={style.howItWork__textBlock}>
-            <h2>{texts[1].title}</h2>
-            <p>{texts[1].content}</p>
-          </div>
         </section>
         <section className={style.howItWork__section}>
           <div className={style.howItWork__textBlock}>

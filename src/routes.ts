@@ -5,3 +5,5 @@ export const SIGN_IN_ROUTE = "/sign-in";
 export const POLICY_ROUTE = "/documentation/privacy-policy";
 export const COOKIE_ROUTE = "/documentation/cookie-policy";
 export const TERMS_ROUTE = "/documentation/terms-and-conditions";
+export const DISCLAIMER_ROUTE = "/documentation/disclaimer";
+export const EULA_ROUTE = "/documentation/eula";

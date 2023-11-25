@@ -46,7 +46,7 @@ const ImageBlock = ({
     setLoading(true);
     const token = await cookie.get("OutSiteJWT");
     if (!token) {
-      alert("Авторизуйтесь перед использванием генератора!");
+      alert("Авторизуйтесь перед использованием генератора!");
       router.push("/");
     } else {
       try {

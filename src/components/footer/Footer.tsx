@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Logo from "@/public/Logo.svg";
 import { navbarItems } from "./navBarItems";
-import { COOKIE_ROUTE, GENERATOR_ROUTE, POLICY_ROUTE, TERMS_ROUTE } from "@/routes";
+import { COOKIE_ROUTE, DISCLAIMER_ROUTE, EULA_ROUTE, GENERATOR_ROUTE, POLICY_ROUTE, TERMS_ROUTE } from "@/routes";
 import style from "./Footer.module.scss";
 
 const Footer = () => {
@@ -27,6 +27,8 @@ const Footer = () => {
           <Link href={POLICY_ROUTE} target="_blank">Privacy Policy</Link>
           <Link href={TERMS_ROUTE} target="_blank">Terms of Use</Link>
           <Link href={COOKIE_ROUTE} target="_blank">Cookie Policy</Link>
+          <Link href={DISCLAIMER_ROUTE} target="_blank">Disclaimer</Link>
+          <Link href={EULA_ROUTE} target="_blank">End-User License Agreement</Link>
         </div>
         <p>2023. AI Generator. All rights are reserved.</p>
       </div>

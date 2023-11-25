@@ -1,0 +1,31 @@
+@import "@/styles/mixins.scss";
+
+.offer {
+  padding: 50px;
+  font-weight: 400;
+  @include fontSizeAdaptive(16);
+
+  @media (max-width: 900px) {
+    padding: 50px 20px;
+  }
+
+
+
+  &__title {
+    text-align: left;
+    margin: 20px 0 20px 0;
+    @include fontSizeTitleAdaptive(32);
+  }
+
+  &__updated {
+    margin: 0 0 20px 0;
+  }
+
+  &__list {
+    padding: 20px 0 20px 40px;
+  }
+
+  &__text {
+    padding: 16px 0;
+  }
+}
