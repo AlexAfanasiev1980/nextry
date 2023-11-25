@@ -816,7 +816,7 @@ export default function PrivacyPolicy() {
         </li>
         <li>
           Via this Link:{" "}
-          <Link href={"http://nextry.app"}>http://nextry.app</Link>
+          <Link href={"https://nextry.app"}>http://nextry.app</Link>
         </li>
       </ul>
     </div>
