@@ -84,7 +84,7 @@ const ContentBlock = ({ setStatusSelector, setSelectId, data }: Props) => {
                 style.subCategories,
                 el.name === selectedSubCategories ? style["btn-fill"] : null,
               ].join(" ")}
-              key={id}
+              key={el.id}
               onClick={() => handleSearch("sub_category", el.name)}
             >
               {el.name}

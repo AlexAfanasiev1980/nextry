@@ -66,8 +66,7 @@
 
     > h3 {
       font-family: var(--font-secondary-bold);
-      text-align: start;
-
+      text-align: left;
       width: 85%;
 
       font-size: 24px;
@@ -96,11 +95,17 @@
       }
     }
 
-    button {
-      position: absolute;
-      top: 20px;
-      right: 30px;
+    .faq_wrapper {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      
+      > h3 {
+        text-align: left;
+      }
+    }
 
+    button {
       border: none;
       background-color: var(--faq-bg-color);
 
@@ -111,6 +116,7 @@
           width: 16px;
           height: 16px;
         }
+        // top: 20px;
       }
     }
   }

@@ -236,7 +236,7 @@ export default function Disclaimer() {
         Please don’t hesitate to contact us if you would like to know more about
         testimonials, discounts, or any of the products/services that we review.
       </p>
-      <h1>Your Consent</h1>
+      <h1 className={style.offer__title}>Your Consent</h1>
       <p>
         We&apos;ve updated our Disclaimer to provide you with complete transparency
         into what is being set when you visit our site and how it&apos;s being used.

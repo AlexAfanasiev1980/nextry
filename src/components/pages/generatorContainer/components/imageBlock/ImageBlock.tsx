@@ -1,5 +1,3 @@
-"use client";
-
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import cookie from "js-cookie";
@@ -30,7 +28,6 @@ const ImageBlock = ({
   const [selectedImage, setSelectedImage] = useState<FileData[]>([]);
   const [image, setImage] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
-  const [urlDown, setUrlDown] = useState<any>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const imageRef = useRef<HTMLImageElement>(null);
   const router = useRouter();
@@ -43,24 +40,27 @@ const ImageBlock = ({
   }, []);
 
   const handleButton = async () => {
-    setLoading(true);
+    
     const token = await cookie.get("OutSiteJWT");
     if (!token) {
       alert("Авторизуйтесь перед использованием генератора!");
       router.push("/");
     } else {
-      try {
-        const form = new FormData();
-        form.append("Image", selectedImage[0]);
-        form.append("Id", id || "");
-        const res = await getPhoto(form, token);
-        if (res) {
-          setImage(`${server}${res.images[0]}`);
+      if (id) {
+        setLoading(true);
+        try {
+          const form = new FormData();
+          form.append("Image", selectedImage[0]);
+          form.append("Id", id);
+          const res = await getPhoto(form, token);
+          if (res) {
+            setImage(`${server}${res.images[0]}`);
+            setLoading(false);
+          }
+        } catch (err) {
+          console.error(err);
           setLoading(false);
         }
-      } catch (err) {
-        console.error(err);
-        setLoading(false);
       }
     }
   };

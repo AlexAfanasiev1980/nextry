@@ -14,6 +14,10 @@ interface LogIn {
   type: "sign-in" | "sign-up";
 }
 
+interface IRes extends Response {
+  message?: string
+}
+
 const LogInContainer = ({ type }: LogIn) => {
   const [error, setError] = useState("");
   const errorStyle = error ? style.errorMessage : style.errorHide;
@@ -36,17 +40,23 @@ const LogInContainer = ({ type }: LogIn) => {
           };
 
     try {
-      const res = await fetch(type === "sign-in" ? 
-        `${process.env.NEXT_PUBLIC_SERVER_URL}/api/auth/login` : `${process.env.NEXT_PUBLIC_SERVER_URL}/api/auth/logup`,
+      const res: IRes = await fetch(
+        type === "sign-in"
+          ? `${process.env.NEXT_PUBLIC_SERVER_URL}/api/auth/login`
+          : `${process.env.NEXT_PUBLIC_SERVER_URL}/api/auth/logup`,
         {
           method: "POST",
           body: JSON.stringify(body),
         }
       );
 
-      const result = await res.json();
+      if (res.status === 400) {
+        const result = await res.json();
+        alert('Неправильное имя пользователя или пароль');
+      }
+      
       if (res.status === 200 || res.status === 201) {
-        router.push("/")
+        router.push("/");
       }
     } catch (error) {
       console.log(error);

@@ -12,8 +12,7 @@ const FAQ = () => {
       <section className={style.faq__list}>
         {faqTexts.map(({ id, question, answer }) => (
           <div className={style.faq__questionBlock} key={id}>
-            <h3>{question}</h3>
-            <ClientComponentFAQ answer={answer} />
+            <ClientComponentFAQ answer={answer} question={question}/>
           </div>
         ))}
       </section>
