@@ -9,7 +9,7 @@ import BurgerIcon from "@/public/burgerIcon.png";
 import { navbarItemsHome, navbarItemsGenerator } from "./navBarItems";
 import { HOME_ROUTE, SIGN_IN_ROUTE } from "@/routes";
 import style from "./Header.module.scss";
-import { useRouter } from 'next/navigation'
+import { useRouter } from "next/navigation";
 
 interface IHeader {
   type: "home" | "generator";
@@ -32,14 +32,27 @@ const Header = ({ type }: IHeader) => {
   const burgerWrapperClassname = isMenuVisible
     ? style.burgerWrapper
     : [style.burgerWrapper, style.burgerWrapperInvisible].join(" ");
-    const router = useRouter()
+  const router = useRouter();
 
   const handleLogOut = async () => {
     if (session) {
       await cookie.remove("OutSiteJWT");
       setSession(false);
-      router.push('/')
+      router.push("/");
     }
+  };
+
+  const Tools = () => {
+    return (
+      <div className={style.dropdown}>
+        <button className={style.dropdown__dropbtn}>Tools</button>
+        <nav className={style.dropdown__dropdownContent}>
+          <Link href="/generator/fitting-room">Virtual fitting room</Link>
+          <Link href="#">Change background</Link>
+          <Link href="#">Animal face swap</Link>
+        </nav>
+      </div>
+    );
   };
 
   const MenuBurger = () => {
@@ -54,6 +67,7 @@ const Header = ({ type }: IHeader) => {
               {title}
             </Link>
           ))}
+          <Tools />
           {session ? (
             <button
               onClick={() => handleLogOut()}
@@ -88,6 +102,7 @@ const Header = ({ type }: IHeader) => {
             {title}
           </Link>
         ))}
+        <Tools />
       </nav>
       <Image
         src={BurgerIcon}

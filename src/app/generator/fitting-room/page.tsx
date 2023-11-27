@@ -1,4 +1,3 @@
-import Header from "@/components/header/Header";
 import GeneratorContainer from "@/components/pages/generatorContainer/GeneratorContainer";
 import { getClothes, getCategories } from "@/lib/data";
 
@@ -14,10 +13,5 @@ export default async function Generator({
     categories: categories || [],
   };
 
-  return (
-    <>
-      <Header type="generator" />
-      <GeneratorContainer data={data} />
-    </>
-  );
+  return <GeneratorContainer data={data} />;
 }
