@@ -1,9 +1,9 @@
 import Image from "next/image";
 import { texts } from "./componentsAndHandlers/howItWorksTexts";
 import LinesAndCircles from "./componentsAndHandlers/LinesAndCircles";
-import Step1 from "@/public/1.jpg";
-import Step2 from "@/public/2.jpg";
-import Step3 from "@/public/3.jpg";
+import Step1 from "@/public/Step1.webp";
+import Step2 from "@/public/Step2.webp";
+import Step3 from "@/public/Step3.webp";
 import style from "./HowItWork.module.scss";
 
 const HowItWork = () => {
