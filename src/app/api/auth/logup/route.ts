@@ -31,9 +31,8 @@ export async function POST(request: Request) {
   });
 
   const data = await res.json();
-  console.log(data);
 
-  if (res.status !== 200) {
+  if (res.status !== 201) {
     return NextResponse.json(
       {
         message: data.detail,
@@ -54,9 +53,6 @@ export async function POST(request: Request) {
     maxAge: MAX_AGE,
     path: "/",
   });
-
-  console.log(serialized)
-
 
   return new Response(JSON.stringify({ data }), {
     status: 201,
