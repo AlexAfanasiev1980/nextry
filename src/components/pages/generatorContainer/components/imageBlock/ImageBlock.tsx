@@ -27,6 +27,7 @@ const ImageBlock = ({
 }) => {
   const [selectedImage, setSelectedImage] = useState<FileData[]>([]);
   const [image, setImage] = useState<string | null>(null);
+  const [fast, setFast] = useState(false);
   const [loading, setLoading] = useState(false);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const imageRef = useRef<HTMLImageElement>(null);
@@ -40,7 +41,6 @@ const ImageBlock = ({
   }, []);
 
   const handleButton = async () => {
-    
     const token = await cookie.get("OutSiteJWT");
     if (!token) {
       alert("Авторизуйтесь перед использованием генератора!");
@@ -52,7 +52,15 @@ const ImageBlock = ({
           const form = new FormData();
           form.append("Image", selectedImage[0]);
           form.append("Id", id);
-          const res = await getPhoto(form, token);
+          let res: any;
+          if (fast) {
+            const params = new URLSearchParams();
+            params.append("gen_type", "FAST");
+            res = await getPhoto(form, token, params);
+          } else {
+            res = await getPhoto(form, token);
+          }
+
           if (res) {
             setImage(`${server}${res.images[0]}`);
             setLoading(false);
@@ -83,6 +91,7 @@ const ImageBlock = ({
         }`}
       >
         {!image ? <RemoveButton /> : <BackButton />}
+        <FastButton />
         <div className={style.dropImageBlock__imageWrapper}>
           <Image
             src={image ? image : selectedImage[0]?.preview}
@@ -126,6 +135,19 @@ const ImageBlock = ({
         }}
       >
         <Image src={ArrowBack} alt="remove button" />
+      </button>
+    );
+  };
+
+  const FastButton = () => {
+    return (
+      <button
+        className={`${style.fastBtn} ${fast && style.fastBtn__active}`}
+        onClick={() => {
+          setFast(!fast);
+        }}
+      >
+        FAST
       </button>
     );
   };

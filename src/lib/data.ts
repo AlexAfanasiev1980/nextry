@@ -51,9 +51,11 @@ export async function getCategories() {
   }
 }
 
-export async function getPhoto(form: FormData, token: string) {
+export async function getPhoto(form: FormData, token: string, params?: URLSearchParams) {
+  console.log(form, params?.get('gen_type'));
+
   try {
-    const res = await fetch(GENERATE_IMAGE, {
+    const res = await fetch(`${GENERATE_IMAGE}${params ? `?${params}` : ""}`, {
       method: "POST",
       body: form,
       headers: {
