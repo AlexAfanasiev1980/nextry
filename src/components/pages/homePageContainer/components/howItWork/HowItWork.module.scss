@@ -101,7 +101,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-top: 146px;
+    padding-top: 250px;
 
     > div:nth-child(odd) {
       width: 100%;
@@ -109,7 +109,7 @@
     }
 
     @media (max-width: 1500px) {
-      padding-top: 106px;
+      padding-top: 190px;
       > div:nth-child(even) {
         width: 1px;
         min-height: 460px;
@@ -124,7 +124,7 @@
     }
 
     @media (max-width: 1200px) {
-      padding-top: 80px;
+      padding-top: 150px;
       > div:nth-child(even) {
         width: 1px;
         min-height: 370px;
@@ -139,7 +139,7 @@
     }
 
     @media (max-width: 900px) {
-      padding-top: 70px;
+      padding-top: 100px;
       > div:nth-child(even) {
         width: 1px;
         min-height: 230px;
@@ -154,7 +154,7 @@
     }
 
     @media (max-width: 700px) {
-      padding-top: 50px;
+      padding-top: 70px;
       > div:nth-child(even) {
         width: 1px;
         min-height: 230px;

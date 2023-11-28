@@ -5,7 +5,7 @@ export function middleware(request: NextRequest) {
   let cookie = request.cookies.get("OutSiteJWT");
 
   if (!cookie) {
-    return NextResponse.redirect(new URL("/", request.url));
+    return NextResponse.redirect(new URL("/sign-in", request.url));
   }
 }
 
