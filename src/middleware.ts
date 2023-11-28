@@ -9,4 +9,10 @@ export function middleware(request: NextRequest) {
   }
 }
 
-export const config = { matcher: ["/generator"] };
+export const config = {
+  matcher: [
+    "/generator/background",
+    "/generator/face-swap",
+    "/generator/fitting-room",
+  ],
+};
