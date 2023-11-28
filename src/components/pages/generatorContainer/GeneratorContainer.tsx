@@ -8,7 +8,7 @@ import { Categories, Clothes } from "@/lib/data";
 
 interface Props {
   data: {
-    categories: Categories[];
+    categories?: Categories[];
     clothes: Clothes[];
   };
 }

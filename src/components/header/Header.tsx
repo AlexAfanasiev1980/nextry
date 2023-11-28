@@ -7,7 +7,7 @@ import Link from "next/link";
 import Logo from "@/public/Logo.svg";
 import BurgerIcon from "@/public/burgerIcon.png";
 import { navbarItemsHome, navbarItemsGenerator } from "./navBarItems";
-import { HOME_ROUTE, SIGN_IN_ROUTE } from "@/routes";
+import { GENERATOR_BACKGROUND, GENERATOR_FACE, GENERATOR_ROUTE, HOME_ROUTE, SIGN_IN_ROUTE } from "@/routes";
 import style from "./Header.module.scss";
 import { useRouter } from "next/navigation";
 
@@ -47,9 +47,9 @@ const Header = ({ type }: IHeader) => {
       <div className={style.dropdown}>
         <button className={style.dropdown__dropbtn}>Tools</button>
         <nav className={style.dropdown__dropdownContent}>
-          <Link href="/generator/fitting-room">Virtual fitting room</Link>
-          <Link href="#">Change background</Link>
-          <Link href="#">Animal face swap</Link>
+          <Link href={GENERATOR_ROUTE}>Virtual fitting room</Link>
+          <Link href={GENERATOR_BACKGROUND}>Change background</Link>
+          <Link href={GENERATOR_FACE}>Animal face swap</Link>
         </nav>
       </div>
     );

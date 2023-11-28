@@ -11,6 +11,8 @@ import style from "./ImageBlock.module.scss";
 import { getPhoto } from "@/lib/data";
 import Loader from "../loader/Loader";
 import { useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
+import { GENERATE_BACKGROUND, GENERATE_IMAGE } from "@/api";
 
 interface FileData extends File {
   preview: string;
@@ -31,6 +33,9 @@ const ImageBlock = ({
   const [loading, setLoading] = useState(false);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const imageRef = useRef<HTMLImageElement>(null);
+  const pathname = usePathname();
+  const back = pathname.includes("background");
+
   const router = useRouter();
   const onDrop = useCallback((acceptedFiles: File[]) => {
     setSelectedImage([
@@ -46,7 +51,7 @@ const ImageBlock = ({
       alert("Авторизуйтесь перед использованием генератора!");
       router.push("/");
     } else {
-      if (id) {
+      if (id && !back) {
         setLoading(true);
         try {
           const form = new FormData();
@@ -56,9 +61,9 @@ const ImageBlock = ({
           if (fast) {
             const params = new URLSearchParams();
             params.append("gen_type", "FAST");
-            res = await getPhoto(form, token, params);
-          } else {
-            res = await getPhoto(form, token);
+            res = await getPhoto(GENERATE_IMAGE, form, token, params);
+          } else if (!back) {
+            res = await getPhoto(GENERATE_IMAGE, form, token);
           }
 
           if (res) {
@@ -68,6 +73,22 @@ const ImageBlock = ({
         } catch (err) {
           console.error(err);
           setLoading(false);
+        }
+      } else {
+        if (back) {
+          setLoading(true);
+          try {
+            const form = new FormData();
+            form.append("Image", selectedImage[0]);
+            const res = await getPhoto(GENERATE_BACKGROUND, form, token);
+            if (res) {
+              setImage(`${server}${res.images[0]}`);
+              setLoading(false);
+            }
+          } catch (err) {
+            console.error(err);
+            setLoading(false);
+          }
         }
       }
     }
@@ -91,7 +112,7 @@ const ImageBlock = ({
         }`}
       >
         {!image ? <RemoveButton /> : <BackButton />}
-        <FastButton />
+        {!back && <FastButton />}
         <div className={style.dropImageBlock__imageWrapper}>
           <Image
             src={image ? image : selectedImage[0]?.preview}
@@ -176,17 +197,34 @@ const ImageBlock = ({
 
   const GenerateButton = () => {
     return (
-      <button
-        className={[
-          style.generateBtn,
-          statusSelector && style.generateBtn__active,
-        ].join(" ")}
-        disabled={!statusSelector}
-        onClick={() => handleButton()}
-      >
-        GENERATE IMAGE
-        <Image src={ArrowForward} alt="generate icon" />
-      </button>
+      <>
+        {!back && (
+          <button
+            className={[
+              style.generateBtn,
+              statusSelector && style.generateBtn__active,
+            ].join(" ")}
+            disabled={!statusSelector}
+            onClick={() => handleButton()}
+          >
+            GENERATE IMAGE
+            <Image src={ArrowForward} alt="generate icon" />
+          </button>
+        )}
+        {back && (
+          <button
+            className={[
+              style.generateBtn,
+              selectedImage && style.generateBtn__active,
+            ].join(" ")}
+            disabled={!selectedImage}
+            onClick={() => handleButton()}
+          >
+            GENERATE IMAGE
+            <Image src={ArrowForward} alt="generate icon" />
+          </button>
+        )}
+      </>
     );
   };
 

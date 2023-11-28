@@ -63,7 +63,7 @@ const ContentBlock = ({ setStatusSelector, setSelectId, data }: Props) => {
     <>
       <section className={style.navSection}>
         <nav className={style.navbar}>
-          {categories.map(({ name, color }, id) => (
+          {categories && categories.map(({ name, color }, id) => (
             <button
               className={[
                 style.btn,
@@ -77,7 +77,7 @@ const ContentBlock = ({ setStatusSelector, setSelectId, data }: Props) => {
           ))}
         </nav>
         <nav className={style.navbar}>
-          {categories[currentIndex].subCategoryDetails.map((el, id) => (
+          {categories && currentIndex && categories[currentIndex].subCategoryDetails.map((el, id) => (
             <button
               className={[
                 style.btn,

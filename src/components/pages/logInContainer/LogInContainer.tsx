@@ -52,7 +52,7 @@ const LogInContainer = ({ type }: LogIn) => {
 
       if (res.status === 400) {
         const result = await res.json();
-        alert('Неправильное имя пользователя или пароль');
+        setError('Неправильное имя пользователя или пароль')
       }
       
       if (res.status === 200 || res.status === 201) {
@@ -124,12 +124,12 @@ const LogInContainer = ({ type }: LogIn) => {
           </p>
         </div>
         <button className={style.submit}>{logInTypes[type].title}</button>
-        <p>
+        <div>
           {logInTypes[type].bottomText}{" "}
           <Link href={logInTypes[type].route} className={style.link}>
             {logInTypes[type].textForLink}
           </Link>
-        </p>
+        </div>
       </form>
     </main>
   );
