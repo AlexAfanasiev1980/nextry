@@ -50,8 +50,8 @@ const ImageBlock = ({
     if (!token) {
       alert("Login before using the generator!");
       router.push("/");
-    } else {
-      if (id && !back) {
+    } else if (id) {
+       if (!back) {
         setLoading(true);
         try {
           const form = new FormData();
@@ -80,6 +80,7 @@ const ImageBlock = ({
           try {
             const form = new FormData();
             form.append("Image", selectedImage[0]);
+            form.append("Id", id);
             const res = await getPhoto(GENERATE_BACKGROUND, form, token);
             if (res) {
               setImage(`${server}${res.images[0]}`);
@@ -197,34 +198,18 @@ const ImageBlock = ({
 
   const GenerateButton = () => {
     return (
-      <>
-        {!back && (
-          <button
-            className={[
-              style.generateBtn,
-              statusSelector && style.generateBtn__active,
-            ].join(" ")}
-            disabled={!statusSelector}
-            onClick={() => handleButton()}
-          >
-            GENERATE IMAGE
-            <Image src={ArrowForward} alt="generate icon" />
-          </button>
-        )}
-        {back && (
-          <button
-            className={[
-              style.generateBtn,
-              selectedImage && style.generateBtn__active,
-            ].join(" ")}
-            disabled={!selectedImage}
-            onClick={() => handleButton()}
-          >
-            GENERATE IMAGE
-            <Image src={ArrowForward} alt="generate icon" />
-          </button>
-        )}
-      </>
+        <button
+          className={[
+            style.generateBtn,
+            statusSelector && style.generateBtn__active,
+          ].join(" ")}
+          disabled={!statusSelector}
+          onClick={() => handleButton()}
+        >
+          GENERATE IMAGE
+          <Image src={ArrowForward} alt="generate icon" />
+        </button>
+
     );
   };
 

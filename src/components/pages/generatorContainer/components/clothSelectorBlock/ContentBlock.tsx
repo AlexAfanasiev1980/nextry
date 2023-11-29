@@ -21,7 +21,7 @@ const ContentBlock = ({ setStatusSelector, setSelectId, data }: Props) => {
   const [selectedCloth, setSelectedCloth] = useState("");
   const searchParams = useSearchParams();
   const pathname = usePathname();
-  const { replace, refresh } = useRouter();
+  const { replace } = useRouter();
 
   const currentIndex = useMemo(() => {
     return categories?.findIndex(({ name }) => {
@@ -103,7 +103,7 @@ const ContentBlock = ({ setStatusSelector, setSelectId, data }: Props) => {
               >
                 <div>
                   <Image
-                    src={BASE_URL + preview_url}
+                    src={pathname.includes("background") ? preview_url : BASE_URL + preview_url}
                     width={150}
                     height={170}
                     alt="cloth image"

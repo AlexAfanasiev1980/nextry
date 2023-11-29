@@ -1,5 +1,6 @@
 import GeneratorContainer from "@/components/pages/generatorContainer/GeneratorContainer";
 import { getClothes, getCategories } from "@/lib/data";
+import mockDataBackground from '@/assets/mockData';
 
 export default async function GeneratorBackground({
   searchParams,
@@ -9,7 +10,7 @@ export default async function GeneratorBackground({
   const face = await getClothes(searchParams);
 
   const data = {
-    clothes: [face[1]] || [],
+    clothes: mockDataBackground || [],
   };
 
   return <GeneratorContainer data={data} />;
