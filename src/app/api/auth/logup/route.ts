@@ -9,7 +9,7 @@ export async function POST(request: Request) {
   if (!login || !password || !name || !email) {
     return NextResponse.json(
       {
-        message: "Требуется заполнить все данные",
+        message: "All information is required",
       },
       {
         status: 400,

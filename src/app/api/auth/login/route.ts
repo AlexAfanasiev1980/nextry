@@ -9,7 +9,7 @@ export async function POST(request: Request) {
   if (!login || !password) {
     return NextResponse.json(
       {
-        message: "Требуется ввести логин и пароль",
+        message: "You are required to enter your login and password",
       },
       {
         status: 400,

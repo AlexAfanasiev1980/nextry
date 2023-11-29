@@ -52,10 +52,11 @@ const LogInContainer = ({ type }: LogIn) => {
 
       if (res.status === 400) {
         const result = await res.json();
-        setError('Неправильное имя пользователя или пароль')
+        setError('Incorrect username or password')
       }
       
       if (res.status === 200 || res.status === 201) {
+        router.refresh();
         router.push("/");
       }
     } catch (error) {
@@ -115,6 +116,7 @@ const LogInContainer = ({ type }: LogIn) => {
             aria-label="policyChecked"
             className={style.policy__icon}
             required
+            title="To continue, check this box"
           />
           <p>
             By clicking “{logInTypes[type].title}”, I agree to the{" "}

@@ -9,7 +9,7 @@ export default async function GeneratorBackground({
   const face = await getClothes(searchParams);
 
   const data = {
-    clothes: face || [],
+    clothes: [face[1]] || [],
   };
 
   return <GeneratorContainer data={data} />;

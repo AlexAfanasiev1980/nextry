@@ -17,7 +17,7 @@ const Footer = () => {
             </Link>
           ))}
         </nav>
-        <Link className={style.aiGenerator} href={GENERATOR_ROUTE}>
+        <Link className={style.aiGenerator} href={GENERATOR_ROUTE} prefetch={false}>
           TRY AI GENERATOR
         </Link>
       </div>

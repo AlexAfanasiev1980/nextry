@@ -4,8 +4,10 @@ import HowItWork from "./components/howItWork/HowItWorks";
 import FAQ from "./components/faq/FAQ";
 import Contact from "./components/contact/Contact";
 import style from "./HomePageContainer.module.scss";
+import { revalidatePath } from "next/cache";
 
 const HomePageMain = () => {
+  revalidatePath("/", "layout");
   return (
     <main className={style.homePageContainer}>
       <About />

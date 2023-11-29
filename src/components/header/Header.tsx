@@ -47,9 +47,9 @@ const Header = ({ type }: IHeader) => {
       <div className={style.dropdown}>
         <button className={style.dropdown__dropbtn}>Tools</button>
         <nav className={style.dropdown__dropdownContent}>
-          <Link href={GENERATOR_ROUTE}>Virtual fitting room</Link>
-          <Link href={GENERATOR_BACKGROUND}>Change background</Link>
-          <Link href={GENERATOR_FACE}>Animal face swap</Link>
+          <Link href={GENERATOR_ROUTE} prefetch={false}>Virtual fitting room</Link>
+          <Link href={GENERATOR_BACKGROUND} prefetch={false}>Change background</Link>
+          <Link href={GENERATOR_FACE} prefetch={false}>Animal face swap</Link>
         </nav>
       </div>
     );

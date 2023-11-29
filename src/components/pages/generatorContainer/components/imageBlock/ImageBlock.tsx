@@ -48,7 +48,7 @@ const ImageBlock = ({
   const handleButton = async () => {
     const token = await cookie.get("OutSiteJWT");
     if (!token) {
-      alert("Авторизуйтесь перед использованием генератора!");
+      alert("Login before using the generator!");
       router.push("/");
     } else {
       if (id && !back) {
