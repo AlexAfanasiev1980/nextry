@@ -26,37 +26,29 @@ export async function POST(request: Request) {
       login,
       password,
       name,
-      email
+      email,
     }),
   });
 
   const data = await res.json();
 
   if (res.status !== 201) {
+    const message = res.status === 422 ? data.detail[0] : data.detail;
     return NextResponse.json(
-      {
-        message: data.detail,
-      },
+      { data: message },
       {
         status: res.status,
       }
     );
   }
 
-  const MAX_AGE =
-    Date.parse(data.format_expires_in) - Date.parse(new Date().toISOString());
-
-  const serialized = serialize("OutSiteJWT", data.access_token, {
-    httpOnly: false,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: "strict",
-    maxAge: MAX_AGE,
-    path: "/",
-  });
-
-  return new Response(JSON.stringify({ data }), {
-    status: 201,
-    headers: { "Set-Cookie": serialized, "Cache-Control": "no-store, no-cache, must-revalidate" },
-  });
-
+  return NextResponse.json(
+    {
+      message: data.message,
+      code: data.code,
+    },
+    {
+      status: res.status,
+    }
+  );
 }

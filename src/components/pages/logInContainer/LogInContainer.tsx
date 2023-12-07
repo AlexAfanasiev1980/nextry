@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import MoveBackIcon from "@/public/ArrowBack.png";
-import { useState, type FormEvent } from "react";
+import { useState, type FormEvent, type ChangeEvent } from "react";
 import { useRouter } from "next/navigation";
 import { logInTypes } from "./logInTypes";
 
@@ -15,15 +15,23 @@ interface LogIn {
 }
 
 interface IRes extends Response {
-  message?: string
+  message?: string;
 }
 
 const LogInContainer = ({ type }: LogIn) => {
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
   const errorStyle = error ? style.errorMessage : style.errorHide;
   const router = useRouter();
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setError("");
+    if (type === "sign-up" && password !== confirmPassword) {
+      setError("Password mismatch")
+      return;
+    }
+
     const formData = new FormData(e.currentTarget);
 
     const body =
@@ -50,17 +58,66 @@ const LogInContainer = ({ type }: LogIn) => {
         }
       );
 
-      if (res.status === 400) {
-        const result = await res.json();
-        setError('Incorrect username or password')
-      }
-      
-      if (res.status === 200 || res.status === 201) {
-        router.refresh();
-        router.push("/");
+      const result = await res.json();
+      switch (type) {
+        case "sign-in":
+          if (res.status !== 200) {
+            setError("Incorrect username or password");
+          } else if (res.status === 200) {
+            router.refresh();
+            router.push("/");
+          }
+          break;
+        case "sign-up":
+          if (res.status === 422) {
+            setError(`${result.data.loc[1]}: ${result.data.msg}`);
+          }
+          if (res.status === 400) {
+            setError(`${result.data}`);
+          }
+          if (res.status === 201) {
+            sessionStorage.setItem("data", JSON.stringify(body));
+            router.refresh();
+            router.push("/confirmation");
+          }
+          break;
       }
     } catch (error) {
       console.log(error);
+    }
+  };
+
+  const handlePasswordValidation = (
+    e: ChangeEvent<HTMLInputElement>,
+    typePassword: string
+  ) => {
+    if (typePassword === "password") {
+      setPassword(e.target.value);
+    } else {
+      setConfirmPassword(e.target.value);
+    }
+
+    if (type === "sign-in") {
+      return;
+    }
+
+    if (typePassword === "confirmPassword") {
+      if (password !== e.target.value) {
+        setError("Password mismatch");
+      } else {
+        setError("");
+      }
+    } else {
+      if (confirmPassword === "") {
+        setError("");
+        return;
+      }
+
+      if (confirmPassword !== e.target.value) {
+        setError("Password mismatch");
+      } else {
+        setError("");
+      }
     }
   };
 
@@ -93,6 +150,7 @@ const LogInContainer = ({ type }: LogIn) => {
               placeholder=""
               required
               aria-label="email"
+              title="Fill in this field"
             />
             <div>E-mail</div>
           </div>
@@ -100,12 +158,30 @@ const LogInContainer = ({ type }: LogIn) => {
             <input
               type="password"
               name="password"
+              value={password}
+              onChange={(e) => handlePasswordValidation(e, "password")}
               placeholder=""
               required
               aria-label="password"
+              title="Fill in this field"
             />
             <div>Password</div>
           </div>
+          {type === "sign-up" && (
+            <div className={style.inputWrapper}>
+              <input
+                type="password"
+                name="confirmPassword"
+                value={confirmPassword}
+                onChange={(e) => handlePasswordValidation(e, "confirmPassword")}
+                placeholder=""
+                required
+                aria-label="confirmPassword"
+                title="Fill in this field"
+              />
+              <div>Confirm Password</div>
+            </div>
+          )}
           <p className={errorStyle}>{error}</p>
           <a href="#">Forgot Password?</a>
         </div>
@@ -125,7 +201,7 @@ const LogInContainer = ({ type }: LogIn) => {
             </a>
           </p>
         </div>
-        <button className={style.submit}>{logInTypes[type].title}</button>
+        <button className={style.submit} >{logInTypes[type].title}</button>
         <div>
           {logInTypes[type].bottomText}{" "}
           <Link href={logInTypes[type].route} className={style.link}>
