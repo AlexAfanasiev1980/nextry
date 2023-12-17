@@ -16,6 +16,7 @@ export interface Categories {
   color: string;
   name: string;
   subCategoryDetails: SubCategory[];
+  display_name: string;
 }
 
 export async function getClothes(searchParams: {

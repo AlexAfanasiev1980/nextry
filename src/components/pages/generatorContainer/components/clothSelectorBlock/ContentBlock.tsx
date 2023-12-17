@@ -7,12 +7,6 @@ import style from "./ClothSelectorBlock.module.scss";
 import { Props } from "./ClothSelectorBlock";
 import { useSearchParams, usePathname, useRouter } from "next/navigation";
 
-const category: { [key: string]: string } = {
-  woman: "Woman",
-  man: "Man",
-  kid: "Kids",
-};
-
 const ContentBlock = ({ setStatusSelector, setSelectId, data }: Props) => {
   const { categories, clothes } = data;
   const [selectedCategories, setSelectedCategories] = useState<string>("man");
@@ -63,33 +57,36 @@ const ContentBlock = ({ setStatusSelector, setSelectId, data }: Props) => {
     <>
       <section className={style.navSection}>
         <nav className={style.navbar}>
-          {categories && categories.map(({ name, color }, id) => (
-            <button
-              className={[
-                style.btn,
-                name === selectedCategories ? style["btn-fill"] : null,
-              ].join(" ")}
-              key={id}
-              onClick={() => handleSearch("category", name)}
-            >
-              {category[name]}
-            </button>
-          ))}
+          {categories &&
+            categories.map(({ name, color, display_name }, id) => (
+              <button
+                className={[
+                  style.btn,
+                  name === selectedCategories ? style["btn-fill"] : null,
+                ].join(" ")}
+                key={id}
+                onClick={() => handleSearch("category", name)}
+              >
+                {display_name}
+              </button>
+            ))}
         </nav>
-        <nav className={style.navbar}>
-          {categories && currentIndex && categories[currentIndex].subCategoryDetails.map((el, id) => (
-            <button
-              className={[
-                style.btn,
-                style.subCategories,
-                el.name === selectedSubCategories ? style["btn-fill"] : null,
-              ].join(" ")}
-              key={el.id}
-              onClick={() => handleSearch("sub_category", el.name)}
-            >
-              {el.name}
-            </button>
-          ))}
+        <nav className={`${style.navbar} ${style.navbar_subCategories}`}>
+          {categories &&
+            currentIndex !== undefined &&
+            categories[currentIndex].subCategoryDetails.map((el, id) => (
+              <button
+                className={[
+                  style.btn,
+                  style.subCategories,
+                  el.name === selectedSubCategories ? style["btn-fill"] : null,
+                ].join(" ")}
+                key={el.id}
+                onClick={() => handleSearch("sub_category", el.name)}
+              >
+                {el.name}
+              </button>
+            ))}
         </nav>
       </section>
       <section className={style.cardBlock}>
@@ -103,7 +100,11 @@ const ContentBlock = ({ setStatusSelector, setSelectId, data }: Props) => {
               >
                 <div>
                   <Image
-                    src={pathname.includes("background") ? preview_url : BASE_URL + preview_url}
+                    src={
+                      pathname.includes("background")
+                        ? preview_url
+                        : BASE_URL + preview_url
+                    }
                     width={150}
                     height={170}
                     alt="cloth image"

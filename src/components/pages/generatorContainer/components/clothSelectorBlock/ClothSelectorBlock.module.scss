@@ -21,17 +21,28 @@
 .navSection {
   display: flex;
   flex-direction: column;
-  padding: 20px;
+  padding: 20px 0;
   gap: 20px;
-  position: absolute;
-  top: 0;
-  left: 0;
   width: 100%;
 }
 
 .navbar {
-  display: flex;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
+  justify-content: center;
+  align-items: center;
   gap: 8px;
+
+  @media (max-width: 700px) {
+    grid-template-columns: repeat(auto-fit, minmax(54px, 1fr));
+  }
+
+  &_subCategories {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
 }
 
 .btn {
@@ -41,18 +52,31 @@
   color: #fff;
   background: inherit;
   width: 100%;
+  min-width: fit-content;
   border: none;
   border-radius: 10px;
   opacity: 0.5;
   cursor: pointer;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 500;
-  height: 50px;
+  height: 46px;
+  padding: 0 3px;
+  box-sizing: border-box;
+
+  @media (max-width: 700px) {
+    font-size: 16px;
+  }
 }
 
 .subCategories {
-  font-size: 18px;
+  font-size: 16px;
   height: 42px;
+  max-width: fit-content;
+
+  @media (max-width: 700px) {
+    width: fit-content;
+    font-size: 14px;
+  }
 }
 
 .btn-fill,
@@ -65,7 +89,6 @@
   display: flex;
   justify-content: center;
   overflow-y: scroll;
-  margin-top: 132px;
 
   &::-webkit-scrollbar {
     width: 4px;
@@ -73,14 +96,13 @@
   }
 
   &::-webkit-scrollbar-thumb {
-    background-color: #0B0511;
+    background-color: #0b0511;
   }
 
   #element::-webkit-scrollbar-track {
     -webkit-box-shadow: 5px 5px 5px -5px rgba(34, 60, 80, 0.2) inset;
     background-color: #f9f9fd;
-}
-
+  }
 }
 
 .card {
