@@ -9,6 +9,7 @@ import { logInTypes } from "./logInTypes";
 
 import style from "./LogInContainer.module.scss";
 import { POLICY_ROUTE } from "@/routes";
+import usePasswordValidation from "@/hooks/usePasswordValidation";
 
 interface LogIn {
   type: "sign-in" | "sign-up";
@@ -19,16 +20,17 @@ interface IRes extends Response {
 }
 
 const LogInContainer = ({ type }: LogIn) => {
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
+  const { password, confirmPassword, handlePasswordValidation } =
+    usePasswordValidation({ type, setError });
   const errorStyle = error ? style.errorMessage : style.errorHide;
   const router = useRouter();
+
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError("");
     if (type === "sign-up" && password !== confirmPassword) {
-      setError("Password mismatch")
+      setError("Password mismatch");
       return;
     }
 
@@ -87,42 +89,8 @@ const LogInContainer = ({ type }: LogIn) => {
     }
   };
 
-  const handlePasswordValidation = (
-    e: ChangeEvent<HTMLInputElement>,
-    typePassword: string
-  ) => {
-    if (typePassword === "password") {
-      setPassword(e.target.value);
-    } else {
-      setConfirmPassword(e.target.value);
-    }
-
-    if (type === "sign-in") {
-      return;
-    }
-
-    if (typePassword === "confirmPassword") {
-      if (password !== e.target.value) {
-        setError("Password mismatch");
-      } else {
-        setError("");
-      }
-    } else {
-      if (confirmPassword === "") {
-        setError("");
-        return;
-      }
-
-      if (confirmPassword !== e.target.value) {
-        setError("Password mismatch");
-      } else {
-        setError("");
-      }
-    }
-  };
-
   return (
-    <main className={style.logInContainer}>
+    <>
       <Link href="/" className={style.moveBack}>
         <Image src={MoveBackIcon} alt="move back img" />
         <p>BACK</p>
@@ -183,7 +151,7 @@ const LogInContainer = ({ type }: LogIn) => {
             </div>
           )}
           <p className={errorStyle}>{error}</p>
-          <a href="#">Forgot Password?</a>
+          <a href="/forgot-password">Forgot Password?</a>
         </div>
         <div className={style.policy}>
           <input
@@ -201,7 +169,7 @@ const LogInContainer = ({ type }: LogIn) => {
             </a>
           </p>
         </div>
-        <button className={style.submit} >{logInTypes[type].title}</button>
+        <button className={style.submit}>{logInTypes[type].title}</button>
         <div>
           {logInTypes[type].bottomText}{" "}
           <Link href={logInTypes[type].route} className={style.link}>
@@ -209,7 +177,7 @@ const LogInContainer = ({ type }: LogIn) => {
           </Link>
         </div>
       </form>
-    </main>
+    </>
   );
 };
 

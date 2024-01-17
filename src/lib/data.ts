@@ -67,3 +67,17 @@ export async function getPhoto(endpoint: string, form: FormData, token: string, 
     console.error(err);
   }
 }
+
+export async function requestPassword(endpoint: string, options: {[key: string]: string | undefined}) {
+    return fetch(`${endpoint}`, {
+      method: "POST",
+      body: JSON.stringify(options),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    .then((res) => res)
+    .catch((err) => {
+      console.error(err)
+    })
+}

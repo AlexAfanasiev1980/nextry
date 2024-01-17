@@ -1,23 +1,5 @@
 @import "@/styles/mixins.scss";
 
-.logInContainer {
-  width: 100%;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-
-  padding-top: 50px;
-
-  background: radial-gradient(
-    circle at center,
-    var(--background-gradient-second-color),
-    var(--background-gradient-color),
-    var(--background-color)
-  );
-
-  position: relative;
-}
-
 .logInForm {
   width: 700px;
   height: fit-content;
@@ -41,9 +23,12 @@
     opacity: 0.5;
   }
 
+  @media (max-width: 1200px) {
+    margin: 50px 20px 0;
+  }
+
   @media (max-width: 900px) {
     padding: 30px 20px;
-    margin: 0 20px;
     gap: 20px;
   }
 }
