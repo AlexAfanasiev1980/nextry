@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import MoveBackIcon from "@/public/ArrowBack.png";
-import { useState, type FormEvent, type ChangeEvent } from "react";
+import { useState, type FormEvent, type ChangeEvent, FormEventHandler, InvalidEvent } from "react";
 import { useRouter } from "next/navigation";
 import { logInTypes } from "./logInTypes";
 import style from "./LogInContainer.module.scss";
@@ -109,6 +109,15 @@ const LogInContainer = ({ type }: LogIn) => {
     }
   };
 
+  const onInvalid = (e: InvalidEvent<HTMLInputElement>) => {
+      if (e.target.checked) {
+        e.target.setCustomValidity('')
+      } else {
+        e.target.setCustomValidity('To continue, check this box')
+      }
+      
+  }
+
   return (
     <>
       <Link href="/" className={style.moveBack}>
@@ -182,6 +191,8 @@ const LogInContainer = ({ type }: LogIn) => {
               name="policyChecked"
               aria-label="policyChecked"
               className={style.policy__icon}
+              onInvalid={(e: InvalidEvent<HTMLInputElement>) => onInvalid(e)}
+              onChange={(e: InvalidEvent<HTMLInputElement>) => e.target.setCustomValidity('')}
               required
               title="To continue, check this box"
             />
