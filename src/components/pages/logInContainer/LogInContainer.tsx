@@ -6,10 +6,11 @@ import MoveBackIcon from "@/public/ArrowBack.png";
 import { useState, type FormEvent, type ChangeEvent } from "react";
 import { useRouter } from "next/navigation";
 import { logInTypes } from "./logInTypes";
-
 import style from "./LogInContainer.module.scss";
 import { POLICY_ROUTE } from "@/routes";
 import usePasswordValidation from "@/hooks/usePasswordValidation";
+import Google from "@/public/google.png";
+import { Oval } from "react-loader-spinner";
 
 interface LogIn {
   type: "sign-in" | "sign-up";
@@ -20,11 +21,30 @@ interface IRes extends Response {
 }
 
 const LogInContainer = ({ type }: LogIn) => {
+  const [isSubmiting, setIsSubmiting] = useState(false);
   const [error, setError] = useState("");
   const { password, confirmPassword, handlePasswordValidation } =
     usePasswordValidation({ type, setError });
   const errorStyle = error ? style.errorMessage : style.errorHide;
   const router = useRouter();
+
+  const authGoogle = async (e: any) => {
+    e.preventDefault();
+    setIsSubmiting(true);
+    try {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/user/login/google`
+      );
+      const { url } = await res.json();
+
+      if (url) {
+        router.replace(url);
+      }
+    } catch (error) {
+      setIsSubmiting(false);
+      console.error(error);
+    }
+  };
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -95,88 +115,125 @@ const LogInContainer = ({ type }: LogIn) => {
         <Image src={MoveBackIcon} alt="move back img" />
         <p>BACK</p>
       </Link>
-      <form className={style.logInForm} onSubmit={(e) => onSubmit(e)}>
-        <h1>{logInTypes[type].title}</h1>
-        <p>use E-mail to {logInTypes[type].title}</p>
-        <div className={style.inputsBlock}>
-          {type === "sign-up" && (
+      <div className={style.formWrapper}>
+        <form className={style.logInForm} onSubmit={(e) => onSubmit(e)}>
+          <h1>{logInTypes[type].title}</h1>
+          <p>use E-mail to {logInTypes[type].title}</p>
+          <div className={style.inputsBlock}>
+            {type === "sign-up" && (
+              <div className={style.inputWrapper}>
+                <input
+                  type="text"
+                  name="name"
+                  placeholder=""
+                  required
+                  aria-label="name"
+                />
+                <div>Name</div>
+              </div>
+            )}
             <div className={style.inputWrapper}>
               <input
-                type="text"
-                name="name"
+                type="email"
+                name="email"
                 placeholder=""
                 required
-                aria-label="name"
+                aria-label="email"
+                title="Fill in this field"
               />
-              <div>Name</div>
+              <div>E-mail</div>
             </div>
-          )}
-          <div className={style.inputWrapper}>
-            <input
-              type="email"
-              name="email"
-              placeholder=""
-              required
-              aria-label="email"
-              title="Fill in this field"
-            />
-            <div>E-mail</div>
-          </div>
-          <div className={style.inputWrapper}>
-            <input
-              type="password"
-              name="password"
-              value={password}
-              onChange={(e) => handlePasswordValidation(e, "password")}
-              placeholder=""
-              required
-              aria-label="password"
-              title="Fill in this field"
-            />
-            <div>Password</div>
-          </div>
-          {type === "sign-up" && (
             <div className={style.inputWrapper}>
               <input
                 type="password"
-                name="confirmPassword"
-                value={confirmPassword}
-                onChange={(e) => handlePasswordValidation(e, "confirmPassword")}
+                name="password"
+                value={password}
+                onChange={(e) => handlePasswordValidation(e, "password")}
                 placeholder=""
                 required
-                aria-label="confirmPassword"
+                aria-label="password"
                 title="Fill in this field"
               />
-              <div>Confirm Password</div>
+              <div>Password</div>
             </div>
-          )}
-          <p className={errorStyle}>{error}</p>
-          <a href="/forgot-password">Forgot Password?</a>
+            {type === "sign-up" && (
+              <div className={style.inputWrapper}>
+                <input
+                  type="password"
+                  name="confirmPassword"
+                  value={confirmPassword}
+                  onChange={(e) =>
+                    handlePasswordValidation(e, "confirmPassword")
+                  }
+                  placeholder=""
+                  required
+                  aria-label="confirmPassword"
+                  title="Fill in this field"
+                />
+                <div>Confirm Password</div>
+              </div>
+            )}
+            <p className={errorStyle}>{error}</p>
+            <a href="/forgot-password">Forgot Password?</a>
+          </div>
+          <div className={style.policy}>
+            <input
+              type="checkbox"
+              name="policyChecked"
+              aria-label="policyChecked"
+              className={style.policy__icon}
+              required
+              title="To continue, check this box"
+            />
+            <p>
+              By clicking “{logInTypes[type].title}”, I agree to the{" "}
+              <a href={"#"} target="_blank" className={style.link}>
+                policy regarding the processing of personal data
+              </a>
+            </p>
+          </div>
+          <button className={style.submit}>{logInTypes[type].title}</button>
+          <div>
+            {logInTypes[type].bottomText}{" "}
+            <Link href={logInTypes[type].route} className={style.link}>
+              {logInTypes[type].textForLink}
+            </Link>
+          </div>
+        </form>
+        <div className={style.divider}>
+          <p className={style.divider__text}>or</p>
         </div>
-        <div className={style.policy}>
-          <input
-            type="checkbox"
-            name="policyChecked"
-            aria-label="policyChecked"
-            className={style.policy__icon}
-            required
-            title="To continue, check this box"
-          />
-          <p>
-            By clicking “{logInTypes[type].title}”, I agree to the{" "}
-            <a href={"#"} target="_blank" className={style.link}>
-              policy regarding the processing of personal data
-            </a>
-          </p>
+        <div className={style.signGoogle}>
+          <button
+            type="button"
+            onClick={authGoogle}
+            className={style.signGoogle__button}
+            disabled={isSubmiting}
+          >
+            <Image
+              src={Google}
+              alt="google icon"
+              width={40}
+              height={40}
+              className={style.signGoogle__img}
+            />
+            {isSubmiting && (
+              <Oval
+                visible={true}
+                height="36"
+                width="36"
+                color="#2b5ac1"
+                secondaryColor="#fff"
+                ariaLabel="oval-loading"
+                wrapperStyle={{}}
+                wrapperClass=""
+              />
+            )}
+            {!isSubmiting && 'Sign in with Google'}
+            
+          </button>
         </div>
-        <button className={style.submit}>{logInTypes[type].title}</button>
-        <div>
-          {logInTypes[type].bottomText}{" "}
-          <Link href={logInTypes[type].route} className={style.link}>
-            {logInTypes[type].textForLink}
-          </Link>
-        </div>
-      </form>
+      </div>
     </>
   );
 };
