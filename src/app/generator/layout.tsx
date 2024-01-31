@@ -1,4 +1,5 @@
 import Header from "@/components/header/Header";
+import style from './layout.module.scss';
 
 export default async function Generator({
   children,
@@ -8,7 +9,7 @@ export default async function Generator({
   return (
     <>
       <Header type="generator" />
-      {children}
+      <div className={style.layout}>{children}</div>
     </>
   );
 }
