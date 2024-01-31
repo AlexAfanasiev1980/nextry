@@ -1,0 +1,11 @@
+.payment {
+    width: 100%;
+    height: 100%;
+    position: relative;
+
+    &__backButton {
+        position: absolute;
+        top: 37px;
+        left: 100px;
+    }
+}
