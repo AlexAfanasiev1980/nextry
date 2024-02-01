@@ -11,4 +11,8 @@
   position: relative;
   padding-top: 113px;
   box-sizing: border-box;
+
+  @media (max-width: 1200px) {
+    height: 100%;
+  }
 }

@@ -15,6 +15,10 @@
   border-radius: 10px;
   z-index: 1;
 
+  @media (max-width: 700px) {
+    width: 343px;
+  }
+
   &_1 {
     background: linear-gradient(180deg, #545867 -4.56%, #161f38 100%);
   }
@@ -84,7 +88,7 @@
   }
 
   &__cardTitle {
-    @include fontSizeTitleAdaptive(20);
+    font-size: 20px;
     font-family: var(--font-regular);
     font-weight: 400;
 
@@ -116,7 +120,7 @@
   }
 
   &__coastItem {
-    @include fontSizeTitleAdaptive(38);
+    font-size: 38px;
     font-family: var(--font-bold);;
     font-weight: 700;
   }
@@ -137,6 +141,7 @@
   }
 
   &__data {
+    font-size: 15px;
     opacity: 0.8;
   }
 
@@ -149,6 +154,7 @@
     align-items: center;
     border-radius: 6px;
     color: var(--text-color-second);
+    font-size: 15px;
   }
 
   &__button {
@@ -157,7 +163,7 @@
     color: var(--text-color);
     border: none;
     border-radius: 12px;
-    @include fontSizeTitleAdaptive(17);
+    font-size: 17px;
     background: linear-gradient(-90deg, #30BED2 0%, #55C19B 100%);
     box-shadow: 0 4px 16px 0 rgba(138, 255, 164, 0.41);
     cursor: pointer;

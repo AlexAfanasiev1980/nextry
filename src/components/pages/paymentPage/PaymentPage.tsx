@@ -20,18 +20,18 @@ export default function PaymentPage() {
         <Button type={"back"} link="/" />
       </div>
       <div className={style.payment__content}>
-        <div className={style.payment__title}>
-          <Typography variant={"h2"}>Pricing Plans for nextry.app</Typography>
-          <Typography variant={"subtitle"}>
+        <div className={style.payment__titleBlock}>
+          <Typography variant={"h2"} className={style.payment__title}>Pricing Plans for nextry.app</Typography>
+          <Typography variant={"subtitle"} className={style.payment__subtitle}>
             Choose a plan tailored to your needs
           </Typography>
         </div>
         <div className={style.payment__periodSelection}>
-          <div className={style.payment__period}>
-            <Typography variant={"subtitle"}>Monthly</Typography>
+          <div className={style.payment__periodWrapper}>
+            <Typography variant={"subtitle"} className={style.payment__period}>Monthly</Typography>
           </div>
-          <div className={style.payment__period}>
-            <Typography variant={"subtitle"}>Annually</Typography>
+          <div className={style.payment__periodWrapper}>
+            <Typography variant={"subtitle"} className={style.payment__period}>Annually</Typography>
           </div>
           <Button
             type="button"
