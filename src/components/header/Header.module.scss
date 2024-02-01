@@ -157,7 +157,10 @@
 }
 
 .logIn {
-  display: flex;
+  // display: flex;
+  width: 114px !important;
+  height: 35px !important;
+
   @media (max-width: 700px) {
     display: none;
   }

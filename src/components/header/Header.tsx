@@ -7,9 +7,16 @@ import Link from "next/link";
 import Logo from "@/public/Logo.svg";
 import BurgerIcon from "@/public/burgerIcon.png";
 import { navbarItemsHome, navbarItemsGenerator } from "./navBarItems";
-import { GENERATOR_BACKGROUND, GENERATOR_FACE, GENERATOR_ROUTE, HOME_ROUTE, SIGN_IN_ROUTE } from "@/routes";
+import {
+  GENERATOR_BACKGROUND,
+  GENERATOR_FACE,
+  GENERATOR_ROUTE,
+  HOME_ROUTE,
+  SIGN_IN_ROUTE,
+} from "@/routes";
 import style from "./Header.module.scss";
 import { useRouter } from "next/navigation";
+import Button from "../ui/button/Button";
 
 interface IHeader {
   type: "home" | "generator";
@@ -47,9 +54,15 @@ const Header = ({ type }: IHeader) => {
       <div className={style.dropdown}>
         <button className={style.dropdown__dropbtn}>Tools</button>
         <nav className={style.dropdown__dropdownContent}>
-          <Link href={GENERATOR_ROUTE} prefetch={false}>Virtual fitting room</Link>
-          <Link href={GENERATOR_BACKGROUND} prefetch={false}>Change background</Link>
-          <Link href="#" prefetch={false}>Animal face swap</Link>
+          <Link href={GENERATOR_ROUTE} prefetch={false}>
+            Virtual fitting room
+          </Link>
+          <Link href={GENERATOR_BACKGROUND} prefetch={false}>
+            Change background
+          </Link>
+          <Link href="#" prefetch={false}>
+            Animal face swap
+          </Link>
         </nav>
       </div>
     );
@@ -111,10 +124,13 @@ const Header = ({ type }: IHeader) => {
         className={style.burger}
       />
       {session ? (
-        <button onClick={() => handleLogOut()} className={style.logIn}>
+        <Button type="button" onClick={() => handleLogOut()} className={style.logIn}>
           Log Out
-        </button>
+        </Button>
       ) : (
+        // <button onClick={() => handleLogOut()} className={style.logIn}>
+        //   Log Out
+        // </button>
         <Link className={style.logIn} href={SIGN_IN_ROUTE}>
           Log In
         </Link>
