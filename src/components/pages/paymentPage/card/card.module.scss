@@ -95,18 +95,21 @@
 
     &_2 {
       background: -webkit-linear-gradient(160deg, #00f0ff, #00ffd1);
+      background-clip: text;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
 
     &_3 {
       background: -webkit-linear-gradient(160deg, #e988eb, #c6b2ff);
+      background-clip: text;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
 
     &_4 {
       background: -webkit-linear-gradient(160deg, #88ebd3, #b2beff);
+      background-clip: text;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
