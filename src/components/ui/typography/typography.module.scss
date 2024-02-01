@@ -1,0 +1,26 @@
+@import "@/styles/mixins.scss";
+
+.typography {
+
+  &__h2 {
+    font-family: var(--font-bold);
+    font-weight: 700;
+    @include fontSizeTitleAdaptive(24);
+    line-height: 133%;
+  }
+
+  &__p1 {
+    font-family: var(--font-regular);
+    font-weight: 400;
+    @include fontSizeTitleAdaptive(15);
+    line-height: 133%;
+  }
+
+  &__subtitle {
+    font-family: var(--font-regular);
+    font-weight: 400;
+    @include fontSizeTitleAdaptive(15);
+    line-height: 133%;
+    opacity: 0.5;
+  }
+}

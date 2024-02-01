@@ -1,9 +1,13 @@
 import BackButton from "./backButton/BackButton";
+import MainButton from "./mainButton/MainButton";
 
 interface IButton {
   type: string;
-  fn?: () => void;
+  onClick?: () => void;
   link?: string;
+  className?: string
+  children?: string;
+  border?: boolean;
 }
 
 interface IType {
@@ -13,6 +17,7 @@ interface IType {
 export default function Button({ type, ...rest }: IButton): JSX.Element {
   const button: IType = {
     back: <BackButton {...rest}/>,
+    button: <MainButton {...rest} />
   };
 
   return button[type];
