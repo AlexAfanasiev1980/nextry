@@ -7,12 +7,12 @@
 
 .generator {
   width: 100%;
-  height: calc(100vh - 324px);
+  height: 484px;
   max-height: 100vh;
   padding: 0 100px;
   display: flex;
   gap: 20px;
-  justify-content: space-between;
+  justify-content: center;
   // background: var(--background-color);
 
   @media (max-width: 1000px) {
