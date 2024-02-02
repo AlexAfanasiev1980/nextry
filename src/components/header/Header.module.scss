@@ -145,18 +145,12 @@
 
 .logIn,
 .logInBurger {
-  border-radius: 16px;
   border: none;
-  background: var(--blue-color);
-
   @include fontSizeAdaptive(20);
   color: var(--text-color);
   font-family: var(--font-secondary-bold);
-
   cursor: pointer;
-
   @include btnSizeAdaptive(142, 65);
-
   justify-content: center;
   align-items: center;
 
@@ -166,7 +160,6 @@
 }
 
 .logIn {
-  // display: flex;
   width: 114px !important;
   height: 35px !important;
 
@@ -177,6 +170,9 @@
 
 .logInBurger {
   display: none;
+  background: var(--blue-color);
+  border-radius: 16px;
+
   @media (max-width: 700px) {
     display: flex;
     width: 100%;

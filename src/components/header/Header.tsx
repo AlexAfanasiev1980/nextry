@@ -124,16 +124,21 @@ const Header = ({ type }: IHeader) => {
         className={style.burger}
       />
       {session ? (
-        <Button type="button" onClick={() => handleLogOut()} className={style.logIn}>
+        <Button
+          type="button"
+          onClick={() => handleLogOut()}
+          className={style.logIn}
+        >
           Log Out
         </Button>
       ) : (
-        // <button onClick={() => handleLogOut()} className={style.logIn}>
-        //   Log Out
-        // </button>
-        <Link className={style.logIn} href={SIGN_IN_ROUTE}>
+        <Button
+          type="button"
+          className={style.logIn}
+          onClick={() => router.push(SIGN_IN_ROUTE)}
+        >
           Log In
-        </Link>
+        </Button>
       )}
       <MenuBurger />
     </header>
