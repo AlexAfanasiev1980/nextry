@@ -9,6 +9,9 @@ export default async function Generator({
   const clothes = await getClothes(searchParams);
   const categories = await getCategories();
   const data = {
+    // clothes: [],
+    // categories: categories || [],
+
     clothes: clothes || [],
     categories: categories || [],
   };
