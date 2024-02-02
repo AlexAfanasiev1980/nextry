@@ -13,6 +13,7 @@ import Loader from "../loader/Loader";
 import { useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";
 import { GENERATE_BACKGROUND, GENERATE_IMAGE } from "@/api";
+import CustomBorder from "@/components/ui/customBorder/CustomBorder";
 
 interface FileData extends File {
   preview: string;
@@ -51,7 +52,7 @@ const ImageBlock = ({
       alert("Login before using the generator!");
       router.push("/");
     } else if (id) {
-       if (!back) {
+      if (!back) {
         setLoading(true);
         try {
           const form = new FormData();
@@ -198,18 +199,17 @@ const ImageBlock = ({
 
   const GenerateButton = () => {
     return (
-        <button
-          className={[
-            style.generateBtn,
-            statusSelector && style.generateBtn__active,
-          ].join(" ")}
-          disabled={!statusSelector}
-          onClick={() => handleButton()}
-        >
-          GENERATE IMAGE
-          <Image src={ArrowForward} alt="generate icon" />
-        </button>
-
+      <button
+        className={[
+          style.generateBtn,
+          statusSelector && style.generateBtn__active,
+        ].join(" ")}
+        disabled={!statusSelector}
+        onClick={() => handleButton()}
+      >
+        GENERATE IMAGE
+        <Image src={ArrowForward} alt="generate icon" />
+      </button>
     );
   };
 
@@ -234,6 +234,7 @@ const ImageBlock = ({
       {loading && <Loader />}
       {selectedImage.length === 0 && (
         <form className={style.dropImageBlock__form}>
+          <CustomBorder />
           <div className={style.dropImageBlock__wrapper} {...getRootProps()}>
             <input {...getInputProps()} />
             <div className={style.dropImageBlock}>
