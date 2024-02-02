@@ -15,9 +15,9 @@ export interface Props {
 const ClothSelectorBlock = (props: Props) => {
 
   return (
-    <section className={style.clothSelectorBlock}>
-      <ContentBlock {...props} />
-    </section>
+      <section className={style.clothSelectorBlock}>
+        <ContentBlock {...props} />
+      </section>
   );
 };
 
