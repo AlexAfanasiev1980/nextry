@@ -36,6 +36,7 @@
     width: 60%;
     border: 1px dashed #333;
     border-radius: 16px;
+    background: var(--background-color);
 
     @media (max-width: 1000px) {
       width: 100%;

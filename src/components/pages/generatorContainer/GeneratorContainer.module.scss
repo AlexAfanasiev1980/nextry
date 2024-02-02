@@ -1,16 +1,16 @@
 @import "@/styles/mixins.scss";
 
 .title {
-  @include fontSizeTitleAdaptive(36px);
-  padding: 165px 30px 20px;
+  font-size: 24px;
+  padding: 37px 30px 40px;
 
-  @media (max-width: 1200px) {
-    padding: 118px 30px 20px;
-  }
+  // @media (max-width: 1200px) {
+  //   padding: 37px 30px 40px;
+  // }
 
-  @media (max-width: 700px) {
-    padding-top: 50px;
-  }
+  // @media (max-width: 700px) {
+  //   padding-top: 50px;
+  // }
 }
 
 .generator {
@@ -21,7 +21,7 @@
   display: flex;
   gap: 20px;
   justify-content: space-between;
-  background: var(--background-color);
+  // background: var(--background-color);
 
   @media (max-width: 1000px) {
     flex-direction: column;

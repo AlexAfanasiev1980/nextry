@@ -14,11 +14,11 @@ interface Props {
   };
 }
 
-const typePage: {[key: string]: string} = {
+const typePage: { [key: string]: string } = {
   "/generator/fitting-room": "Virtual fitting room",
   "/generator/background": "Change background",
   "/generator/face-swap": "Animal face swap",
-}
+};
 
 const GeneratorContainer = (props: Props) => {
   const [statusSelector, setStatusSelector] = useState(false);
@@ -26,21 +26,20 @@ const GeneratorContainer = (props: Props) => {
   const pathname = usePathname();
 
   const title: string = useMemo(() => {
-    return typePage[pathname]
-  }, [pathname])
+    return typePage[pathname];
+  }, [pathname]);
 
   return (
     <main>
       <h1 className={style.title}>{title}</h1>
       <div className={style.generator}>
-      <ImageBlock statusSelector={statusSelector} id={selectId}/>
-      <ClothSelectorBlock
-        setStatusSelector={setStatusSelector}
-        setSelectId={setSelectId}
-        data={props.data}
-      />
+        <ImageBlock statusSelector={statusSelector} id={selectId} />
+        <ClothSelectorBlock
+          setStatusSelector={setStatusSelector}
+          setSelectId={setSelectId}
+          data={props.data}
+        />
       </div>
-
     </main>
   );
 };
