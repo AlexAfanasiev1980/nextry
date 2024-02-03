@@ -1,6 +1,7 @@
 import Header from "@/components/header/Header";
 import style from "./layout.module.scss";
 import Button from "@/components/ui/button/Button";
+import FooterForLayout from "@/components/footerForLayout/FooterForLayout";
 
 export default async function Generator({
   children,
@@ -17,6 +18,7 @@ export default async function Generator({
 
         {children}
       </div>
+      <FooterForLayout />
     </>
   );
 }
