@@ -8,14 +8,15 @@ interface IBorder {
     colorTop: string;
     colorBottom: string;
   };
+  className?: string;
 }
 
-export default function LGBorder({ children, styles }: IBorder) {
+export default function LGBorder({ children, styles, className }: IBorder) {
   const stylesTransform = {
     padding: styles.padding,
     background: `linear-gradient(180deg, ${styles.colorTop} -4.56%, ${styles.colorBottom} 100%)`,
     borderRadius: styles.borderRadius
   }
 
-  return <div style={stylesTransform}>{children}</div>;
+  return <div style={stylesTransform} className={className && className}>{children}</div>;
 }

@@ -19,7 +19,7 @@
 
   > p:nth-child(2) {
     font-family: var(--font-secondary-bold);
-    font-size: 24px;
+    font-size: 20px;
 
     span {
       color: var(--blue-color);
@@ -27,26 +27,29 @@
   }
 
   > p:nth-child(3) {
-    font-size: 18px;
+    font-size: 15px;
     font-weight: 500;
     opacity: 0.5;
   }
 
   &__form {
     width: 540px;
+    height: 484px;
     border-radius: 16px;
     background: var(--background-color);
     position: relative;
 
-    @media (max-width: 1000px) {
+    @media (max-width: 700px) {
       width: 100%;
       padding: 10px;
       box-sizing: border-box;
+      height: 240px;
     }
   }
 
   &__filled {
-    width: 60%;
+    width: 540px;
+    height: 484px;
     gap: 20px;
     display: flex;
     flex-direction: column;
@@ -54,6 +57,7 @@
     align-items: center;
     border: none;
     position: relative;
+    background: #161C32;
 
     @media (max-width: 1000px) {
       width: 100%;
@@ -61,10 +65,12 @@
   }
 
   &__wrapper {
+    position: relative;
     height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
+    z-index: 2;
   }
 
   &__text {
@@ -73,7 +79,7 @@
 
   &__imageWrapper {
     width: 100%;
-    height: auto;
+    height: 100%;
     max-height: calc(100% - 96px);
     display: flex;
     justify-content: center;

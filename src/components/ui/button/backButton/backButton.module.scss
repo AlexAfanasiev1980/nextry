@@ -7,4 +7,10 @@
     border-radius: 8px;
     background: var(--bg-color-fourth);
     border: none;
+
+    &:active {
+        & > img {
+            transform: translateX(-2px);
+        }
+    }
 }

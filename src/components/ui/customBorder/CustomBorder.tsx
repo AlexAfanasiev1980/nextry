@@ -11,7 +11,7 @@ export default function CustomBorder() {
       <rect
         x="0"
         y="0"
-        rx="30"
+        rx="20"
         width="100%"
         height="100%"
         className={style.borderRect}

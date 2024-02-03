@@ -2,6 +2,7 @@ import { GET_CATEGORIES_API, GET_CLOTHES_API } from "@/api";
 import ContentBlock from "./ContentBlock";
 import style from "./ClothSelectorBlock.module.scss";
 import { Categories, Clothes } from "@/lib/data";
+import LGBorder from "@/components/ui/lGBorder/LGBorder";
 
 export interface Props {
   setStatusSelector: (status: boolean) => void;
@@ -13,11 +14,19 @@ export interface Props {
 }
 
 const ClothSelectorBlock = (props: Props) => {
+  const styles = {
+    padding: '1px',
+    colorTop: 'rgba(250, 250, 250, 0.27)',
+    colorBottom: 'rgba(250,250,250, 0)',
+    borderRadius: '16px'
+  }
 
   return (
+    <LGBorder styles={styles} className={style.wrapper}>
       <section className={style.clothSelectorBlock}>
         <ContentBlock {...props} />
       </section>
+    </LGBorder>
   );
 };
 

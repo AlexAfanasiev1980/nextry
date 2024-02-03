@@ -15,4 +15,16 @@
   @media (max-width: 1200px) {
     height: 100%;
   }
+
+  &__back {
+    position: absolute;
+    top: 121px;
+    left: 100px;
+    cursor: pointer;
+    z-index: 3;
+
+    @media (max-width: 700px) {
+      display: none;
+    }
+  }
 }

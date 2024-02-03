@@ -6,16 +6,6 @@
   padding: 37px 16px 48px 16px;
   position: relative;
 
-  &__backButton {
-    position: absolute;
-    top: 37px;
-    left: 100px;
-
-    @media (max-width: 700px) {
-      display: none;
-    }
-  }
-
   &__content {
     display: flex;
     flex-direction: column;

@@ -16,9 +16,6 @@ export default function PaymentPage() {
 
   return (
     <main className={style.payment}>
-      <div className={style.payment__backButton}>
-        <Button type={"back"} link="/" />
-      </div>
       <div className={style.payment__content}>
         <div className={style.payment__titleBlock}>
           <Typography variant={"h2"} className={style.payment__title}>Pricing Plans for nextry.app</Typography>

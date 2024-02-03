@@ -6,6 +6,7 @@ import ImageBlock from "./components/imageBlock/ImageBlock";
 import style from "./GeneratorContainer.module.scss";
 import { Categories, Clothes } from "@/lib/data";
 import { usePathname } from "next/navigation";
+import Button from "@/components/ui/button/Button";
 
 interface Props {
   data: {
@@ -30,7 +31,7 @@ const GeneratorContainer = (props: Props) => {
   }, [pathname]);
 
   return (
-    <main>
+    <main className={style.content}>
       <h1 className={style.title}>{title}</h1>
       <div className={style.generator}>
         <ImageBlock statusSelector={statusSelector} id={selectId} />

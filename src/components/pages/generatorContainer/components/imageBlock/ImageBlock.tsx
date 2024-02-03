@@ -2,7 +2,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import cookie from "js-cookie";
 import Image from "next/image";
-import DropIcon from "@/public/DropImageIcon.svg";
+import DropIcon from "@/public/DropDownImage_1.png";
 import DeleteIcon from "@/public/deleteIcon.png";
 import DownloadIcon from "@/public/downloadIcon.png";
 import ArrowForward from "@/public/ArrowForward.png";
@@ -14,6 +14,7 @@ import { useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";
 import { GENERATE_BACKGROUND, GENERATE_IMAGE } from "@/api";
 import CustomBorder from "@/components/ui/customBorder/CustomBorder";
+import LGBorder from "@/components/ui/lGBorder/LGBorder";
 
 interface FileData extends File {
   preview: string;
@@ -107,30 +108,39 @@ const ImageBlock = ({
   });
 
   const SelectedImage = () => {
+    const styles = {
+      padding: "1px",
+      colorTop: "rgba(250, 250, 250, 0.27)",
+      colorBottom: "rgba(250,250,250, 0)",
+      borderRadius: "16px",
+    };
+
     return (
-      <section
-        className={`${!loading && style.dropImageBlock__filled} ${
-          loading && style.dropImageBlock__displayNone
-        }`}
-      >
-        {!image ? <RemoveButton /> : <BackButton />}
-        {!back && <FastButton />}
-        <div className={style.dropImageBlock__imageWrapper}>
-          <Image
-            src={image ? image : selectedImage[0]?.preview}
-            alt="selected image"
-            width={620}
-            height={960}
-            className={style.dropImage}
-            ref={imageRef}
-          />
-          <canvas ref={canvasRef} style={{ display: "none" }}></canvas>
-        </div>
-        <div className={style.buttonBlock}>
-          <DownloadButton />
-          <GenerateButton />
-        </div>
-      </section>
+      <LGBorder styles={styles}>
+        <section
+          className={`${!loading && style.dropImageBlock__filled} ${
+            loading && style.dropImageBlock__displayNone
+          }`}
+        >
+          {!image ? <RemoveButton /> : <BackButton />}
+          {!back && <FastButton />}
+          <div className={style.dropImageBlock__imageWrapper}>
+            <Image
+              src={image ? image : selectedImage[0]?.preview}
+              alt="selected image"
+              width={620}
+              height={960}
+              className={style.dropImage}
+              ref={imageRef}
+            />
+            <canvas ref={canvasRef} style={{ display: "none" }}></canvas>
+          </div>
+          <div className={style.buttonBlock}>
+            <DownloadButton />
+            <GenerateButton />
+          </div>
+        </section>
+      </LGBorder>
     );
   };
 
@@ -240,7 +250,7 @@ const ImageBlock = ({
             <div className={style.dropImageBlock}>
               <Image src={DropIcon} alt="drop icon" />
               <p className={style.dropImageBlock__text}>
-                DROP YOUR IMAGES, <span>BROWSE</span>
+                Drop person images, <span>browse</span>
               </p>
               <p>JPG, PNG, WebP up to 50 mb</p>
             </div>
