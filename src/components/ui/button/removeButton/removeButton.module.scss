@@ -1,0 +1,15 @@
+.button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 24px;
+    height: 24px;
+    background-color: var(--bg-color-fourth);
+    border: none;
+    border-radius: 50%;
+
+    & > img {
+        width: 13px;
+        height: 13px;
+    }
+}

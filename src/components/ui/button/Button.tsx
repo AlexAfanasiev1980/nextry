@@ -1,5 +1,6 @@
 import BackButton from "./backButton/BackButton";
 import MainButton from "./mainButton/MainButton";
+import RemoveButton from "./removeButton/RemoveButton";
 
 interface IButton {
   type: string;
@@ -17,7 +18,8 @@ interface IType {
 export default function Button({ type, ...rest }: IButton): JSX.Element {
   const button: IType = {
     back: <BackButton {...rest}/>,
-    button: <MainButton {...rest} />
+    button: <MainButton {...rest} />,
+    remove: <RemoveButton {...rest} />
   };
 
   return button[type];

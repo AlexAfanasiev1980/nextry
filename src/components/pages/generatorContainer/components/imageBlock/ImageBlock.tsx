@@ -3,7 +3,7 @@ import { useDropzone } from "react-dropzone";
 import cookie from "js-cookie";
 import Image from "next/image";
 import DropIcon from "@/public/DropDownImage_1.png";
-import DeleteIcon from "@/public/deleteIcon.png";
+// import DeleteIcon from "@/public/deleteIcon.png";
 import DownloadIcon from "@/public/downloadIcon.png";
 import ArrowForward from "@/public/ArrowForward.png";
 import ArrowBack from "@/public/ArrowBack.png";
@@ -15,6 +15,7 @@ import { usePathname } from "next/navigation";
 import { GENERATE_BACKGROUND, GENERATE_IMAGE } from "@/api";
 import CustomBorder from "@/components/ui/customBorder/CustomBorder";
 import LGBorder from "@/components/ui/lGBorder/LGBorder";
+import Button from "@/components/ui/button/Button";
 
 interface FileData extends File {
   preview: string;
@@ -97,6 +98,12 @@ const ImageBlock = ({
     }
   };
 
+  const handleClickRemove = () => {
+    URL.revokeObjectURL(selectedImage[0]?.preview);
+    setImage(null);
+    setSelectedImage([]);
+  };
+
   const { getRootProps, getInputProps } = useDropzone({
     onDrop,
     accept: {
@@ -116,14 +123,20 @@ const ImageBlock = ({
     };
 
     return (
-      <LGBorder styles={styles}>
+      <LGBorder styles={styles} className={style.dropImageBlock__wrapperImage}>
         <section
           className={`${!loading && style.dropImageBlock__filled} ${
             loading && style.dropImageBlock__displayNone
           }`}
         >
-          {!image ? <RemoveButton /> : <BackButton />}
-          {!back && <FastButton />}
+          <div className={style.removeButton}>
+            {" "}
+            <Button type="remove" onClick={handleClickRemove} />
+          </div>
+
+          {/* <RemoveButton /> */}
+          {/* {!image ? <RemoveButton /> : <BackButton />} */}
+          {/* {!back && <FastButton />} */}
           <div className={style.dropImageBlock__imageWrapper}>
             <Image
               src={image ? image : selectedImage[0]?.preview}
@@ -135,29 +148,29 @@ const ImageBlock = ({
             />
             <canvas ref={canvasRef} style={{ display: "none" }}></canvas>
           </div>
-          <div className={style.buttonBlock}>
-            <DownloadButton />
-            <GenerateButton />
-          </div>
+          {/* <div className={style.buttonBlock}> */}
+          {/* <DownloadButton /> */}
+          {/* <GenerateButton /> */}
+          {/* </div> */}
         </section>
       </LGBorder>
     );
   };
 
-  const RemoveButton = () => {
-    return (
-      <button
-        className={style.removeBtn}
-        onClick={() => {
-          URL.revokeObjectURL(selectedImage[0]?.preview);
-          setImage(null);
-          setSelectedImage([]);
-        }}
-      >
-        <Image src={DeleteIcon} alt="remove button" />
-      </button>
-    );
-  };
+  // const RemoveButton = () => {
+  //   return (
+  //     <button
+  //       className={style.removeBtn}
+  //       onClick={() => {
+  //         URL.revokeObjectURL(selectedImage[0]?.preview);
+  //         setImage(null);
+  //         setSelectedImage([]);
+  //       }}
+  //     >
+  //       <Image src={DeleteIcon} alt="remove button" />
+  //     </button>
+  //   );
+  // };
 
   const BackButton = () => {
     return (
