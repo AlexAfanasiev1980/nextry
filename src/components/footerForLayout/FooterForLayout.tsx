@@ -5,7 +5,7 @@ import style from "./footerForLayout.module.scss";
 
 export default function FooterForLayout() {
   return (
-    <div className={style.footer}>
+    <footer className={style.footer}>
       <div>
         <Typography variant="p2" className={style.footer__text}>
           © 2024 nextry.app. All rights reserved
@@ -20,6 +20,6 @@ export default function FooterForLayout() {
           ))}
         </ul>
       </div>
-    </div>
+    </footer>
   );
 }

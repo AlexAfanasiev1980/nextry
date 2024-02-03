@@ -8,6 +8,21 @@
     padding: 0 100px;
     box-sizing: border-box;
 
+    @media (max-width: 1200px) {
+        padding: 0 30px;
+    }
+
+    @media (max-width: 900px) {
+        padding: 20px 30px;
+        flex-direction: column;
+        gap: 10px;
+        height: 81px;
+    }
+
+    @media (max-width: 700px) {
+        display: none;
+    }
+
 
     &__text {
         color: var(--text-color);
@@ -20,5 +35,9 @@
         list-style-type: none;
         font-size: 12px;
         width: 610px;
+
+        @media (max-width: 1200px) {
+            width: 510px;
+        }
     }
 }
