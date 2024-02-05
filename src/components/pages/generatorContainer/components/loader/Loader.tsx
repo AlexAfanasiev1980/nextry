@@ -4,6 +4,7 @@ import Lottie from "lottie-react";
 
 import style from "./Loader.module.scss";
 import { useState, useEffect } from "react";
+import Typography from "@/components/ui/typography/Typography";
 
 export default function Loader() {
   const [progress, setProgress] = useState(0);
@@ -39,7 +40,7 @@ export default function Loader() {
           loop={true}
           className={style.loader__image}
         />
-        <p className={style.loader__progress}>{progress}%</p>
+        <Typography variant="h2" className={style.loader__progress}>{progress}%</Typography>
       </div>
     </div>
   );

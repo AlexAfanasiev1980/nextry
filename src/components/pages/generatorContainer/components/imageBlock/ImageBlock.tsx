@@ -1,45 +1,42 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import {
+  Dispatch,
+  SetStateAction,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { useDropzone } from "react-dropzone";
-import cookie from "js-cookie";
 import Image from "next/image";
 import DropIcon from "@/public/DropDownImage_1.png";
-// import DeleteIcon from "@/public/deleteIcon.png";
 import DownloadIcon from "@/public/downloadIcon.png";
-import ArrowForward from "@/public/ArrowForward.png";
 import ArrowBack from "@/public/ArrowBack.png";
 import style from "./ImageBlock.module.scss";
-import { getPhoto } from "@/lib/data";
 import Loader from "../loader/Loader";
-import { useRouter } from "next/navigation";
-import { usePathname } from "next/navigation";
-import { GENERATE_BACKGROUND, GENERATE_IMAGE } from "@/api";
 import CustomBorder from "@/components/ui/customBorder/CustomBorder";
 import LGBorder from "@/components/ui/lGBorder/LGBorder";
 import Button from "@/components/ui/button/Button";
-
-interface FileData extends File {
-  preview: string;
-}
-
-const server = process.env.NEXT_PUBLIC_BASE_URL;
+import { FileData } from "../../GeneratorContainer";
 
 const ImageBlock = ({
   statusSelector,
-  id,
+  selectedImage,
+  setSelectedImage,
+  image,
+  setImage,
+  loading,
 }: {
   statusSelector: boolean;
-  id: string | null;
+  selectedImage: FileData[];
+  setSelectedImage: Dispatch<SetStateAction<FileData[]>>;
+  image: string | null;
+  setImage: Dispatch<SetStateAction<string | null>>;
+  loading: boolean;
 }) => {
-  const [selectedImage, setSelectedImage] = useState<FileData[]>([]);
-  const [image, setImage] = useState<string | null>(null);
   const [fast, setFast] = useState(false);
-  const [loading, setLoading] = useState(false);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const imageRef = useRef<HTMLImageElement>(null);
-  const pathname = usePathname();
-  const back = pathname.includes("background");
 
-  const router = useRouter();
   const onDrop = useCallback((acceptedFiles: File[]) => {
     setSelectedImage([
       Object.assign(acceptedFiles[0], {
@@ -47,56 +44,6 @@ const ImageBlock = ({
       }),
     ]);
   }, []);
-
-  const handleButton = async () => {
-    const token = await cookie.get("OutSiteJWT");
-    if (!token) {
-      alert("Login before using the generator!");
-      router.push("/");
-    } else if (id) {
-      if (!back) {
-        setLoading(true);
-        try {
-          const form = new FormData();
-          form.append("Image", selectedImage[0]);
-          form.append("Id", id);
-          let res: any;
-          if (fast) {
-            const params = new URLSearchParams();
-            params.append("gen_type", "FAST");
-            res = await getPhoto(GENERATE_IMAGE, form, token, params);
-          } else if (!back) {
-            res = await getPhoto(GENERATE_IMAGE, form, token);
-          }
-
-          if (res) {
-            setImage(`${server}${res.images[0]}`);
-            setLoading(false);
-          }
-        } catch (err) {
-          console.error(err);
-          setLoading(false);
-        }
-      } else {
-        if (back) {
-          setLoading(true);
-          try {
-            const form = new FormData();
-            form.append("Image", selectedImage[0]);
-            form.append("Id", id);
-            const res = await getPhoto(GENERATE_BACKGROUND, form, token);
-            if (res) {
-              setImage(`${server}${res.images[0]}`);
-              setLoading(false);
-            }
-          } catch (err) {
-            console.error(err);
-            setLoading(false);
-          }
-        }
-      }
-    }
-  };
 
   const handleClickRemove = () => {
     URL.revokeObjectURL(selectedImage[0]?.preview);
@@ -138,14 +85,15 @@ const ImageBlock = ({
           {/* {!image ? <RemoveButton /> : <BackButton />} */}
           {/* {!back && <FastButton />} */}
           <div className={style.dropImageBlock__imageWrapper}>
-            <Image
-              src={image ? image : selectedImage[0]?.preview}
-              alt="selected image"
-              width={620}
-              height={960}
-              className={style.dropImage}
-              ref={imageRef}
-            />
+              <Image
+                src={image ? image : selectedImage[0]?.preview}
+                alt="selected image"
+                width={620}
+                height={960}
+                className={style.dropImage}
+                ref={imageRef}
+              />
+
             <canvas ref={canvasRef} style={{ display: "none" }}></canvas>
           </div>
           {/* <div className={style.buttonBlock}> */}
@@ -172,31 +120,18 @@ const ImageBlock = ({
   //   );
   // };
 
-  const BackButton = () => {
-    return (
-      <button
-        className={style.removeBtn}
-        onClick={() => {
-          setImage(null);
-        }}
-      >
-        <Image src={ArrowBack} alt="remove button" />
-      </button>
-    );
-  };
-
-  const FastButton = () => {
-    return (
-      <button
-        className={`${style.fastBtn} ${fast && style.fastBtn__active}`}
-        onClick={() => {
-          setFast(!fast);
-        }}
-      >
-        FAST
-      </button>
-    );
-  };
+  // const BackButton = () => {
+  //   return (
+  //     <button
+  //       className={style.removeBtn}
+  //       onClick={() => {
+  //         setImage(null);
+  //       }}
+  //     >
+  //       <Image src={ArrowBack} alt="remove button" />
+  //     </button>
+  //   );
+  // };
 
   const downloadImage = () => {
     const canvas = canvasRef.current;
@@ -220,21 +155,21 @@ const ImageBlock = ({
     );
   };
 
-  const GenerateButton = () => {
-    return (
-      <button
-        className={[
-          style.generateBtn,
-          statusSelector && style.generateBtn__active,
-        ].join(" ")}
-        disabled={!statusSelector}
-        onClick={() => handleButton()}
-      >
-        GENERATE IMAGE
-        <Image src={ArrowForward} alt="generate icon" />
-      </button>
-    );
-  };
+  // const GenerateButton = () => {
+  //   return (
+  //     <button
+  //       className={[
+  //         style.generateBtn,
+  //         statusSelector && style.generateBtn__active,
+  //       ].join(" ")}
+  //       disabled={!statusSelector}
+  //       onClick={() => handleButton()}
+  //     >
+  //       GENERATE IMAGE
+  //       <Image src={ArrowForward} alt="generate icon" />
+  //     </button>
+  //   );
+  // };
 
   useEffect(() => {
     const imageItem = imageRef.current;
@@ -254,7 +189,7 @@ const ImageBlock = ({
   return (
     <>
       {selectedImage.length > 0 && <SelectedImage />}
-      {loading && <Loader />}
+      {/* {loading && <Loader />} */}
       {selectedImage.length === 0 && (
         <form className={style.dropImageBlock__form}>
           <CustomBorder />

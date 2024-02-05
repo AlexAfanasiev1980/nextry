@@ -7,6 +7,7 @@ import LGBorder from "@/components/ui/lGBorder/LGBorder";
 export interface Props {
   setStatusSelector: (status: boolean) => void;
   setSelectId: (id: string) => void;
+  selectId: string | null;
   data: {
     categories?: Categories[];
     clothes: Clothes[];

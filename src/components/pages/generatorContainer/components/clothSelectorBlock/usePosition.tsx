@@ -4,11 +4,11 @@ import { useEffect, useState } from "react";
 
 interface IPosition {
   count: number;
-  currentIndex?: number;
+  currentIndex: number;
 }
 
-export default function usePosition({ count, currentIndex = 0 }: IPosition) {
-  const [position, setPosition] = useState(0);
+export default function usePosition({ count, currentIndex }: IPosition) {
+  const [position, setPosition] = useState((100 / count) * currentIndex);
 
   useEffect(() => {
     setPosition((100 / count) * currentIndex);

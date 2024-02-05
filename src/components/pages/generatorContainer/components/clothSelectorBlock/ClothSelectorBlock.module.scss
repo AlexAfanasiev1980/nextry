@@ -147,12 +147,22 @@
   color: var(--card-text);
   text-align: center;
 
+  &__imageWrapper {
+    height: calc(100% - 30px);
+  }
+
   &__image {
+    width: auto;
+    height: 100%;
     object-fit: contain;
   }
 
   @media (max-width: 1000px) {
     width: 150px;
+  }
+
+  &__text {
+    color: var(--text-color-fourth);
   }
 }
 

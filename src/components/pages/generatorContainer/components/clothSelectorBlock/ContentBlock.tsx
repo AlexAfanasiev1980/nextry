@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
 import { BASE_URL } from "@/api";
 import style from "./ClothSelectorBlock.module.scss";
@@ -9,24 +9,32 @@ import { useSearchParams, usePathname, useRouter } from "next/navigation";
 import Typography from "@/components/ui/typography/Typography";
 import Button from "@/components/ui/button/Button";
 import usePosition from "./usePosition";
+import { Clothes } from "@/lib/data";
 
-const ContentBlock = ({ setStatusSelector, setSelectId, data }: Props) => {
+const ContentBlock = ({
+  setStatusSelector,
+  setSelectId,
+  selectId,
+  data,
+}: Props) => {
   const { categories, clothes } = data;
   const [selectedCategories, setSelectedCategories] = useState<string>("man");
+  const [selectedClothes, setSelectedClothes] = useState<Clothes[]>([]);
   const currentIndex = useMemo(() => {
     return categories?.findIndex(({ name }) => {
       return name === selectedCategories;
     });
   }, [categories, selectedCategories]);
-  const { position } = usePosition({ count: 3, currentIndex });
+  const { position } = usePosition({
+    count: 3,
+    currentIndex: currentIndex || 0,
+  });
   const [selectedSubCategories, setSelectedSubCategories] =
     useState<string>("");
   const [selectedCloth, setSelectedCloth] = useState("");
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const { replace } = useRouter();
-
-  console.log(BASE_URL + clothes[0].preview_url)
 
   const styleLeft = {
     left: `${position}%`,
@@ -61,6 +69,24 @@ const ContentBlock = ({ setStatusSelector, setSelectId, data }: Props) => {
     setSelectId(id);
     setStatusSelector(true);
   };
+
+  useEffect(() => {
+    const params = new URLSearchParams(searchParams);
+    if (selectedCategories && selectedCategories !== params.get("category")) {
+      handleSearch("category", selectedCategories);
+    } else {
+      setSelectedClothes(clothes);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [clothes, searchParams, selectedCategories]);
+
+  useEffect(() => {
+    if (selectId) {
+      setSelectedCloth(selectId);
+    } else {
+      setSelectedCloth("");
+    }
+  }, [selectId]);
 
   return (
     <>
@@ -107,28 +133,27 @@ const ContentBlock = ({ setStatusSelector, setSelectId, data }: Props) => {
       </section>
       <section className={style.cardBlock}>
         <div className={style.cardList}>
-          {clothes.length > 0 &&
-            clothes.map(({ id, title, preview_url, brand_url }) => (
+          {selectedClothes.length > 0 &&
+            selectedClothes.map(({ id, title, preview_url, brand_url }) => (
               <div
                 key={id}
                 className={handleClothStyle(id)}
                 onClick={() => handleSelectCloth(id)}
               >
-                <div>
+                <div className={style.card__imageWrapper}>
                   <Image
                     src={
                       pathname.includes("background")
                         ? preview_url
                         : BASE_URL + preview_url
                     }
-                    width={150}
-                    height={170}
+                    width={140}
+                    height={160}
                     alt="cloth image"
                     className={style.card__image}
                   />
                 </div>
-
-                <p>{title}</p>
+                <Typography variant="p1" className={style.card__text}>{title}</Typography>
               </div>
             ))}
         </div>

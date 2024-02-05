@@ -7,8 +7,9 @@ interface IButton {
   onClick?: () => void;
   link?: string;
   className?: string
-  children?: string;
+  children?: React.ReactNode | string;
   border?: boolean;
+  disabled?: boolean;
 }
 
 interface IType {
@@ -19,7 +20,7 @@ export default function Button({ type, ...rest }: IButton): JSX.Element {
   const button: IType = {
     back: <BackButton {...rest}/>,
     button: <MainButton {...rest} />,
-    remove: <RemoveButton {...rest} />
+    remove: <RemoveButton {...rest} />,
   };
 
   return button[type];

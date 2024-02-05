@@ -31,7 +31,7 @@
     height: auto;
     max-height: fit-content;
     align-items: center;
-    padding: 0 30px 50px;
+    padding: 0 30px 0;
   }
 }
 
@@ -84,4 +84,64 @@
 .btn:hover {
   background: var(--blue-color);
   opacity: 1;
+}
+
+.generatorWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+
+  @media (max-width: 1200px) {
+    margin-bottom: 30px;
+  }
+
+  @media (max-width: 1200px) {
+    gap: 16px;
+  }
+}
+
+.button {
+  width: 420px;
+
+  // @media (max-width: 1000px) {
+  //   padding: 0 0 30px 0;
+  // }
+
+  @media (max-width: 500px) {
+    width: 100%;
+    padding: 0 30px;
+  }
+}
+
+.loaderWrapper {
+  width: 100%;
+  height: calc(100vh - 240px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 20px;
+
+  @media (max-width: 800px) {
+    align-items: flex-start;
+    margin-top: 104px;
+  }
+}
+
+.loader {
+  width: 728px;
+  height: 484px;
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+  background: var(--bg-color-eighth);
+  border-radius: 16px;
+  padding: 30px;
+  position: relative;
+
+  @media (max-width: 800px) {
+    width: 100%;
+    height: calc((100vw - 40px) * 0.716);
+  }
 }
