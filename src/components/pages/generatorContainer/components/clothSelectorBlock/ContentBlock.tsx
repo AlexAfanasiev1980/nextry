@@ -35,7 +35,6 @@ const ContentBlock = ({
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const { replace } = useRouter();
-  console.log(categories);
 
   const styleLeft = {
     left: `${position}%`,
