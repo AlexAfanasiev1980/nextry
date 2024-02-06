@@ -9,8 +9,8 @@ const LinksBlock = () => {
     <div className={style.links}>
       <p>
         For partnership opportunities{" "}
-        <a className={style.link} href="mailto:bussiness@nextry.ai">
-          bussiness@nextry.ai
+        <a className={style.link} href="mailto:business@nextry.ai">
+          business@nextry.ai
         </a>
       </p>
       {/* <p>

@@ -3,7 +3,13 @@
 import Link from "next/link";
 import Image from "next/image";
 import MoveBackIcon from "@/public/ArrowBack.png";
-import { useState, type FormEvent, type ChangeEvent, FormEventHandler, InvalidEvent } from "react";
+import {
+  useState,
+  type FormEvent,
+  type ChangeEvent,
+  FormEventHandler,
+  InvalidEvent,
+} from "react";
 import { useRouter } from "next/navigation";
 import { logInTypes } from "./logInTypes";
 import style from "./LogInContainer.module.scss";
@@ -22,6 +28,7 @@ interface IRes extends Response {
 
 const LogInContainer = ({ type }: LogIn) => {
   const [isSubmiting, setIsSubmiting] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const { password, confirmPassword, handlePasswordValidation } =
     usePasswordValidation({ type, setError });
@@ -68,7 +75,7 @@ const LogInContainer = ({ type }: LogIn) => {
             login: formData.get("email"),
             password: formData.get("password"),
           };
-
+    setLoading(true);
     try {
       const res: IRes = await fetch(
         type === "sign-in"
@@ -85,6 +92,7 @@ const LogInContainer = ({ type }: LogIn) => {
         case "sign-in":
           if (res.status !== 200) {
             setError("Incorrect username or password");
+            setLoading(false);
           } else if (res.status === 200) {
             router.refresh();
             router.push("/");
@@ -93,9 +101,11 @@ const LogInContainer = ({ type }: LogIn) => {
         case "sign-up":
           if (res.status === 422) {
             setError(`${result.data.loc[1]}: ${result.data.msg}`);
+            setLoading(false);
           }
           if (res.status === 400) {
             setError(`${result.data}`);
+            setLoading(false);
           }
           if (res.status === 201) {
             sessionStorage.setItem("data", JSON.stringify(body));
@@ -105,18 +115,28 @@ const LogInContainer = ({ type }: LogIn) => {
           break;
       }
     } catch (error) {
+      setLoading(false);
       console.log(error);
     }
   };
 
   const onInvalid = (e: InvalidEvent<HTMLInputElement>) => {
-      if (e.target.checked) {
-        e.target.setCustomValidity('')
+    const area = e.target.name;
+    if (e.target.validity.valueMissing) {
+      if (
+        area === "email" ||
+        area === "name" ||
+        area === "password" ||
+        area === "confirmPassword"
+      ) {
+        e.target.setCustomValidity("Fill out this field!");
       } else {
-        e.target.setCustomValidity('To continue, check this box')
+        e.target.setCustomValidity("To continue, check this box");
       }
-      
-  }
+    } else {
+      e.target.setCustomValidity("");
+    }
+  };
 
   return (
     <>
@@ -135,6 +155,12 @@ const LogInContainer = ({ type }: LogIn) => {
                   type="text"
                   name="name"
                   placeholder=""
+                  onInvalid={(e: InvalidEvent<HTMLInputElement>) =>
+                    onInvalid(e)
+                  }
+                  onChange={(e: InvalidEvent<HTMLInputElement>) =>
+                    e.target.setCustomValidity("")
+                  }
                   required
                   aria-label="name"
                 />
@@ -146,6 +172,11 @@ const LogInContainer = ({ type }: LogIn) => {
                 type="email"
                 name="email"
                 placeholder=""
+                autoComplete="email"
+                onInvalid={(e: InvalidEvent<HTMLInputElement>) => onInvalid(e)}
+                onChange={(e: InvalidEvent<HTMLInputElement>) =>
+                  e.target.setCustomValidity("")
+                }
                 required
                 aria-label="email"
                 title="Fill in this field"
@@ -157,7 +188,11 @@ const LogInContainer = ({ type }: LogIn) => {
                 type="password"
                 name="password"
                 value={password}
-                onChange={(e) => handlePasswordValidation(e, "password")}
+                onChange={(e) => {
+                  e.target.setCustomValidity("");
+                  handlePasswordValidation(e, "password");
+                }}
+                onInvalid={(e: InvalidEvent<HTMLInputElement>) => onInvalid(e)}
                 placeholder=""
                 required
                 aria-label="password"
@@ -171,9 +206,13 @@ const LogInContainer = ({ type }: LogIn) => {
                   type="password"
                   name="confirmPassword"
                   value={confirmPassword}
-                  onChange={(e) =>
-                    handlePasswordValidation(e, "confirmPassword")
+                  onInvalid={(e: InvalidEvent<HTMLInputElement>) =>
+                    onInvalid(e)
                   }
+                  onChange={(e) => {
+                    e.target.setCustomValidity("");
+                    handlePasswordValidation(e, "confirmPassword");
+                  }}
                   placeholder=""
                   required
                   aria-label="confirmPassword"
@@ -192,7 +231,9 @@ const LogInContainer = ({ type }: LogIn) => {
               aria-label="policyChecked"
               className={style.policy__icon}
               onInvalid={(e: InvalidEvent<HTMLInputElement>) => onInvalid(e)}
-              onChange={(e: InvalidEvent<HTMLInputElement>) => e.target.setCustomValidity('')}
+              onChange={(e: InvalidEvent<HTMLInputElement>) =>
+                e.target.setCustomValidity("")
+              }
               required
               title="To continue, check this box"
             />
@@ -203,7 +244,21 @@ const LogInContainer = ({ type }: LogIn) => {
               </a>
             </p>
           </div>
-          <button className={style.submit}>{logInTypes[type].title}</button>
+          <button className={style.submit} disabled={loading}>
+            {loading && (
+              <Oval
+                visible={true}
+                height="36"
+                width="36"
+                color="#2b5ac1"
+                secondaryColor="#fff"
+                ariaLabel="oval-loading"
+                wrapperStyle={{}}
+                wrapperClass=""
+              />
+            )}
+            {!loading && logInTypes[type].title}
+          </button>
           <div>
             {logInTypes[type].bottomText}{" "}
             <Link href={logInTypes[type].route} className={style.link}>
@@ -240,8 +295,7 @@ const LogInContainer = ({ type }: LogIn) => {
                 wrapperClass=""
               />
             )}
-            {!isSubmiting && 'Sign in with Google'}
-            
+            {!isSubmiting && "Sign in with Google"}
           </button>
         </div>
       </div>

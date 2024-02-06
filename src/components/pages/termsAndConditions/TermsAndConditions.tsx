@@ -491,7 +491,7 @@ export default function TermsAndConditions() {
         name, address, and contact information of the party giving it, the facts
         giving rise to the dispute, and the relief requested. You must send any
         Notice of Dispute via email to: 
-        <Link href="mailto:bussiness@nextry.ai">bussiness@nextry.ai</Link>.
+        <Link href="mailto:business@nextry.ai">business@nextry.ai</Link>.
         nextry.app will send any Notice of Dispute to you by mail to your
         address if we have it, or otherwise to your email address. You and
         nextry.app will attempt to resolve any dispute through informal
@@ -630,7 +630,7 @@ export default function TermsAndConditions() {
       <ul className={style.offer__list}>
         <li>
           Via Email:{" "}
-          <Link href="mailto:bussiness@nextry.ai">bussiness@nextry.ai</Link>
+          <Link href="mailto:business@nextry.ai">business@nextry.ai</Link>
         </li>
         <li>
           Via this Link:{" "}

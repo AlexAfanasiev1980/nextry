@@ -812,7 +812,7 @@ export default function PrivacyPolicy() {
       <ul className={style.offer__list}>
         <li>
           Via Email:{" "}
-          <Link href="mailto:bussiness@nextry.ai">bussiness@nextry.ai</Link>
+          <Link href="mailto:business@nextry.ai">business@nextry.ai</Link>
         </li>
         <li>
           Via this Link:{" "}
