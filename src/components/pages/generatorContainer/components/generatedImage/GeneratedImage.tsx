@@ -1,11 +1,11 @@
-import { Dispatch, SetStateAction, useEffect, useRef } from "react";
+import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
 import style from "./generatedImage.module.scss";
 import Image from "next/image";
 import Button from "@/components/ui/button/Button";
 import LGBorder from "@/components/ui/lGBorder/LGBorder";
 import RepeatIcon from "@/public/repeat.svg";
 import DownloadIcon from "@/public/downloadIcon.svg";
-import ShareIcon from "@/public/shareIcon.svg";
+// import ShareIcon from "@/public/shareIcon.svg";
 
 interface IGeneratedImage {
   image: string;
@@ -13,6 +13,7 @@ interface IGeneratedImage {
 }
 
 export default function GeneratedImage({ image, setImage }: IGeneratedImage) {
+  const [share, setShare] = useState(false);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const imageRef = useRef<HTMLImageElement>(null);
 
@@ -25,6 +26,13 @@ export default function GeneratedImage({ image, setImage }: IGeneratedImage) {
       link.href = url;
       link.click();
     }
+  };
+
+  const stylesBorder = {
+    padding: "1px",
+    colorTop: "rgba(250, 250, 250, 0.27)",
+    colorBottom: "rgba(250,250,250, 0)",
+    borderRadius: "16px",
   };
 
   useEffect(() => {
@@ -42,12 +50,27 @@ export default function GeneratedImage({ image, setImage }: IGeneratedImage) {
     }
   }, [image]);
 
-  const stylesBorder = {
-    padding: "1px",
-    colorTop: "rgba(250, 250, 250, 0.27)",
-    colorBottom: "rgba(250,250,250, 0)",
-    borderRadius: "16px",
-  };
+
+  // Данный код раскомментировать, когда будет принято решение добавить функционал "Поделиться"
+
+  // useEffect(() => {
+  //   window.Ya.share2("ya", {
+  //     theme: {
+  //       services: "linkedin,facebook,telegram,twitter",
+  //       size: "l",
+  //       limit: 4,
+  //       lang: "en",
+  //       bare: false,
+  //       direction: "vertical",
+  //     },
+  //     content: { url: image },
+  //     hooks: {
+  //       onshare: function (name: string) {
+  //         setShare(false);
+  //       },
+  //     },
+  //   });
+  // }, []);
 
   return (
     <div className={style.generatedImage}>
@@ -73,13 +96,25 @@ export default function GeneratedImage({ image, setImage }: IGeneratedImage) {
               <Image src={DownloadIcon} alt="downloadIcon" />
               Download
             </button>
-            <button
-              type="button"
-              className={`${style.generatedImage__button} ${style.generatedImage__buttonShare}`}
-            >
-              <Image src={ShareIcon} alt="shareIcon" />
-              Share
-            </button>
+            {/* Данный код раскомментировать, когда будет принято решение добавить функционал "Поделиться" */}
+
+            {/* <div className={style.generatedImage__share}>
+              <button
+                type="button"
+                className={`${style.generatedImage__button} ${style.generatedImage__buttonShare}`}
+                onClick={() => setShare(!share)}
+              >
+                <Image src={ShareIcon} alt="shareIcon" />
+                Share
+              </button>
+              <div
+                id="ya"
+                className={[
+                  style.generatedImage__iconsList,
+                  share && style.generatedImage__iconsList_vizible,
+                ].join(" ")}
+              ></div>
+            </div> */}
           </div>
         </div>
       </LGBorder>

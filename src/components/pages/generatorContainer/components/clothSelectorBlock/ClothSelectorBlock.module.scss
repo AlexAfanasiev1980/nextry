@@ -51,9 +51,18 @@
     transition: left 0.4s ease-in-out;
     width: calc(100% / 3);
 
-    & > button {
+    & > div {
+      &:active {
+        background: linear-gradient(267deg, #717afb -4.56%, #dd4da5 100%);
+      }
+    }
+
+    & > div > button {
       width: 100%;
-      font-size: 15px;
+      cursor: auto;
+      &:hover {
+        background: linear-gradient(267deg, #717afb -4.56%, #dd4da5 100%);
+      }
     }
   }
 
@@ -97,7 +106,6 @@
   border: none;
   color: rgba(255, 255, 255, 0.3);
   cursor: pointer;
-
 
   @media (max-width: 700px) {
     width: fit-content;

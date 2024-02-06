@@ -45,7 +45,6 @@ const GeneratorContainer = (props: Props) => {
   const pathname = usePathname();
   const router = useRouter();
   const back = pathname.includes("background");
-  // console.log(props.data.clothes)
 
   const handleButton = async () => {
     const token = await cookie.get("OutSiteJWT");

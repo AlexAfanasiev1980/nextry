@@ -35,7 +35,7 @@
   &__subtitle {
     font-family: var(--font-regular);
     font-weight: 400;
-    @include fontSizeTitleAdaptive(15);
+    font-size: 15px;
     line-height: 133%;
     opacity: 0.5;
   }

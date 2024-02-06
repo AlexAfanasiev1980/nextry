@@ -18,7 +18,7 @@ const ContentBlock = ({
   data,
 }: Props) => {
   const { categories, clothes } = data;
-  const [selectedCategories, setSelectedCategories] = useState<string>("man");
+  const [selectedCategories, setSelectedCategories] = useState<string | undefined>(categories && categories[1].name);
   const [selectedClothes, setSelectedClothes] = useState<Clothes[]>([]);
   const currentIndex = useMemo(() => {
     return categories?.findIndex(({ name }) => {
@@ -35,6 +35,7 @@ const ContentBlock = ({
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const { replace } = useRouter();
+  console.log(categories);
 
   const styleLeft = {
     left: `${position}%`,
@@ -107,12 +108,14 @@ const ContentBlock = ({
                 );
               }
             })}
-          <div className={style.navbar__button} style={styleLeft}>
-            <Button type="button" border>
-              {categories?.filter((el) => el.name === selectedCategories)[0]
-                .display_name || ""}
-            </Button>
-          </div>
+          {categories && (
+            <div className={style.navbar__button} style={styleLeft}>
+              <Button type="button" border>
+                {categories?.filter((el) => el.name === selectedCategories)[0]
+                  .display_name || ""}
+              </Button>
+            </div>
+          )}
         </nav>
         <nav className={`${style.navbar_subCategories}`}>
           {categories &&
@@ -153,7 +156,9 @@ const ContentBlock = ({
                     className={style.card__image}
                   />
                 </div>
-                <Typography variant="p1" className={style.card__text}>{title}</Typography>
+                <Typography variant="p1" className={style.card__text}>
+                  {title}
+                </Typography>
               </div>
             ))}
         </div>
