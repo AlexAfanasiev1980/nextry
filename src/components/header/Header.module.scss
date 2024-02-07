@@ -152,7 +152,16 @@
 }
 
 .logIn {
-  width: 114px !important;
+  width: 140px !important;
+  height: 35px !important;
+
+  @media (max-width: 700px) {
+    display: none;
+  }
+}
+
+.logOut {
+  width: 120px !important;
   height: 35px !important;
 
   @media (max-width: 700px) {

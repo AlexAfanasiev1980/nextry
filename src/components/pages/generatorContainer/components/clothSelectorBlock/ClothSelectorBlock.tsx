@@ -8,6 +8,7 @@ export interface Props {
   setStatusSelector: (status: boolean) => void;
   setSelectId: (id: string) => void;
   selectId: string | null;
+  selectorTitle: string;
   data: {
     categories?: Categories[];
     clothes: Clothes[];

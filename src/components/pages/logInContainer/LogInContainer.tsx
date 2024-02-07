@@ -224,26 +224,28 @@ const LogInContainer = ({ type }: LogIn) => {
             <p className={errorStyle}>{error}</p>
             <a href="/forgot-password">Forgot Password?</a>
           </div>
-          <div className={style.policy}>
-            <input
-              type="checkbox"
-              name="policyChecked"
-              aria-label="policyChecked"
-              className={style.policy__icon}
-              onInvalid={(e: InvalidEvent<HTMLInputElement>) => onInvalid(e)}
-              onChange={(e: InvalidEvent<HTMLInputElement>) =>
-                e.target.setCustomValidity("")
-              }
-              required
-              title="To continue, check this box"
-            />
-            <p>
-              By clicking “{logInTypes[type].title}”, I agree to the{" "}
-              <a href={"#"} target="_blank" className={style.link}>
-                policy regarding the processing of personal data
-              </a>
-            </p>
-          </div>
+          {type === "sign-up" && (
+            <div className={style.policy}>
+              <input
+                type="checkbox"
+                name="policyChecked"
+                aria-label="policyChecked"
+                className={style.policy__icon}
+                onInvalid={(e: InvalidEvent<HTMLInputElement>) => onInvalid(e)}
+                onChange={(e: InvalidEvent<HTMLInputElement>) =>
+                  e.target.setCustomValidity("")
+                }
+                required
+                title="To continue, check this box"
+              />
+              <p>
+                By clicking “{logInTypes[type].title}”, I agree to the{" "}
+                <a href={"#"} target="_blank" className={style.link}>
+                  policy regarding the processing of personal data
+                </a>
+              </p>
+            </div>
+          )}
           <button className={style.submit} disabled={loading}>
             {loading && (
               <Oval
@@ -259,7 +261,7 @@ const LogInContainer = ({ type }: LogIn) => {
             )}
             {!loading && logInTypes[type].title}
           </button>
-          <div>
+          <div className={style.text}>
             {logInTypes[type].bottomText}{" "}
             <Link href={logInTypes[type].route} className={style.link}>
               {logInTypes[type].textForLink}

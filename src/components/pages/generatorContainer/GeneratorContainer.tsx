@@ -29,10 +29,24 @@ interface Props {
   };
 }
 
-const typePage: { [key: string]: string } = {
-  "/generator/fitting-room": "Virtual fitting room",
-  "/generator/background": "Change background",
-  "/generator/face-swap": "Animal face swap",
+const typePage: {
+  [key: string]: {
+    title: string;
+    selectorTitle: string;
+  };
+} = {
+  "/generator/fitting-room": {
+    title: "Virtual fitting room",
+    selectorTitle: "Select a clothes",
+  },
+  "/generator/background": {
+    title: "Change background",
+    selectorTitle: "Select a background",
+  },
+  "/generator/face-swap": {
+    title: "Animal face swap",
+    selectorTitle: "",
+  },
 };
 
 const GeneratorContainer = (props: Props) => {
@@ -97,21 +111,21 @@ const GeneratorContainer = (props: Props) => {
   };
 
   // пока в макете нет этой кнопки, нужно согласование о необходимости ее добавления
-  const FastButton = () => {
-    return (
-      <button
-        className={`${style.fastBtn} ${fast && style.fastBtn__active}`}
-        onClick={() => {
-          setFast(!fast);
-        }}
-      >
-        FAST
-      </button>
-    );
-  };
+  // const FastButton = () => {
+  //   return (
+  //     <button
+  //       className={`${style.fastBtn} ${fast && style.fastBtn__active}`}
+  //       onClick={() => {
+  //         setFast(!fast);
+  //       }}
+  //     >
+  //       FAST
+  //     </button>
+  //   );
+  // };
 
   const title: string = useMemo(() => {
-    return typePage[pathname];
+    return typePage[pathname].title;
   }, [pathname]);
 
   const stylesBorder = {
@@ -140,6 +154,7 @@ const GeneratorContainer = (props: Props) => {
                 setStatusSelector={setStatusSelector}
                 setSelectId={setSelectId}
                 selectId={selectId}
+                selectorTitle={typePage[pathname].selectorTitle}
                 data={props.data}
               />
             </div>

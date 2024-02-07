@@ -12,7 +12,7 @@ import {
   GENERATOR_FACE,
   GENERATOR_ROUTE,
   HOME_ROUTE,
-  SIGN_IN_ROUTE,
+  SELECT_AUTH_ROUTE,
 } from "@/routes";
 import style from "./Header.module.scss";
 import { useRouter } from "next/navigation";
@@ -89,8 +89,8 @@ const Header = ({ type }: IHeader) => {
               Log Out
             </button>
           ) : (
-            <Link className={style.logInBurger} href={SIGN_IN_ROUTE}>
-              Log In
+            <Link className={style.logInBurger} href={SELECT_AUTH_ROUTE}>
+              Log In / Sign up
             </Link>
           )}
         </nav>
@@ -127,7 +127,7 @@ const Header = ({ type }: IHeader) => {
         <Button
           type="button"
           onClick={() => handleLogOut()}
-          className={style.logIn}
+          className={style.logOut}
         >
           Log Out
         </Button>
@@ -135,9 +135,9 @@ const Header = ({ type }: IHeader) => {
         <Button
           type="button"
           className={style.logIn}
-          onClick={() => router.push(SIGN_IN_ROUTE)}
+          onClick={() => router.push(SELECT_AUTH_ROUTE)}
         >
-          Log In
+          Log In / Sign up
         </Button>
       )}
       <MenuBurger />

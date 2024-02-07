@@ -4,6 +4,7 @@ export const GENERATOR_BACKGROUND = "/generator/background";
 export const GENERATOR_FACE = "/generator/face-swap";
 export const SIGN_UP_ROUTE = "/sign-up";
 export const SIGN_IN_ROUTE = "/sign-in";
+export const SELECT_AUTH_ROUTE = "/select-auth";
 export const POLICY_ROUTE = "/documentation/privacy-policy";
 export const COOKIE_ROUTE = "/documentation/cookie-policy";
 export const TERMS_ROUTE = "/documentation/terms-and-conditions";

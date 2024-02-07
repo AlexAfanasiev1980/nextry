@@ -15,6 +15,7 @@ const ContentBlock = ({
   setStatusSelector,
   setSelectId,
   selectId,
+  selectorTitle,
   data,
 }: Props) => {
   const { categories, clothes } = data;
@@ -91,7 +92,7 @@ const ContentBlock = ({
   return (
     <>
       <section className={style.navSection}>
-        <Typography variant="h3">Select a background</Typography>
+        <Typography variant="h3">{selectorTitle}</Typography>
         <nav className={style.navbar}>
           {categories &&
             categories.map(({ name, color, display_name }, id) => {
