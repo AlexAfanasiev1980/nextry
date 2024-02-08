@@ -35,7 +35,7 @@ const headerTypes = {
 
 const Header = ({ type }: IHeader) => {
   const [isMenuVisible, setMenuVisiability] = useState(false);
-  const [session, setSession] = useState(false);
+  const [session, setSession] = useState<boolean | null>(null);
   const burgerWrapperClassname = isMenuVisible
     ? style.burgerWrapper
     : [style.burgerWrapper, style.burgerWrapperInvisible].join(" ");
@@ -101,6 +101,8 @@ const Header = ({ type }: IHeader) => {
   useEffect(() => {
     if (cookie.get("OutSiteJWT")) {
       setSession(true);
+    } else {
+      setSession(false);
     }
   }, []);
 
@@ -123,23 +125,21 @@ const Header = ({ type }: IHeader) => {
         onClick={() => setMenuVisiability(!isMenuVisible)}
         className={style.burger}
       />
-      {session ? (
-        <Button
-          type="button"
-          onClick={() => handleLogOut()}
-          className={style.logOut}
-        >
-          Log Out
-        </Button>
-      ) : (
-        <Button
-          type="button"
-          className={style.logIn}
-          onClick={() => router.push(SELECT_AUTH_ROUTE)}
-        >
-          Log In / Sign up
-        </Button>
-      )}
+      <Button
+        type="button"
+        onClick={
+          session === true
+            ? () => handleLogOut()
+            : () => router.push(SELECT_AUTH_ROUTE)
+        }
+        className={session === false ? style.logIn : style.logOut}
+      >
+        {session === true
+          ? "Log Out"
+          : session === false
+          ? "Log In / Sign up"
+          : ""}
+      </Button>
       <MenuBurger />
     </header>
   );
