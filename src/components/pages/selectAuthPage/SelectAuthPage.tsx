@@ -12,12 +12,12 @@ export default function SelectAuthPage() {
 
       <Button type="button" className={style.selectAuth__button}>
         <Link href="/sign-in" className={style.selectAuth__link}>
-          Log in
+          Log In
         </Link>
       </Button>
       <Button type="button" className={style.selectAuth__button}>
         <Link href="/sign-up" className={style.selectAuth__link}>
-          Sign up
+          Sign Up
         </Link>
       </Button>
     </div>

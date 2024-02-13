@@ -19,7 +19,9 @@ const ContentBlock = ({
   data,
 }: Props) => {
   const { categories, clothes } = data;
-  const [selectedCategories, setSelectedCategories] = useState<string | undefined>(categories && categories[1].name);
+  const [selectedCategories, setSelectedCategories] = useState<
+    string | undefined
+  >(categories && categories[1].name);
   const [selectedClothes, setSelectedClothes] = useState<Clothes[]>([]);
   const currentIndex = useMemo(() => {
     return categories?.findIndex(({ name }) => {

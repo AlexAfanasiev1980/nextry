@@ -4,10 +4,10 @@
   justify-content: center;
   align-items: center;
   gap: 40px;
-  width: 728px;
+  width: 540px;
+  height: auto;
 
-  @media (max-width: 800px) {
-    padding: 0 20px;
+  @media (max-width: 700px) {
     width: 100%;
   }
 
@@ -16,6 +16,7 @@
   }
 
   &__imageWrapper {
+    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -27,11 +28,13 @@
   }
 
   &__imageItem {
+    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100%;
     height: calc(100% - 48px);
+    z-index: 1;
   }
 
   &__image {
@@ -102,6 +105,17 @@
 
     &_vizible {
       display: block;
+    }
+  }
+
+  &__removeButton {
+    position: absolute;
+    right: 16px;
+    top: 16px;
+    z-index: 2;
+
+    & > button {
+      cursor: pointer;
     }
   }
 }

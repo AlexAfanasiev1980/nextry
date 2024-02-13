@@ -7,6 +7,8 @@ import CustomBorder from "@/components/ui/customBorder/CustomBorder";
 import LGBorder from "@/components/ui/lGBorder/LGBorder";
 import Button from "@/components/ui/button/Button";
 import { FileData } from "../../GeneratorContainer";
+import Loader from "../loader/Loader";
+import GeneratedImage from "../generatedImage/GeneratedImage";
 
 const ImageBlock = ({
   statusSelector,
@@ -80,10 +82,30 @@ const ImageBlock = ({
     );
   };
 
+  const stylesBorder = {
+    padding: "1px",
+    colorTop: "rgba(250, 250, 250, 0.27)",
+    colorBottom: "rgba(250,250,250, 0)",
+    borderRadius: "16px",
+  };
+
   return (
     <>
-      {selectedImage.length > 0 && <SelectedImage />}
-      {selectedImage.length === 0 && (
+      {!loading && !image && selectedImage.length > 0 && <SelectedImage />}
+      {!loading && image && (
+        <GeneratedImage image={image} setImage={setImage} />
+      )}
+      {loading && (
+        <div className={style.loaderWrapper}>
+          <LGBorder styles={stylesBorder}>
+            <div className={style.loader}>
+              <Loader />
+            </div>
+          </LGBorder>
+        </div>
+      )}
+
+      {!loading && selectedImage.length === 0 && (
         <form className={style.dropImageBlock__form}>
           <CustomBorder />
           <div className={style.dropImageBlock__wrapper} {...getRootProps()}>

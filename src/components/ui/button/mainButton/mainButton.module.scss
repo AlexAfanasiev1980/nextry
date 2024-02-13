@@ -23,11 +23,15 @@
 
   &__text {
     position: relative;
-    opacity: 1;
+    opacity: 1 !important;;
     z-index: 3;
     display: flex;
     align-items: center;
     gap: 10px;
+
+    & > p {
+      opacity: 1 !important;
+    }
   }
 
   &__disabled {

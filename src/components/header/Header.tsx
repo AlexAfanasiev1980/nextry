@@ -90,7 +90,7 @@ const Header = ({ type }: IHeader) => {
             </button>
           ) : (
             <Link className={style.logInBurger} href={SELECT_AUTH_ROUTE}>
-              Log In / Sign up
+              Log In / Sign Up
             </Link>
           )}
         </nav>
@@ -137,7 +137,7 @@ const Header = ({ type }: IHeader) => {
         {session === true
           ? "Log Out"
           : session === false
-          ? "Log In / Sign up"
+          ? "Log In / Sign Up"
           : ""}
       </Button>
       <MenuBurger />

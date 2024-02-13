@@ -1,10 +1,9 @@
 import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
 import style from "./generatedImage.module.scss";
 import Image from "next/image";
-import Button from "@/components/ui/button/Button";
 import LGBorder from "@/components/ui/lGBorder/LGBorder";
-import RepeatIcon from "@/public/repeat.svg";
 import DownloadIcon from "@/public/downloadIcon.svg";
+import Button from "@/components/ui/button/Button";
 // import ShareIcon from "@/public/shareIcon.svg";
 
 interface IGeneratedImage {
@@ -28,6 +27,10 @@ export default function GeneratedImage({ image, setImage }: IGeneratedImage) {
     }
   };
 
+  const handleClickRemove = () => {
+    setImage(null);
+  };
+
   const stylesBorder = {
     padding: "1px",
     colorTop: "rgba(250, 250, 250, 0.27)",
@@ -49,7 +52,6 @@ export default function GeneratedImage({ image, setImage }: IGeneratedImage) {
       };
     }
   }, [image]);
-
 
   // Данный код раскомментировать, когда будет принято решение добавить функционал "Поделиться"
 
@@ -76,6 +78,10 @@ export default function GeneratedImage({ image, setImage }: IGeneratedImage) {
     <div className={style.generatedImage}>
       <LGBorder styles={stylesBorder} className={style.generatedImage__border}>
         <div className={style.generatedImage__imageWrapper}>
+          <div className={style.generatedImage__removeButton}>
+            {" "}
+            <Button type="remove" onClick={handleClickRemove} />
+          </div>
           <div className={style.generatedImage__imageItem}>
             <Image
               src={image}
@@ -118,18 +124,6 @@ export default function GeneratedImage({ image, setImage }: IGeneratedImage) {
           </div>
         </div>
       </LGBorder>
-
-      <div className={style.generatedImage__buttonAgain}>
-        <Button
-          type="button"
-          onClick={() => {
-            setImage(null);
-          }}
-        >
-          <Image src={RepeatIcon} alt="icon repeat" />
-          Process again
-        </Button>
-      </div>
     </div>
   );
 }

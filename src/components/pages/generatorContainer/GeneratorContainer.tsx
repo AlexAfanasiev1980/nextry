@@ -12,9 +12,7 @@ import { getPhoto } from "@/lib/data";
 import Button from "@/components/ui/button/Button";
 import Image from "next/image";
 import MagicWand from "@/public/MagicWand.svg";
-import Loader from "./components/loader/Loader";
-import GeneratedImage from "./components/generatedImage/GeneratedImage";
-import LGBorder from "@/components/ui/lGBorder/LGBorder";
+import RepeatIcon from "@/public/repeat.svg";
 
 const server = process.env.NEXT_PUBLIC_BASE_URL;
 
@@ -128,60 +126,39 @@ const GeneratorContainer = (props: Props) => {
     return typePage[pathname].title;
   }, [pathname]);
 
-  const stylesBorder = {
-    padding: "1px",
-    colorTop: "rgba(250, 250, 250, 0.27)",
-    colorBottom: "rgba(250,250,250, 0)",
-    borderRadius: "16px",
-  };
-
   return (
     <main className={style.content}>
       <h1 className={style.title}>{title}</h1>
       <div className={style.generatorWrapper}>
-        {!loading && !image && (
-          <>
-            <div className={style.generator}>
-              <ImageBlock
-                statusSelector={statusSelector}
-                selectedImage={selectedImage}
-                image={image}
-                setSelectedImage={setSelectedImage}
-                setImage={setImage}
-                loading={loading}
-              />
-              <ClothSelectorBlock
-                setStatusSelector={setStatusSelector}
-                setSelectId={setSelectId}
-                selectId={selectId}
-                selectorTitle={typePage[pathname].selectorTitle}
-                data={props.data}
-              />
-            </div>
-            <div className={style.button}>
-              <Button
-                type="button"
-                disabled={selectId === null || selectedImage.length === 0}
-                onClick={handleButton}
-              >
-                <Image src={MagicWand} alt="icon" />
-                Process the image
-              </Button>
-            </div>
-          </>
-        )}
-        {loading && (
-          <div className={style.loaderWrapper}>
-            <LGBorder styles={stylesBorder}>
-              <div className={style.loader}>
-                <Loader />
-              </div>
-            </LGBorder>
+        <>
+          <div className={style.generator}>
+            <ImageBlock
+              statusSelector={statusSelector}
+              selectedImage={selectedImage}
+              image={image}
+              setSelectedImage={setSelectedImage}
+              setImage={setImage}
+              loading={loading}
+            />
+            <ClothSelectorBlock
+              setStatusSelector={setStatusSelector}
+              setSelectId={setSelectId}
+              selectId={selectId}
+              selectorTitle={typePage[pathname].selectorTitle}
+              data={props.data}
+            />
           </div>
-        )}
-        {!loading && image && (
-          <GeneratedImage image={image} setImage={setImage} />
-        )}
+          <div className={style.button}>
+            <Button
+              type="button"
+              disabled={selectId === null || selectedImage.length === 0}
+              onClick={handleButton}
+            >
+              <Image src={image ? RepeatIcon : MagicWand} alt="icon" />
+              {image ? 'Process again' : 'Process the image'}
+            </Button>
+          </div>
+        </>
       </div>
     </main>
   );
