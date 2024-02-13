@@ -130,7 +130,6 @@ const GeneratorContainer = (props: Props) => {
     <main className={style.content}>
       <h1 className={style.title}>{title}</h1>
       <div className={style.generatorWrapper}>
-        <>
           <div className={style.generator}>
             <ImageBlock
               statusSelector={statusSelector}
@@ -158,7 +157,6 @@ const GeneratorContainer = (props: Props) => {
               {image ? 'Process again' : 'Process the image'}
             </Button>
           </div>
-        </>
       </div>
     </main>
   );
