@@ -9,10 +9,7 @@ import cookie from "js-cookie";
 import { usePathname, useRouter } from "next/navigation";
 import { GENERATE_BACKGROUND, GENERATE_IMAGE } from "@/api";
 import { getPhoto } from "@/lib/data";
-import Button from "@/components/ui/button/Button";
-import Image from "next/image";
-import MagicWand from "@/public/MagicWand.svg";
-import RepeatIcon from "@/public/repeat.svg";
+import GeneratorWrapper from "@/components/generatorWrapper/GeneratorWrapper";
 
 const server = process.env.NEXT_PUBLIC_BASE_URL;
 
@@ -127,38 +124,32 @@ const GeneratorContainer = (props: Props) => {
   }, [pathname]);
 
   return (
-    <main className={style.content}>
-      <h1 className={style.title}>{title}</h1>
-      <div className={style.generatorWrapper}>
-          <div className={style.generator}>
-            <ImageBlock
-              statusSelector={statusSelector}
-              selectedImage={selectedImage}
-              image={image}
-              setSelectedImage={setSelectedImage}
-              setImage={setImage}
-              loading={loading}
-            />
-            <ClothSelectorBlock
-              setStatusSelector={setStatusSelector}
-              setSelectId={setSelectId}
-              selectId={selectId}
-              selectorTitle={typePage[pathname].selectorTitle}
-              data={props.data}
-            />
-          </div>
-          <div className={style.button}>
-            <Button
-              type="button"
-              disabled={selectId === null || selectedImage.length === 0}
-              onClick={handleButton}
-            >
-              <Image src={image ? RepeatIcon : MagicWand} alt="icon" />
-              {image ? 'Process again' : 'Process the image'}
-            </Button>
-          </div>
-      </div>
-    </main>
+    <GeneratorWrapper
+      title={title}
+      onClick={handleButton}
+      disabled={selectId === null || selectedImage.length === 0}
+      icon={image ? "repeat" : "generate"}
+    >
+      <>
+        <div className={style.generator}>
+          <ImageBlock
+            statusSelector={statusSelector}
+            selectedImage={selectedImage}
+            image={image}
+            setSelectedImage={setSelectedImage}
+            setImage={setImage}
+            loading={loading}
+          />
+          <ClothSelectorBlock
+            setStatusSelector={setStatusSelector}
+            setSelectId={setSelectId}
+            selectId={selectId}
+            selectorTitle={typePage[pathname].selectorTitle}
+            data={props.data}
+          />
+        </div>
+      </>
+    </GeneratorWrapper>
   );
 };
 

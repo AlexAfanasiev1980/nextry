@@ -1,0 +1,33 @@
+.generatorWrapper {
+  position: relative;
+
+  &__title {
+    font-size: 24px;
+    padding: 37px 30px 40px;
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+
+    @media (max-width: 1200px) {
+      margin-bottom: 30px;
+    }
+
+    @media (max-width: 1200px) {
+      gap: 16px;
+    }
+  }
+
+  &__button {
+    width: 420px;
+
+    @media (max-width: 500px) {
+      width: 100%;
+      padding: 0 30px;
+    }
+  }
+}
