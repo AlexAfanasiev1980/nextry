@@ -2,6 +2,7 @@ export const HOME_ROUTE = "/";
 export const GENERATOR_ROUTE = "/generator/fitting-room";
 export const GENERATOR_BACKGROUND = "/generator/background";
 export const GENERATOR_FACE = "/generator/face-swap";
+export const GENERATOR_PERFECT_SKIN = "/generator/perfect-skin";
 export const SIGN_UP_ROUTE = "/sign-up";
 export const SIGN_IN_ROUTE = "/sign-in";
 export const SELECT_AUTH_ROUTE = "/select-auth";

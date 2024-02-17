@@ -13,6 +13,7 @@ export const config = {
   matcher: [
     "/generator/background",
     "/generator/face-swap",
+    "/generator/perfect-skin",
     "/generator/fitting-room",
   ],
 };

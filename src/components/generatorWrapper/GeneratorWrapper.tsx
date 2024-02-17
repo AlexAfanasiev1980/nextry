@@ -4,10 +4,6 @@ import Image from "next/image";
 import MagicWand from "@/public/MagicWand.svg";
 import RepeatIcon from "@/public/repeat.svg";
 
-export interface FileData extends File {
-  preview: string;
-}
-
 interface IGeneratorWrapper {
   title: string;
   onClick: () => void;

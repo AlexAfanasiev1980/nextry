@@ -6,3 +6,4 @@ export const GET_CATEGORIES_API = BASE_URL + "/generation/categories";
 export const GET_CLOTHES_API = BASE_URL + "/generation/generationTypes";
 export const GENERATE_IMAGE = BASE_URL + "/generation/generate_image/";
 export const GENERATE_BACKGROUND = BASE_URL + "/generation/change_background/";
+export const GENERATE_FACE = BASE_URL + "/generation/clear_face/";

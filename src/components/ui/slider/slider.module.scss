@@ -1,0 +1,28 @@
+.slider {
+  display: flex;
+  gap: 12px;
+
+  &__decrease,
+  &__increase {
+    width: 40px;
+    height: 40px;
+  }
+
+  &__scale {
+    display: flex;
+    gap: 8px;
+  }
+
+  &__slide {
+    width: 12px;
+    height: 100%;
+    border-radius: 12px;
+    background-color: var(--blue-color);
+    opacity: 0.5;
+
+    &_active {
+      background-color: var(--text-color-third);
+      opacity: 1;
+    }
+  }
+}

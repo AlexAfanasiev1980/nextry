@@ -10,6 +10,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { GENERATE_BACKGROUND, GENERATE_IMAGE } from "@/api";
 import { getPhoto } from "@/lib/data";
 import GeneratorWrapper from "@/components/generatorWrapper/GeneratorWrapper";
+import DropIcon from "@/public/DropDownImage_1.png";
 
 const server = process.env.NEXT_PUBLIC_BASE_URL;
 
@@ -139,6 +140,7 @@ const GeneratorContainer = (props: Props) => {
             setSelectedImage={setSelectedImage}
             setImage={setImage}
             loading={loading}
+            icon={DropIcon}
           />
           <ClothSelectorBlock
             setStatusSelector={setStatusSelector}

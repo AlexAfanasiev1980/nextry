@@ -1,7 +1,6 @@
 import { Dispatch, SetStateAction, useCallback } from "react";
 import { useDropzone } from "react-dropzone";
-import Image from "next/image";
-import DropIcon from "@/public/DropDownImage_1.png";
+import Image, { StaticImageData } from "next/image";
 import style from "./ImageBlock.module.scss";
 import CustomBorder from "@/components/ui/customBorder/CustomBorder";
 import LGBorder from "@/components/ui/lGBorder/LGBorder";
@@ -17,6 +16,7 @@ const ImageBlock = ({
   image,
   setImage,
   loading,
+  icon
 }: {
   statusSelector: boolean;
   selectedImage: FileData[];
@@ -24,6 +24,7 @@ const ImageBlock = ({
   image: string | null;
   setImage: Dispatch<SetStateAction<string | null>>;
   loading: boolean;
+  icon: StaticImageData;
 }) => {
   const onDrop = useCallback((acceptedFiles: File[]) => {
     setSelectedImage([
@@ -111,7 +112,7 @@ const ImageBlock = ({
           <div className={style.dropImageBlock__wrapper} {...getRootProps()}>
             <input {...getInputProps()} />
             <div className={style.dropImageBlock}>
-              <Image src={DropIcon} alt="drop icon" />
+              <Image src={icon} alt="drop icon" />
               <p className={style.dropImageBlock__text}>
                 Drop person images, <span>browse</span>
               </p>

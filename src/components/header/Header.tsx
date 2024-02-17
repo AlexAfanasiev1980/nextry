@@ -10,6 +10,7 @@ import { navbarItemsHome, navbarItemsGenerator } from "./navBarItems";
 import {
   GENERATOR_BACKGROUND,
   GENERATOR_FACE,
+  GENERATOR_PERFECT_SKIN,
   GENERATOR_ROUTE,
   HOME_ROUTE,
   SELECT_AUTH_ROUTE,
@@ -60,8 +61,8 @@ const Header = ({ type }: IHeader) => {
           <Link href={GENERATOR_BACKGROUND} prefetch={false}>
             Change background
           </Link>
-          <Link href="#" prefetch={false}>
-            Animal face swap
+          <Link href={GENERATOR_PERFECT_SKIN} prefetch={false}>
+            Perfect Skin
           </Link>
         </nav>
       </div>
