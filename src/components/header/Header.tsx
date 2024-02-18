@@ -11,6 +11,7 @@ import {
   GENERATOR_BACKGROUND,
   GENERATOR_FACE,
   GENERATOR_PERFECT_SKIN,
+  GENERATOR_FANCY_CLOTHES,
   GENERATOR_ROUTE,
   HOME_ROUTE,
   SELECT_AUTH_ROUTE,
@@ -63,6 +64,9 @@ const Header = ({ type }: IHeader) => {
           </Link>
           <Link href={GENERATOR_PERFECT_SKIN} prefetch={false}>
             Perfect Skin
+          </Link>
+          <Link href={GENERATOR_FANCY_CLOTHES} prefetch={false}>
+            Fancy clothes
           </Link>
         </nav>
       </div>
