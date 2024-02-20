@@ -13,9 +13,10 @@ import {
 import { useRouter } from "next/navigation";
 import { logInTypes } from "./logInTypes";
 import style from "./LogInContainer.module.scss";
-import { POLICY_ROUTE } from "@/routes";
 import usePasswordValidation from "@/hooks/usePasswordValidation";
 import Google from "@/public/google.png";
+import IconEye from "@/public/icons8-eye-48.png";
+import IconEyeСrossed from "@/public/icons8-invisible-48.png";
 import { Oval } from "react-loader-spinner";
 
 interface LogIn {
@@ -28,6 +29,8 @@ interface IRes extends Response {
 
 const LogInContainer = ({ type }: LogIn) => {
   const [isSubmiting, setIsSubmiting] = useState(false);
+  const [visiblePassword, setVisiblePassword] = useState(false);
+  const [visibleConfirmPassword, setVisibleConfirmPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const { password, confirmPassword, handlePasswordValidation } =
@@ -133,6 +136,23 @@ const LogInContainer = ({ type }: LogIn) => {
       } else {
         e.target.setCustomValidity("To continue, check this box");
       }
+    } else if (e.target.validity.patternMismatch) {
+      e.target.setCustomValidity(
+        `Enter data in the specified format. ${e.target.title}`
+      );
+    } else if (e.target.validity.typeMismatch) {
+      if (area === "email") {
+        if (!/@/g.test(e.target.value)) {
+          e.target.setCustomValidity(
+            `The email address must retain the character \"@\". The address ${e.target.value} is missing the \"@\" character.`
+          );
+        } else if (!/@([\w-]+\.)/.test(e.target.value)) {
+          e.target.setCustomValidity(
+            `
+            Enter the part of the address after the \"@\" symbol. The address ${e.target.value} is incomplete.`
+          );
+        }
+      }
     } else {
       e.target.setCustomValidity("");
     }
@@ -174,52 +194,94 @@ const LogInContainer = ({ type }: LogIn) => {
                 placeholder=""
                 autoComplete="email"
                 onInvalid={(e: InvalidEvent<HTMLInputElement>) => onInvalid(e)}
-                onChange={(e: InvalidEvent<HTMLInputElement>) =>
-                  e.target.setCustomValidity("")
-                }
+                onChange={(e: InvalidEvent<HTMLInputElement>) => onInvalid(e)}
                 required
                 aria-label="email"
                 title="Fill in this field"
               />
               <div>E-mail</div>
             </div>
-            <div className={style.inputWrapper}>
-              <input
-                type="password"
-                name="password"
-                value={password}
-                onChange={(e) => {
-                  e.target.setCustomValidity("");
-                  handlePasswordValidation(e, "password");
-                }}
-                onInvalid={(e: InvalidEvent<HTMLInputElement>) => onInvalid(e)}
-                placeholder=""
-                required
-                aria-label="password"
-                title="Fill in this field"
-              />
-              <div>Password</div>
-            </div>
-            {type === "sign-up" && (
+            {type !== "sign-up" && (
               <div className={style.inputWrapper}>
                 <input
-                  type="password"
-                  name="confirmPassword"
-                  value={confirmPassword}
+                  type={visiblePassword ? "text" : "password"}
+                  name="password"
+                  value={password}
+                  onChange={(e) => {
+                    onInvalid(e);
+                    handlePasswordValidation(e, "password");
+                  }}
                   onInvalid={(e: InvalidEvent<HTMLInputElement>) =>
                     onInvalid(e)
                   }
-                  onChange={(e) => {
-                    e.target.setCustomValidity("");
-                    handlePasswordValidation(e, "confirmPassword");
-                  }}
                   placeholder=""
                   required
-                  aria-label="confirmPassword"
-                  title="Fill in this field"
+                  aria-label="password"
                 />
-                <div>Confirm Password</div>
+                <div>Password</div>
+                <Image
+                  src={!visiblePassword ? IconEye : IconEyeСrossed}
+                  alt="icon"
+                  onClick={() => setVisiblePassword(!visiblePassword)}
+                />
               </div>
+            )}
+            {type === "sign-up" && (
+              <>
+                <div className={style.inputWrapper}>
+                  <input
+                    type={visiblePassword ? "text" : "password"}
+                    name="password"
+                    value={password}
+                    onChange={(e) => {
+                      onInvalid(e);
+                      handlePasswordValidation(e, "password");
+                    }}
+                    onInvalid={(e: InvalidEvent<HTMLInputElement>) =>
+                      onInvalid(e)
+                    }
+                    placeholder=""
+                    pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                    title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
+                    required
+                    aria-label="password"
+                  />
+                  <div>Password</div>
+                  <Image
+                    src={!visiblePassword ? IconEye : IconEyeСrossed}
+                    alt="icon"
+                    onClick={() => setVisiblePassword(!visiblePassword)}
+                  />
+                </div>
+
+                <div className={style.inputWrapper}>
+                  <input
+                    type={visibleConfirmPassword ? "text" : "password"}
+                    name="confirmPassword"
+                    value={confirmPassword}
+                    onInvalid={(e: InvalidEvent<HTMLInputElement>) =>
+                      onInvalid(e)
+                    }
+                    onChange={(e) => {
+                      onInvalid(e);
+                      handlePasswordValidation(e, "confirmPassword");
+                    }}
+                    placeholder=""
+                    pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                    title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
+                    required
+                    aria-label="confirmPassword"
+                  />
+                  <div>Confirm Password</div>
+                  <Image
+                    src={!visibleConfirmPassword ? IconEye : IconEyeСrossed}
+                    alt="icon"
+                    onClick={() =>
+                      setVisibleConfirmPassword(!visibleConfirmPassword)
+                    }
+                  />
+                </div>
+              </>
             )}
             <p className={errorStyle}>{error}</p>
             <a href="/forgot-password">Forgot Password?</a>
