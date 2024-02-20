@@ -19,7 +19,6 @@ const VALUES_SKIN_DETAIL = [7, 9, 11, 13, 15];
 const server = process.env.NEXT_PUBLIC_BASE_URL;
 
 export default function PerfectSkinPage() {
-  const [statusSelector, setStatusSelector] = useState(false);
   const [selectedImage, setSelectedImage] = useState<FileData[]>([]);
   const [positionSkin, setPositionSkin] = useState(1);
   const [positionSkinDetail, setPositionSkinDetail] = useState(7);
@@ -96,7 +95,6 @@ export default function PerfectSkinPage() {
       <>
         <div className={style.generator}>
           <ImageBlock
-            statusSelector={statusSelector}
             selectedImage={selectedImage}
             image={image}
             setSelectedImage={setSelectedImage}

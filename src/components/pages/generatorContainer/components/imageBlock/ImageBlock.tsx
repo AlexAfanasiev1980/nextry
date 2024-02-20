@@ -18,7 +18,7 @@ const ImageBlock = ({
   loading,
   icon
 }: {
-  statusSelector: boolean;
+  statusSelector?: boolean;
   selectedImage: FileData[];
   setSelectedImage: Dispatch<SetStateAction<FileData[]>>;
   image: string | null;
