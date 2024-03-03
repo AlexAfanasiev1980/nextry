@@ -78,6 +78,7 @@ const GeneratorContainer = (props: Props) => {
           }
 
           if (res) {
+            console.log(res.images[0])
             setImage(`${server}${res.images[0]}`);
             setLoading(false);
           }
@@ -128,7 +129,7 @@ const GeneratorContainer = (props: Props) => {
     <GeneratorWrapper
       title={title}
       onClick={handleButton}
-      disabled={selectId === null || selectedImage.length === 0}
+      disabled={selectId === null || selectedImage.length === 0 || loading}
       icon={image ? "repeat" : "generate"}
     >
       <>
