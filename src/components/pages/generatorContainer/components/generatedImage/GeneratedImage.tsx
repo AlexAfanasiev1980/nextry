@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import style from "./generatedImage.module.scss";
 import Image from "next/image";
 import LGBorder from "@/components/ui/lGBorder/LGBorder";
@@ -17,11 +17,11 @@ export default function GeneratedImage({
   image,
   setImage,
   linkImage,
-  setLinkImage
+  setLinkImage,
 }: IGeneratedImage) {
-  const [share, setShare] = useState(false);
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const imageRef = useRef<HTMLImageElement>(null);
+  // Данный код раскомментировать, когда будет принято решение добавить функционал "Поделиться"
+
+  // const [share, setShare] = useState(false);
 
   const downloadImage = async () => {
     if (linkImage) {
@@ -45,21 +45,6 @@ export default function GeneratedImage({
     colorBottom: "rgba(250,250,250, 0)",
     borderRadius: "16px",
   };
-
-  useEffect(() => {
-    const imageItem = imageRef.current;
-    const canvas = canvasRef.current;
-    if (imageItem && canvas) {
-      imageItem.onload = () => {
-        canvas.width = imageItem.naturalWidth;
-        canvas.height = imageItem.naturalHeight;
-        const ctx = canvas.getContext("2d");
-        if (ctx) {
-          ctx.drawImage(imageItem, 0, 0);
-        }
-      };
-    }
-  }, [image]);
 
   // Данный код раскомментировать, когда будет принято решение добавить функционал "Поделиться"
 
@@ -97,9 +82,7 @@ export default function GeneratedImage({
               width={620}
               height={960}
               className={style.generatedImage__image}
-              ref={imageRef}
             />
-            <canvas ref={canvasRef} style={{ display: "none" }}></canvas>
           </div>
           <div className={style.generatedImage__buttonWrapper}>
             <button
