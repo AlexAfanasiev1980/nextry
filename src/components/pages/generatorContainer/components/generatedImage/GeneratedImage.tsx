@@ -9,26 +9,34 @@ import Button from "@/components/ui/button/Button";
 interface IGeneratedImage {
   image: string;
   setImage: Dispatch<SetStateAction<string | null>>;
+  linkImage?: string | null;
+  setLinkImage: Dispatch<SetStateAction<string | null>>;
 }
 
-export default function GeneratedImage({ image, setImage }: IGeneratedImage) {
+export default function GeneratedImage({
+  image,
+  setImage,
+  linkImage,
+  setLinkImage
+}: IGeneratedImage) {
   const [share, setShare] = useState(false);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const imageRef = useRef<HTMLImageElement>(null);
 
-  const downloadImage = () => {
-    const canvas = canvasRef.current;
-    if (canvas) {
-      const url = canvas.toDataURL("image/png");
+  const downloadImage = async () => {
+    if (linkImage) {
+      const response = await fetch(linkImage);
+      const blob = await response.blob();
       const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
       link.download = "image.png";
-      link.href = url;
       link.click();
     }
   };
 
   const handleClickRemove = () => {
     setImage(null);
+    setLinkImage(null);
   };
 
   const stylesBorder = {

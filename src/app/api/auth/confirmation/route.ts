@@ -30,8 +30,6 @@ export async function POST(request: Request) {
 
   const data = await res.json();
 
-  console.log(data)
-
   if (res.status !== 201) {
     return NextResponse.json(
       {
