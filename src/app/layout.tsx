@@ -6,6 +6,15 @@ import Script from "next/script";
 export const metadata: Metadata = {
   title: "Nextry",
   description: "AI-POWERED photo generation made easy",
+  metadataBase: new URL('https://nextry.app/'),
+  openGraph: {
+    title: 'Nextry',
+    description: 'AI-POWERED photo generation made easy',
+    url: 'https://nextry.app/',
+    siteName: 'Nextry',
+    locale: 'en_US',
+    type: 'website',
+  },
 };
 
 export default function RootLayout({
