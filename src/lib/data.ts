@@ -52,7 +52,12 @@ export async function getCategories() {
   }
 }
 
-export async function getPhoto(endpoint: string, form: FormData, token: string, params?: URLSearchParams) {
+export async function getPhoto(
+  endpoint: string,
+  form: FormData,
+  token: string,
+  params?: URLSearchParams
+) {
   try {
     const res = await fetch(`${endpoint}${params ? `?${params}` : ""}`, {
       method: "POST",
@@ -68,16 +73,38 @@ export async function getPhoto(endpoint: string, form: FormData, token: string, 
   }
 }
 
-export async function requestPassword(endpoint: string, options: {[key: string]: string | undefined}) {
-    return fetch(`${endpoint}`, {
-      method: "POST",
-      body: JSON.stringify(options),
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
+export async function requestPassword(
+  endpoint: string,
+  options: { [key: string]: string | undefined }
+) {
+  return fetch(`${endpoint}`, {
+    method: "POST",
+    body: JSON.stringify(options),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
     .then((res) => res)
     .catch((err) => {
-      console.error(err)
-    })
+      console.error(err);
+    });
+}
+
+export async function feedback(
+  endpoint: string,
+  options: { [key: string]: string | undefined },
+  token: string
+) {
+  return fetch(`${endpoint}`, {
+    method: "POST",
+    body: JSON.stringify(options),
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  })
+    .then((res) => res)
+    .catch((err) => {
+      console.error(err);
+    });
 }
