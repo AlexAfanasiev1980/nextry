@@ -10,7 +10,7 @@ export default function Loader() {
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    var animaTime = 60; // Время анимации в секундах
+    var animaTime = 120; // Время анимации в секундах
     var FPS = 10; // "кадры" (вызовы функции) в секунду
 
     var count = 0;

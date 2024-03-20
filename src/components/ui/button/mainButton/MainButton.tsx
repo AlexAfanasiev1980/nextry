@@ -8,6 +8,7 @@ interface IMainButton {
   border?: boolean;
   children?: React.ReactNode | string;
   disabled?: boolean;
+  submit?: boolean;
 }
 
 export default function MainButton({
@@ -16,11 +17,12 @@ export default function MainButton({
   border,
   children,
   disabled = false,
+  submit = false
 }: IMainButton) {
   return (
     <BorderButton className={className} border={border} disabled={disabled}>
       <button
-        type="button"
+        type={submit ? "submit" : "button"}
         className={`${style.mainButton} ${border && style.mainButton__border} ${
           disabled && style.mainButton__disabled
         }`}

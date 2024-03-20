@@ -13,16 +13,20 @@ const ImageBlock = ({
   statusSelector,
   selectedImage,
   setSelectedImage,
+  setLinkImage,
   image,
   setImage,
+  linkImage,
   loading,
   icon
 }: {
   statusSelector?: boolean;
   selectedImage: FileData[];
   setSelectedImage: Dispatch<SetStateAction<FileData[]>>;
+  setLinkImage: Dispatch<SetStateAction<string | null>>;
   image: string | null;
   setImage: Dispatch<SetStateAction<string | null>>;
+  linkImage?: string | null;
   loading: boolean;
   icon: StaticImageData;
 }) => {
@@ -94,7 +98,7 @@ const ImageBlock = ({
     <>
       {!loading && !image && selectedImage.length > 0 && <SelectedImage />}
       {!loading && image && (
-        <GeneratedImage image={image} setImage={setImage} />
+        <GeneratedImage image={image} setImage={setImage} linkImage={linkImage} setLinkImage={setLinkImage}/>
       )}
       {loading && (
         <div className={style.loaderWrapper}>

@@ -10,7 +10,7 @@ const HowItWork = () => {
   return (
     <article className={style.howItWork} id="howItWorks">
       <section>
-        <h1>HOW DOES IT WORK?</h1>
+        <h3>HOW DOES IT WORK?</h3>
         <h2>Make a cool look in 3 easy steps</h2>
       </section>
       <section className={style.howItWork__contentBlock}>

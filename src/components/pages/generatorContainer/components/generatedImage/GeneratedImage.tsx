@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import style from "./generatedImage.module.scss";
 import Image from "next/image";
 import LGBorder from "@/components/ui/lGBorder/LGBorder";
@@ -9,26 +9,34 @@ import Button from "@/components/ui/button/Button";
 interface IGeneratedImage {
   image: string;
   setImage: Dispatch<SetStateAction<string | null>>;
+  linkImage?: string | null;
+  setLinkImage: Dispatch<SetStateAction<string | null>>;
 }
 
-export default function GeneratedImage({ image, setImage }: IGeneratedImage) {
-  const [share, setShare] = useState(false);
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const imageRef = useRef<HTMLImageElement>(null);
+export default function GeneratedImage({
+  image,
+  setImage,
+  linkImage,
+  setLinkImage,
+}: IGeneratedImage) {
+  // Данный код раскомментировать, когда будет принято решение добавить функционал "Поделиться"
 
-  const downloadImage = () => {
-    const canvas = canvasRef.current;
-    if (canvas) {
-      const url = canvas.toDataURL("image/png");
+  // const [share, setShare] = useState(false);
+
+  const downloadImage = async () => {
+    if (linkImage) {
+      const response = await fetch(linkImage);
+      const blob = await response.blob();
       const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
       link.download = "image.png";
-      link.href = url;
       link.click();
     }
   };
 
   const handleClickRemove = () => {
     setImage(null);
+    setLinkImage(null);
   };
 
   const stylesBorder = {
@@ -37,21 +45,6 @@ export default function GeneratedImage({ image, setImage }: IGeneratedImage) {
     colorBottom: "rgba(250,250,250, 0)",
     borderRadius: "16px",
   };
-
-  useEffect(() => {
-    const imageItem = imageRef.current;
-    const canvas = canvasRef.current;
-    if (imageItem && canvas) {
-      imageItem.onload = () => {
-        canvas.width = imageItem.naturalWidth;
-        canvas.height = imageItem.naturalHeight;
-        const ctx = canvas.getContext("2d");
-        if (ctx) {
-          ctx.drawImage(imageItem, 0, 0);
-        }
-      };
-    }
-  }, [image]);
 
   // Данный код раскомментировать, когда будет принято решение добавить функционал "Поделиться"
 
@@ -89,9 +82,7 @@ export default function GeneratedImage({ image, setImage }: IGeneratedImage) {
               width={620}
               height={960}
               className={style.generatedImage__image}
-              ref={imageRef}
             />
-            <canvas ref={canvasRef} style={{ display: "none" }}></canvas>
           </div>
           <div className={style.generatedImage__buttonWrapper}>
             <button

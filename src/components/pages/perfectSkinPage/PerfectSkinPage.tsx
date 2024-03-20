@@ -22,6 +22,7 @@ export default function PerfectSkinPage() {
   const [selectedImage, setSelectedImage] = useState<FileData[]>([]);
   const [positionSkin, setPositionSkin] = useState(1);
   const [positionSkinDetail, setPositionSkinDetail] = useState(7);
+  const [linkImage, setLinkImage] = useState<null | string>(null)
   const [image, setImage] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
@@ -40,7 +41,8 @@ export default function PerfectSkinPage() {
         form.append("Cycle", String(positionSkinDetail));
         const res = await getPhoto(GENERATE_FACE, form, token);
         if (res) {
-          setImage(`${server}${res.images[0]}`);
+          setImage(`${server}${res.preview_image}`);
+          setLinkImage(`${server}${res.stock_image}`);
         }
         setLoading(false);
       } catch (err) {
@@ -98,7 +100,9 @@ export default function PerfectSkinPage() {
             selectedImage={selectedImage}
             image={image}
             setSelectedImage={setSelectedImage}
+            setLinkImage={setLinkImage}
             setImage={setImage}
+            linkImage = {linkImage}
             loading={loading}
             icon={FaceIcon}
           />

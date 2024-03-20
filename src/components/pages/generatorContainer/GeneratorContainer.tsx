@@ -50,6 +50,7 @@ const GeneratorContainer = (props: Props) => {
   const [selectId, setSelectId] = useState<string | null>(null);
   const [selectedImage, setSelectedImage] = useState<FileData[]>([]);
   const [loading, setLoading] = useState(false);
+  const [linkImage, setLinkImage] = useState<null | string>(null)
   const [image, setImage] = useState<string | null>(null);
   const [fast, setFast] = useState(false);
   const pathname = usePathname();
@@ -78,7 +79,8 @@ const GeneratorContainer = (props: Props) => {
           }
 
           if (res) {
-            setImage(`${server}${res.images[0]}`);
+            setImage(`${server}${res.preview_image}`);
+            setLinkImage(`${server}${res.stock_image}`);
             setLoading(false);
           }
         } catch (err) {
@@ -128,7 +130,7 @@ const GeneratorContainer = (props: Props) => {
     <GeneratorWrapper
       title={title}
       onClick={handleButton}
-      disabled={selectId === null || selectedImage.length === 0}
+      disabled={selectId === null || selectedImage.length === 0 || loading}
       icon={image ? "repeat" : "generate"}
     >
       <>
@@ -138,7 +140,9 @@ const GeneratorContainer = (props: Props) => {
             selectedImage={selectedImage}
             image={image}
             setSelectedImage={setSelectedImage}
+            setLinkImage={setLinkImage}
             setImage={setImage}
+            linkImage = {linkImage}
             loading={loading}
             icon={DropIcon}
           />

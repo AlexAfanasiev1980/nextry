@@ -7,6 +7,7 @@ import style from "./LinksBlock.module.scss";
 const LinksBlock = () => {
   return (
     <div className={style.links}>
+      <h2 className={style.links__title}>Or contact us</h2>
       <p>
         For partnership opportunities{" "}
         <a className={style.link} href="mailto:business@nextry.ai">

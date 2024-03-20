@@ -10,6 +10,7 @@ interface IButton {
   children?: React.ReactNode | string;
   border?: boolean;
   disabled?: boolean;
+  submit?: boolean;
 }
 
 interface IType {
