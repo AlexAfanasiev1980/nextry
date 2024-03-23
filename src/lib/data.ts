@@ -19,11 +19,40 @@ export interface Categories {
   display_name: string;
 }
 
+export async function createRequest(
+  url: string,
+  method: "GET" | "POST" = "GET",
+  body?: string,
+  searchParams?: string
+) {
+  const options: RequestInit = {
+    method: method,
+    next: { revalidate: 10 },
+  };
+
+  if (body) {
+    options.body = body;
+  }
+
+  const res: any = await fetch(
+    `${url}${searchParams ? `?${searchParams}` : ""}`,
+    options
+  );
+
+  if (!res.ok) {
+    throw new Error("Failed to fetch data");
+  }
+
+  const data = await res.json()
+
+  return data;
+}
+
 export async function getClothes(searchParams: {
   [key: string]: string | undefined;
 }) {
   const resClothes: any = await fetch(
-    `${GET_CLOTHES_API}?${`category=${
+    `${GET_CLOTHES_API}?tool=fitting_room&${`category=${
       searchParams.category ? searchParams.category : "man"
     }`}${
       searchParams.sub_category
@@ -67,7 +96,7 @@ export async function getPhoto(
       },
     });
 
-    return res.json();
+    return await res.json();
   } catch (err) {
     console.error(err);
   }
