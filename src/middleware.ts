@@ -15,5 +15,7 @@ export const config = {
     "/generator/face-swap",
     "/generator/perfect-skin",
     "/generator/fitting-room",
+    "/generator/funny-clothes",
+    "/generator/fashion-swap",
   ],
 };
