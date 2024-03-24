@@ -10,7 +10,6 @@ import Loader from "../loader/Loader";
 import GeneratedImage from "../generatedImage/GeneratedImage";
 
 const ImageBlock = ({
-  statusSelector,
   selectedImage,
   setSelectedImage,
   setLinkImage,
@@ -18,14 +17,14 @@ const ImageBlock = ({
   setImage,
   linkImage,
   loading,
-  icon
+  icon,
 }: {
   statusSelector?: boolean;
   selectedImage: FileData[];
   setSelectedImage: Dispatch<SetStateAction<FileData[]>>;
-  setLinkImage: Dispatch<SetStateAction<string | null>>;
+  setLinkImage?: Dispatch<SetStateAction<string | null>>;
   image: string | null;
-  setImage: Dispatch<SetStateAction<string | null>>;
+  setImage?: Dispatch<SetStateAction<string | null>>;
   linkImage?: string | null;
   loading: boolean;
   icon: StaticImageData;
@@ -36,11 +35,15 @@ const ImageBlock = ({
         preview: URL.createObjectURL(acceptedFiles[0]),
       }),
     ]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleClickRemove = () => {
     URL.revokeObjectURL(selectedImage[0]?.preview);
-    setImage(null);
+    if (setImage) {
+      setImage(null);
+    }
+
     setSelectedImage([]);
   };
 
@@ -97,8 +100,13 @@ const ImageBlock = ({
   return (
     <>
       {!loading && !image && selectedImage.length > 0 && <SelectedImage />}
-      {!loading && image && (
-        <GeneratedImage image={image} setImage={setImage} linkImage={linkImage} setLinkImage={setLinkImage}/>
+      {!loading && image && setImage && setLinkImage && (
+        <GeneratedImage
+          image={image}
+          setImage={setImage}
+          linkImage={linkImage}
+          setLinkImage={setLinkImage}
+        />
       )}
       {loading && (
         <div className={style.loaderWrapper}>

@@ -10,7 +10,7 @@ import LGBorder from "@/components/ui/lGBorder/LGBorder";
 import Typography from "@/components/ui/typography/Typography";
 import cookie from "js-cookie";
 import { ITemplate } from "@/app/(tools)/generator/funny-clothes/page";
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { GENERATE_FUNNY } from "@/api";
 import { getPhoto } from "@/lib/data";
@@ -29,9 +29,7 @@ export default function FancyClothesPage({
   const [linkImage, setLinkImage] = useState<null | string>(null);
   const router = useRouter();
 
-
   const handleButton = async () => {
-    console.log("Запуск");
     const token = await cookie.get("OutSiteJWT");
     if (!token) {
       alert("Login before using the generator!");
@@ -43,8 +41,6 @@ export default function FancyClothesPage({
         form.append("Image", selectedImage[0]);
         form.append("Id", selectedId);
         let res = await getPhoto(GENERATE_FUNNY, form, token);
-        console.log(res);
-
         if (res) {
           setImage(`${server}${res.preview_image}`);
           setLinkImage(`${server}${res.stock_image}`);
@@ -64,8 +60,6 @@ export default function FancyClothesPage({
     borderRadius: "16px",
   };
 
-
-
   return (
     <GeneratorWrapper
       title={"Funny clothes"}
@@ -81,7 +75,7 @@ export default function FancyClothesPage({
             setSelectedImage={setSelectedImage}
             setImage={setImage}
             setLinkImage={setLinkImage}
-            linkImage = {linkImage}
+            linkImage={linkImage}
             loading={loading}
             icon={DropIcon}
           />

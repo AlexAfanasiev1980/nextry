@@ -15,6 +15,7 @@ import {
   GENERATOR_ROUTE,
   HOME_ROUTE,
   SELECT_AUTH_ROUTE,
+  GENERATOR_FASHION_SWAP,
 } from "@/routes";
 import style from "./Header.module.scss";
 import { useRouter } from "next/navigation";
@@ -67,6 +68,9 @@ const Header = ({ type }: IHeader) => {
           </Link>
           <Link href={GENERATOR_FUNNY_CLOTHES} prefetch={false}>
             Funny clothes
+          </Link>
+          <Link href={GENERATOR_FASHION_SWAP} prefetch={false}>
+            Fashion swap
           </Link>
         </nav>
       </div>
