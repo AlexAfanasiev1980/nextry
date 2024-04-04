@@ -16,8 +16,8 @@
 }
 
 @font-face {
-  font-family: "TT Hoves";
-  src: url("../fonts/TTHoves-Bold.ttf");
+  font-family: "Inter";
+  src: url("../fonts/Inter-VariableFont_slnt,wght.ttf");
 }
 
 :root {
@@ -25,7 +25,7 @@
   --font-semibold: "Euclid Square SemiBold", "Sans Serif", serif;
   --font-bold: "Euclid Square Bold", "Sans-Serif", serif;
 
-  --font-secondary-bold: "TT Hoves", "Sans-Serif", serif;
+  --font-secondary-bold: "Inter", "Sans-Serif", serif;
 
   --text-color: #fef8ef;
   --text-color-second: #FEAC4A;
