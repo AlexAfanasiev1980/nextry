@@ -4,7 +4,7 @@ import RemoveButton from "./removeButton/RemoveButton";
 
 interface IButton {
   type: string;
-  onClick?: () => void;
+  onClick?: any;
   link?: string;
   className?: string
   children?: React.ReactNode | string;

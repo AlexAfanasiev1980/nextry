@@ -10,3 +10,5 @@ export const GENERATE_FACE = BASE_URL + "/generation/clear_face/";
 export const FEEDBACK_API = BASE_URL + "/feedback/create_feedback";
 export const GENERATE_FUNNY = BASE_URL + "/generation/funny_mask/";
 export const GENERATE_FASHION_SWAP = BASE_URL + "/generation/fashion_swap/";
+export const GET_QUEUE = BASE_URL + "/generation/queue_info";
+export const GET_PING = BASE_URL + "/service/ping";

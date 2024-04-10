@@ -1,4 +1,5 @@
 import { GET_CATEGORIES_API, GET_CLOTHES_API, GENERATE_IMAGE } from "@/api";
+import { NextResponse } from "next/server";
 
 export interface Clothes {
   id: string;
@@ -43,8 +44,8 @@ export async function createRequest(
     throw new Error("Failed to fetch data");
   }
 
-  const data = await res.json()
-
+  const data = await res.json();
+  
   return data;
 }
 
@@ -95,6 +96,13 @@ export async function getPhoto(
         Authorization: `Bearer ${token}`,
       },
     });
+    console.log(res)
+    if (res.status !== 200) {
+      return NextResponse.json(
+        { error: "Internal Server Error" },
+        { status: 500 }
+      );
+    }
 
     return await res.json();
   } catch (err) {

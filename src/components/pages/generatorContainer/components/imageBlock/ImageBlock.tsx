@@ -15,6 +15,7 @@ const ImageBlock = ({
   setLinkImage,
   image,
   setImage,
+  time,
   linkImage,
   loading,
   icon,
@@ -25,6 +26,7 @@ const ImageBlock = ({
   setLinkImage?: Dispatch<SetStateAction<string | null>>;
   image: string | null;
   setImage?: Dispatch<SetStateAction<string | null>>;
+  time?: number | null;
   linkImage?: string | null;
   loading: boolean;
   icon: StaticImageData;
@@ -112,7 +114,7 @@ const ImageBlock = ({
         <div className={style.loaderWrapper}>
           <LGBorder styles={stylesBorder}>
             <div className={style.loader}>
-              <Loader />
+              <Loader time={time} />
             </div>
           </LGBorder>
         </div>

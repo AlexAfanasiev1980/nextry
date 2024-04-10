@@ -1,4 +1,4 @@
-import { GET_CATEGORIES_API, GET_CLOTHES_API } from "@/api";
+import { GET_CLOTHES_API } from "@/api";
 import FunnyClothesPage from "@/components/pages/funnyClothesPage/FunnyClothesPage";
 import { createRequest } from "@/lib/data";
 export const runtime = "edge"

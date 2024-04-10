@@ -19,13 +19,18 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
+  modal
 }: {
   children: React.ReactNode;
+  modal: React.ReactNode;
 }) {
+
   return (
     <html lang="en">
       <body>
         {children}
+        {modal}
+        <div id="modal-root" />
         <Script src="//yastatic.net/share2/share.js" charSet="utf-8"></Script>
       </body>
     </html>

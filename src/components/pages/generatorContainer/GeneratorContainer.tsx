@@ -4,10 +4,10 @@ import { useState, useMemo } from "react";
 import ClothSelectorBlock from "./components/clothSelectorBlock/ClothSelectorBlock";
 import ImageBlock from "./components/imageBlock/ImageBlock";
 import style from "./GeneratorContainer.module.scss";
-import { Categories, Clothes } from "@/lib/data";
+import { Categories, Clothes, createRequest } from "@/lib/data";
 import cookie from "js-cookie";
 import { usePathname, useRouter } from "next/navigation";
-import { GENERATE_BACKGROUND, GENERATE_IMAGE } from "@/api";
+import { GENERATE_BACKGROUND, GENERATE_IMAGE, GET_QUEUE } from "@/api";
 import { getPhoto } from "@/lib/data";
 import GeneratorWrapper from "@/components/generatorWrapper/GeneratorWrapper";
 import DropIcon from "@/public/DropDownImage_1.png";
@@ -50,9 +50,10 @@ const GeneratorContainer = (props: Props) => {
   const [selectId, setSelectId] = useState<string | null>(null);
   const [selectedImage, setSelectedImage] = useState<FileData[]>([]);
   const [loading, setLoading] = useState(false);
-  const [linkImage, setLinkImage] = useState<null | string>(null)
+  const [linkImage, setLinkImage] = useState<null | string>(null);
   const [image, setImage] = useState<string | null>(null);
   const [fast, setFast] = useState(false);
+  const [timeInfo, setTimeInfo] = useState<number | null>(null);
   const pathname = usePathname();
   const router = useRouter();
   const back = pathname.includes("background");
@@ -63,6 +64,12 @@ const GeneratorContainer = (props: Props) => {
       alert("Login before using the generator!");
       router.push("/");
     } else if (selectId) {
+      const queue = await createRequest(GET_QUEUE);
+
+      if (queue.queue_running_count > 1) {
+        setTimeInfo(queue.queue_time);
+      }
+
       if (!back) {
         setLoading(true);
         try {
@@ -77,12 +84,13 @@ const GeneratorContainer = (props: Props) => {
           } else if (!back) {
             res = await getPhoto(GENERATE_IMAGE, form, token);
           }
-
-          if (res) {
+          if (res.status && res.status === 500) {
+            router.push("/error");
+          } else {
             setImage(`${server}${res.preview_image}`);
             setLinkImage(`${server}${res.stock_image}`);
-            setLoading(false);
           }
+          setLoading(false);
         } catch (err) {
           console.error(err);
           setLoading(false);
@@ -105,6 +113,7 @@ const GeneratorContainer = (props: Props) => {
           }
         }
       }
+      setTimeInfo(null);
     }
   };
 
@@ -142,7 +151,8 @@ const GeneratorContainer = (props: Props) => {
             setSelectedImage={setSelectedImage}
             setLinkImage={setLinkImage}
             setImage={setImage}
-            linkImage = {linkImage}
+            time={timeInfo}
+            linkImage={linkImage}
             loading={loading}
             icon={DropIcon}
           />

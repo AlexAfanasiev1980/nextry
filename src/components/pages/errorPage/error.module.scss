@@ -1,0 +1,30 @@
+.error {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    font-size: 32px;
+    padding: 10px;
+    text-align: center;
+    border-radius: 16px;
+    color: #FEF8EF;
+
+    @media (max-width: 700px) {
+        font-size: 24px;
+    }
+
+    &__buttonItem {
+        width: 200px;
+    }
+
+    &__link {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 200px;
+        height: 40px;
+    }
+}
