@@ -32,6 +32,7 @@ export default function Loader({time}: {time?: number | null}) {
     };
 
     var interval = setInterval(animaProgress, updateRate);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
